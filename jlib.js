@@ -16,6 +16,32 @@ document.addEventListener('DOMContentLoaded',function (event) {
 	
 });
 
+// LIMPA TODOS OS ESPACOS DE UMA STRING
+function trimAll(string) {
+	return string.replace(/\s/g, "");
+}
+
+// LIMPA ESPACOS A ESQUERDA
+function trimLeft(string) {
+	return string.replace(/^\s+/, "");
+}
+
+// LIMPA ESPACOS A DIREITA
+function trimRight(string) {
+	return string.replace(/\s+$/, "");
+}
+
+// LIMPA ESPACOS A DIREITA E ESQUERDA
+function trimLeftRight(string) {
+	return string.replace(/^\s+|\s+$/g, "");
+}
+
+function gerarCode() {
+	var data = new Date();
+	var code = `${data.getDate()}${(data.getMonth() + 1)}${data.getFullYear().toString().substring(2)}${data.getHours()}${data.getMinutes()}${data.getSeconds()}${data.getMilliseconds()}`;
+	$('.js-codeTarget').value = code;
+}
+
 /****************************** BASE ******************************/
 /** @auth Matheus Castiglioni
  * Criando um atalho para buscar elementos na página com javascript puro 
