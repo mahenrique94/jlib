@@ -20,8 +20,8 @@ document.addEventListener('DOMContentLoaded', function(event) {
     if (selects.length > 0) {
         selects.forEach(select => {
             const url = getUrl(select.dataset.url);
-            HttpService.get(url).then(response => {
-                let list = JSON.parse(response).list;
+            HttpService.request(url, 'GET').then(response => {
+                let list = JSON.parse(response);
                 let text, value;
                 switch (select.dataset.select) {
                     default:
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
                         value = 'id'
                         break; 
                 }
-                fillSelect(select, list, text, value);            
+                fillSelect(select, (list.list || list.lista), text, value);            
                 setOptipnSelected(select);
             }).catch(error => console.error(error));        
         });
@@ -38,7 +38,9 @@ document.addEventListener('DOMContentLoaded', function(event) {
 });
 
 function getUrl(url) {
-    return url.substring(2, url.lastIndexOf('_')).replace(/[_]/g, '/').toLowerCase();
+	url = url.substring(2, url.lastIndexOf('_')).replace(/[_]/g, '/').toLowerCase();
+	url = window.location.pathname.substring(0, window.location.pathname.substring(1).indexOf('/') + 2) + url;
+    return url;
 }
 
 function fillSelect(select, list, text, value) {
@@ -46,8 +48,10 @@ function fillSelect(select, list, text, value) {
 }
 
 function setOptipnSelected(select) {
-    let aux = $(`input[name=${select.name}aux][type=hidden]`);
-    let option = select.querySelector(`option[value=${aux.value}]`);
-    if (option != undefined)
-        option.selected = true;
+    let aux = $(`input[name='${select.name}aux][type=hidden]'`);
+    if (aux != undefined) {
+    	let option = select.querySelector(`option[value=${aux.value}]`);
+    	if (option != undefined)
+    		option.selected = true;
+    }
 }

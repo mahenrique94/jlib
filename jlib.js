@@ -1,10 +1,6 @@
 NodeList.prototype.forEach = Array.prototype.forEach; 
 HTMLCollection.prototype.forEach = Array.prototype.forEach;
 
-var pathRaiz = '/puppis';
-if (location.host.startsWith('painel'))
-	pathRaiz = '';
-
 /****************************** FUNCTION ******************************/
 document.addEventListener('DOMContentLoaded',function (event) {
 	
@@ -71,8 +67,9 @@ function insertDate(button) {
 function requestDelete(obj) {
 	let url = obj.href || obj.formAction;
 	if (confirm("Deseja confirmar a exlusão ?")) {
-		HttpService.delete(`${url}`).then(response => {
+		HttpService.request(`${url}`, 'DELETE').then(response => {
 			remove(obj.parentNode.parentNode);
+			append(toastDelete());
 		}).catch(error => console.error(error));
 	}
 };	
@@ -96,6 +93,27 @@ function remove(obj) {
 	obj.parentNode.removeChild(obj);
 }
 
+/** @auth Matheus Castiglioni
+ *  Inserir elementos no body 
+ */
+function append(element) {
+	document.body.appendChild(element);
+}
+
+/** @auth Matheus Castiglioni
+ *  Cria um toast para quando a exclusão via ajax é realizada com sucesso 
+ */
+function toastDelete() {
+	let toast = document.createElement('DIV')
+	toast.setAttribute('role', 'alert');
+	toast.classList.add('o-toast--success', 'has-icon', 'is-fixedTop', 'js-timeOut');
+	toast.innerHTML = '<p class="o-toast__message">Registro excluido com sucesso<i class="icon-ok-circled o-toast__icon--left"></i></p>'
+	setTimeout(function() {
+		toast.style.display = 'none';
+	}, 2000);
+	return toast;
+}
+
 /****************************** OVERRIDE ******************************/
 /** @auth Matheus Castiglioni
  *  Adicionando a função equals para comparar Strings de forma mais fácil
@@ -109,20 +127,17 @@ Object.prototype.equals = function(string) {
 }
 
 /****************************** CLASSES ******************************/
+const CODE_DONE = 4;
+const CODE_OK = 200;
 class HttpService {
 
-	constructor() {
-		this._CODE_DONE = 4;
-		this._CODE_OK = 200;
-	}
-	
-	static get(url) {
+	static request(url, verb) {
 		return new Promise((resolve, reject) => {
 			const xhr = new XMLHttpRequest();
-			xhr.open('GET', url, true);
+			xhr.open(verb, url, true);
 			xhr.onreadystatechange = function() {
-				if (xhr.readyState == this._CODE_DONE) {
-					if (xhr.status == this._CODE_OK) {
+				if (xhr.readyState == CODE_DONE) {
+					if (xhr.status == CODE_OK) {
 						resolve(xhr.responseText);
 					} else {
 						reject(xhr.responseText);
@@ -136,12 +151,4 @@ class HttpService {
 		});
 	}
 	
-	static delete(url) {
-		return new Promise((resolve, reject) => {
-			const xhr = new XMLHttpRequest();
-			xhr.open('DELETE', url, true);xhr.send();
-			resolve(xhr.respondeText);
-		});
-	}
-
 }
