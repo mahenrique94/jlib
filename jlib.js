@@ -36,10 +36,33 @@ function trimLeftRight(string) {
 	return string.replace(/^\s+|\s+$/g, "");
 }
 
-function gerarCode() {
+/** @auth Matheus Castiglioni
+ *  Função para gerar um código de acordo a data atual e informar no input
+ */
+function createCode(button) {
+	let input = button.parentNode.parentNode.querySelector('input');
 	var data = new Date();
 	var code = `${data.getDate()}${(data.getMonth() + 1)}${data.getFullYear().toString().substring(2)}${data.getHours()}${data.getMinutes()}${data.getSeconds()}${data.getMilliseconds()}`;
-	$('.js-codeTarget').value = code;
+	if (input != undefined)
+		input.value = code;
+}
+
+/** @auth Matheus Castiglioni
+ *  Função para pegar a data atual e informar no input
+ */
+function createDate(button) {
+	let input = button.parentNode.parentNode.querySelector('input');
+	let agora = new Date();
+	let dia = agora.getDate();
+	let mes = agora.getMonth() + 1;
+	let hora = agora.getHours();
+	let minuto = agora.getMinutes();
+	dia = dia < 10 ? `0${dia}` : dia;
+	mes = mes < 10 ? `0${mes}` : mes;
+	hora = hora >= 1 && hora <= 9 ? `0${hora}` : hora;
+	minuto = minuto >= 0 && minuto <= 9 ? `0${minuto}` : minuto;
+	if (!input.readOnly && input != undefined)
+		input.value = `${dia}/${mes}/${agora.getFullYear()} ${hora}:${minuto}`;
 }
 
 /****************************** BASE ******************************/

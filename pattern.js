@@ -3,21 +3,25 @@
  */
 document.addEventListener('DOMContentLoaded',function (event) {
 	
-	let letraNumeroPonto = ["([A-Z0-9\\.]+)", "O campo deve ser preenchido com letras MAIUSCULAS ou numeros e aceita os seguintes caracteres especiais: (.)."];
+	let patterns = [
+		{name : 'letraNumeroPonto', pattern : "^([A-Z\d\\.]+)$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros e aceita os seguintes caracteres especiais: (.)."},
+		{name : 'password', pattern : "^([A-Z0-9@-_\\.]{8})$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros e aceita os seguintes caracteres especiais: (@ - _ .)."},
+		{name : 'data', pattern : '^(([0][1-9]|[1][0-9]|[2][0-9]|[3][0-1])\\/([0][1-9]|[1][0-2])\\/([19][7-9][0-9]+|[20][0-9]+))$', message : 'O campo deve preenchido com uma data no formato: DD/MM/AAAA onde o ano deve ser maior que 1900'},
+		{name : 'dataHora', pattern : '^(([0][1-9]|[1][0-9]|[2][0-9]|[3][0-1])\\/([0][1-9]|[1][0-2])\\/([19][0-9]+|[20][0-9]+)\\s([0][0-9]|[1][0-9]|[2][0-9]):([0][0-9]|[1][0-9]|[2][0-9]|[3][0-9]))$', message : 'O campo deve preenchido com uma data no formato: DD/MM/AAAA HH:MM onde o ano deve ser maior que 1900'}
+	];
 	
-	let password = ["([A-Z0-9@-_\\.]{8})",  "O campo deve ser preenchido com letras MAIUSCULAS ou numeros e aceita os seguintes caracteres especiais: (@ - _ .)."];
-	
-	setPattern('input[pattern=password]', password);
-	setPattern('input[pattern=letraNumeroPonto]', letraNumeroPonto);
+	patterns.forEach(pattern => {
+		setPattern(pattern);
+	});
 	
 });
 
-function setPattern(selector, pattern) {
-	let elements = $$(selector);
+function setPattern(pattern) {
+	let elements = $$(`input[pattern=${pattern.name}]`);
 	if (elements.length > 0) {
 		elements.forEach(element => {
-			element.pattern = pattern[0];
-			element.setAttribute('data-accept', pattern[1]);
+			element.pattern = pattern.pattern;
+			element.setAttribute('data-accept', pattern.message);
 		});
 	}
 }
