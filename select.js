@@ -48,9 +48,9 @@ function fillSelect(select, list, text, value) {
 }
 
 function setOptipnSelected(select) {
-    let aux = $(`input[name='${select.name}aux][type=hidden]'`);
+    let aux = $(`input[name='${select.name}aux'][type=hidden]`);
     if (aux != undefined) {
-    	let option = select.querySelector(`option[value=${aux.value}]`);
+    	let option = select.querySelector(`option[value='${aux.value}']`);
     	if (option != undefined)
     		option.selected = true;
     }
