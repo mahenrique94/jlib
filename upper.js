@@ -11,8 +11,8 @@ function elementsToUpperCase(elementsUpper) {
 			element.style.textTransform = 'uppercase';
 			if (!element.nodeName.equals('SELECT')) {
 				element.addEventListener('keyup', function(e) {
-					var start = this.selectionStart,
-					end = this.selectionEnd;
+					let start = this.selectionStart,
+						  end = this.selectionEnd;
 					if (!keyCodesExcluded.includes(e.keyCode)) {
 						// Adicionado também os maiúsculos ([A-Z] - 65 á 90) devido a bugs no mac
 						if ((e.keyCode >= 65 && e.keyCode <= 90) || (e.keyCode >= 97 && e.keyCode <= 122)) {

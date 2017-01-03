@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded',function (event) {
 	setTimeout(function() {
 		let timeout = $('.js-timeOut');
 		if (timeout != undefined)
-			time.style.display = 'none';
+			timeout.style.display = 'none';
 	}, 2000);
 	
 });
@@ -50,7 +50,7 @@ function createCode(button) {
 /** @auth Matheus Castiglioni
  *  Função para pegar a data atual e informar no input
  */
-function createDate(button) {
+function insertDate(button) {
 	let input = button.parentNode.parentNode.querySelector('input');
 	let agora = new Date();
 	let dia = agora.getDate();
@@ -65,6 +65,18 @@ function createDate(button) {
 		input.value = `${dia}/${mes}/${agora.getFullYear()} ${hora}:${minuto}`;
 }
 
+/** @auth Matheus
+ *  Botão para deletar itens via Ajax utilizando @Delete
+ */
+function requestDelete(obj) {
+	let url = obj.href || obj.formAction;
+	if (confirm("Deseja confirmar a exlusão ?")) {
+		HttpService.delete(`${url}`).then(response => {
+			remove(obj.parentNode.parentNode);
+		}).catch(error => console.error(error));
+	}
+};	
+
 /****************************** BASE ******************************/
 /** @auth Matheus Castiglioni
  * Criando um atalho para buscar elementos na página com javascript puro 
@@ -74,6 +86,14 @@ function $(selector) {
 }
 function $$(selector) {
 	return document.querySelectorAll(selector);
+}
+
+/** @auth Matheus Castiglioni
+ *  Função para remover elementos da página, criada para evitar ficar indo no parent toda hora para remover algum
+ *  elemento 
+ */
+function remove(obj) {
+	obj.parentNode.removeChild(obj);
 }
 
 /****************************** OVERRIDE ******************************/
@@ -91,21 +111,36 @@ Object.prototype.equals = function(string) {
 /****************************** CLASSES ******************************/
 class HttpService {
 
+	constructor() {
+		this._CODE_DONE = 4;
+		this._CODE_OK = 200;
+	}
+	
 	static get(url) {
 		return new Promise((resolve, reject) => {
 			const xhr = new XMLHttpRequest();
-			xhr.open('GET', url);
+			xhr.open('GET', url, true);
 			xhr.onreadystatechange = function() {
-				if (xhr.readyState == 4) {
-					if (xhr.status == 200) {
-						resolve(JSON.parse(xhr.responseText));
+				if (xhr.readyState == this._CODE_DONE) {
+					if (xhr.status == this._CODE_OK) {
+						resolve(xhr.responseText);
 					} else {
-						console.log(xhr.responseText);
 						reject(xhr.responseText);
 					}
 				}
 			}
+			xhr.ontimeout = function() {
+				console.error('A requisição excedeu o tempo limite');
+			}
 			xhr.send();
+		});
+	}
+	
+	static delete(url) {
+		return new Promise((resolve, reject) => {
+			const xhr = new XMLHttpRequest();
+			xhr.open('DELETE', url, true);xhr.send();
+			resolve(xhr.respondeText);
 		});
 	}
 

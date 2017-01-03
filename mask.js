@@ -1,3 +1,6 @@
+/** @auth Matheus Castiglioni
+ *  Formatar inputs de acordo com suas máscaras, onde somente sera aceito a digitação da mesma
+ */
 const maskCelular = '#.####-####';
 const maskCep = '#####-###';
 const maskCnpj = '##.###.###/####-##'
