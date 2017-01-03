@@ -14,14 +14,6 @@ document.addEventListener('DOMContentLoaded',function (event) {
 			timeout.style.display = 'none';
 	}, 2000);
 	
-	let inputWithValue = $('input[autofocus]');
-	if (inputWithValue != undefined) {
-		if (!inputWithValue.value.equals('')) {
-			document.activeElement.blur();
-			inputWithValue.removeAttribute('autofocus');
-		}
-	}
-	
 });
 
 // LIMPA TODOS OS ESPACOS DE UMA STRING
