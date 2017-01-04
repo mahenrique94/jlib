@@ -4,11 +4,33 @@ HTMLCollection.prototype.forEach = Array.prototype.forEach;
 /****************************** FUNCTION ******************************/
 document.addEventListener('DOMContentLoaded',function (event) {
 	
+	/** @auth Matheus Castiglioni
+	 *  Esconder qualquer elemento que tenha a classe js-timeOut após 2 segundos
+	 */
 	setTimeout(function() {
 		let timeout = $('.js-timeOut');
 		if (timeout != undefined)
 			timeout.style.display = 'none';
 	}, 2000);
+	
+	/** @auth Matheus Castiglioni
+	 *  Ao realizar double click em uma table irá procurar se possui algum input ou textarea que esta precisando
+	 *  receber algum informação referente a linha clicada, caso existe o valor é jogado para eles e o modal é fechado
+	 */
+	let trs = $$('table.js-slTable > tbody > tr');
+	if (trs.length > 0) {
+		trs.forEach(tr => {
+			tr.addEventListener('dblclick', function(e) {
+				let select = e.target.parentNode.querySelector('[data-select]');
+				select.options.forEach(option => {
+					let element = parent.document.querySelector(`[data-target='${option.dataset.provide}']`);
+					if (element != undefined)
+						element.value = option.value;
+				});
+				closeModal();
+			});
+		});
+	}
 	
 });
 
@@ -74,6 +96,18 @@ function requestDelete(obj) {
 	}
 };	
 
+/** @auth Mahteus Castiglioni
+ *  Função para fechar os modais após alguma execução de script
+ */
+function closeModal() {
+	let modal = parent.document.querySelector('.js-o-modal');
+	let background = parent.document.querySelector('.js-o-modal__background');
+	if (modal != undefined && background != undefined) {
+		modal.remove()
+		background.remove();
+	}
+}
+
 /****************************** BASE ******************************/
 /** @auth Matheus Castiglioni
  * Criando um atalho para buscar elementos na página com javascript puro 
@@ -83,14 +117,6 @@ function $(selector) {
 }
 function $$(selector) {
 	return document.querySelectorAll(selector);
-}
-
-/** @auth Matheus Castiglioni
- *  Função para remover elementos da página, criada para evitar ficar indo no parent toda hora para remover algum
- *  elemento 
- */
-function remove(obj) {
-	obj.parentNode.removeChild(obj);
 }
 
 /** @auth Matheus Castiglioni
@@ -129,6 +155,10 @@ Object.prototype.equals = function(string) {
 /****************************** CLASSES ******************************/
 const CODE_DONE = 4;
 const CODE_OK = 200;
+
+/** @auth Matheus Castiglioni
+ *  Classe responsável por realizar requisições ajax para uma determinada url
+ */
 class HttpService {
 
 	static request(url, verb) {
