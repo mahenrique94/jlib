@@ -88,9 +88,15 @@ function insertDate(button) {
  */
 function requestDelete(obj) {
 	let url = obj.href || obj.formAction;
+	let id = url.substring(url.lastIndexOf('=') + 1);
 	if (confirm("Deseja confirmar a exlusão ?")) {
 		HttpService.request(`${url}`, 'DELETE').then(response => {
-			remove(obj.parentNode.parentNode);
+			if (obj.parentNode.classList.contains('has-Father')) {
+				let children = obj.parentNode.parentNode.parentNode.querySelectorAll(`.js-Father${id}`);
+				if (children.length > 0)
+					children.forEach(child => child.parentNode.remove());
+			}
+			obj.parentNode.parentNode.remove();
 			append(toastDelete());
 		}).catch(error => console.error(error));
 	}
