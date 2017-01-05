@@ -24,6 +24,10 @@ document.addEventListener('DOMContentLoaded', function(event) {
                 let list = JSON.parse(response);
                 let text, value;
                 switch (select.dataset.select) {
+                case 'slCadUf':
+                	text = 'uf';
+	                value = 'uf'
+	                	break; 
                     default:
                         text = 'descricao';
                         value = 'id'
