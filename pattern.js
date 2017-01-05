@@ -5,6 +5,9 @@ document.addEventListener('DOMContentLoaded',function (event) {
 	
 	let patterns = [
 		{name : 'cep', pattern : '^(([\\d]){5}([\\-])([\\d]{3}))$', message : 'O campo deve preenchido com um CEP no formato: #####-###'},
+		{name : 'cnpj', pattern : '^(([\d]{2})\.([\d]{3})\.([\d]{3})\/([\d]{4})\-([\d]{2}))$', message : 'O campo deve preenchido com um CNPJ no formato: ##.###.###/####-##'},
+		{name : 'cpf', pattern : '^(([\\d]{3})\\.([\\d]{3})\\.([\\d]{3})\\-([\\d]{2}))$', message : 'O campo deve preenchido com um CPF no formato: ###.###.###-##'},
+		{name : 'cpfCnpj', pattern : '^((([\\d]{3})\\.([\\d]{3})\\.([\\d]{3})\\-([\\d]{2}))|(([\\d]{2})\\.([\\d]{3})\\.([\\d]{3})\\/([\\d]{4})\\-([\\d]{2})))$', message : 'O campo deve preenchido com um CPF ou CNPJ nos formatos: ###.###.###-## e ##.###.###/####-##'},
 		{name : 'data', pattern : '^(([0][1-9]|[1][\\d]|[2][\\d]|[3][0-1])\\/([0][1-9]|[1][0-2])\\/([19][7-9][\\d]+|[20][\\d]+))$', message : 'O campo deve preenchido com uma data no formato: DD/MM/AAAA onde o ano deve ser maior que 1900'},
 		{name : 'dataHora', pattern : '^(([0][1-9]|[1][\\d]|[2][\\d]|[3][0-1])\\/([0][1-9]|[1][0-2])\\/([19][\\d]+|[20][\\d]+)\\s([0][\\d]|[1][\\d]|[2][\\d]):([0][\\d]|[1][\\d]|[2][\\d]|[3][\\d]))$', message : 'O campo deve preenchido com uma data no formato: DD/MM/AAAA HH:MM onde o ano deve ser maior que 1900'},
 		{name : 'entradaSaida', pattern : "^([E|S])$", message : "O campo deve ser preenchido com uma letra MAIUSCULA informando E para entrada ou S para saida."},
