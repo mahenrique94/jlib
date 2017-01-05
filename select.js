@@ -24,13 +24,17 @@ document.addEventListener('DOMContentLoaded', function(event) {
                 let list = JSON.parse(response);
                 let text, value;
                 switch (select.dataset.select) {
-                case 'slCadUf':
-                	text = 'uf';
-	                value = 'uf'
+                	case 'slCadUfText':
+	                	text = 'uf';
+		                value = 'uf';
 	                	break; 
+                	case 'slJson':
+                		text = 'descricao';
+                		value = 'id';
+                			break; 
                     default:
                         text = 'descricao';
-                        value = 'id'
+                        value = 'id';
                         break; 
                 }
                 fillSelect(select, (list.list || list.lista), text, value);            
