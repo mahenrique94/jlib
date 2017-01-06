@@ -20,26 +20,28 @@ document.addEventListener('DOMContentLoaded', function(event) {
     if (selects.length > 0) {
         selects.forEach(select => {
             const url = getUrl(select.dataset.url);
-            HttpService.request(url, 'GET').then(response => {
-                let list = JSON.parse(response);
-                let text, value;
-                switch (select.dataset.select) {
-                	case 'slCadUfText':
-	                	text = 'uf';
-		                value = 'uf';
-	                	break; 
-                	case 'slJson':
-                		text = 'descricao';
-                		value = 'id';
-                			break; 
-                    default:
-                        text = 'descricao';
-                        value = 'id';
-                        break; 
-                }
-                fillSelect(select, (list.list || list.lista), text, value);            
-                setOptipnSelected(select);
-            }).catch(error => console.error(error));        
+            if (!url.endsWith('sl')) {
+                HttpService.request(url, 'GET').then(response => {
+                    let list = JSON.parse(response);
+                    let text, value;
+                    switch (select.dataset.select) {
+                        case 'slCadUfText':
+                            text = 'uf';
+                            value = 'uf';
+                            break; 
+                        case 'slJson':
+                            text = 'descricao';
+                            value = 'id';
+                                break; 
+                        default:
+                            text = 'descricao';
+                            value = 'id';
+                            break; 
+                    }
+                    fillSelect(select, (list.list || list.lista), text, value);                            
+                }).catch(error => console.error(error));        
+            }
+            setOptipnSelected(select);
         });
     }
 
