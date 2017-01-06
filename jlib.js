@@ -87,10 +87,10 @@ function insertDate(button) {
  *  Botão para deletar itens via Ajax utilizando @Delete
  */
 function requestDelete(obj) {
-	let url = obj.href || obj.formAction;
-	let id = url.substring(url.lastIndexOf('=') + 1);
+	const url = obj.href || obj.formAction;
+	const id = url.substring(url.lastIndexOf('=') + 1);
 	if (confirm("Deseja confirmar a exlusão ?")) {
-		HttpService.request(`${url}`, 'DELETE').then(response => {
+		HttpService.request(url, 'DELETE').then(response => {
 			if (obj.parentNode.classList.contains('has-Father')) {
 				let children = obj.parentNode.parentNode.parentNode.querySelectorAll(`.js-Father${id}`);
 				if (children.length > 0)
@@ -112,6 +112,29 @@ function closeModal() {
 		modal.remove()
 		background.remove();
 	}
+}
+
+function requestPost(obj, event) {
+	event.preventDefault();
+	const url = obj.href || obj.formAction || obj.action;
+	return new Promise((resolve, reject) => {
+		HttpService.request(url, 'POST', obj.elements).then(response => {
+			resolve(response);
+		}).catch(error => reject(error));	
+	});
+}
+
+function requestPostModal(obj, event) {
+	requestPost(obj, event).then(function() {
+		let loadGrid = parent.document.querySelector(`.js-loadgrid[id^=${obj.id.substring(4)}]`);
+		if (loadGrid != undefined) {
+			LoadGrid.load(loadGrid.dataset.load).then(response => {
+				loadGrid.innerHTML = '';
+				loadGrid.append(response);
+				closeModal();
+			}).catch(error => console.error(error));
+		}
+	}).catch(error => console.error(error));
 }
 
 /****************************** BASE ******************************/
@@ -167,10 +190,12 @@ const CODE_OK = 200;
  */
 class HttpService {
 
-	static request(url, verb) {
+	static request(url, verb, params) {
 		return new Promise((resolve, reject) => {
 			const xhr = new XMLHttpRequest();
 			xhr.open(verb, url, true);
+			if (verb.equals('POST'))
+				xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			xhr.onreadystatechange = function() {
 				if (xhr.readyState == CODE_DONE) {
 					if (xhr.status == CODE_OK) {
@@ -183,8 +208,20 @@ class HttpService {
 			xhr.ontimeout = function() {
 				console.error('A requisição excedeu o tempo limite');
 			}
-			xhr.send();
+			xhr.send(this.populateParams(params));
 		});
+	}
+	
+	static populateParams(params) {
+		if (params != undefined && params.length > 0) {
+			let data = '';
+			params.forEach(param => {
+				if (!param.name.endsWith('aux'))
+					data = data.concat(encodeURIComponent(param.name), '=', encodeURIComponent(param.value), '&');
+			});
+			return data;
+		}
+		return null;
 	}
 	
 }

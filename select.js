@@ -25,6 +25,10 @@ document.addEventListener('DOMContentLoaded', function(event) {
                     let list = JSON.parse(response);
                     let text, value;
                     switch (select.dataset.select) {
+	                    case 'slAdmGroup':
+	                    	text = 'describe';
+	                    	value = 'id';
+	                    	break; 
                         case 'slCadUfText':
                             text = 'uf';
                             value = 'uf';
