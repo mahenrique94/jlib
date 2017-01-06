@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded',function (event) {
 		{name : 'cpfCnpj', pattern : '^((([\\d]{3})\\.([\\d]{3})\\.([\\d]{3})\\-([\\d]{2}))|(([\\d]{2})\\.([\\d]{3})\\.([\\d]{3})\\/([\\d]{4})\\-([\\d]{2})))$', message : 'O campo deve preenchido com um CPF ou CNPJ nos formatos: ###.###.###-## e ##.###.###/####-##'},
 		{name : 'data', pattern : '^(([0][1-9]|[1][\\d]|[2][\\d]|[3][0-1])\\/([0][1-9]|[1][0-2])\\/([19][7-9][\\d]+|[20][\\d]+))$', message : 'O campo deve preenchido com uma data no formato: DD/MM/AAAA onde o ano deve ser maior que 1900'},
 		{name : 'dataHora', pattern : '^(([0][1-9]|[1][\\d]|[2][\\d]|[3][0-1])\\/([0][1-9]|[1][0-2])\\/([19][\\d]+|[20][\\d]+)\\s([0][\\d]|[1][\\d]|[2][\\d]):([0][\\d]|[1][\\d]|[2][\\d]|[3][\\d]))$', message : 'O campo deve preenchido com uma data no formato: DD/MM/AAAA HH:MM onde o ano deve ser maior que 1900'},
+		{name : 'email', pattern : "^(([A-Z\\d\\w]+)([@])([A-Z]+)([\\.])([A-Z]+)(([\\.])([A-Z])+)*)$", message : "O campo deve ser preenchido com um email válido aceitando apenas letras MAIUSCULAS, NUMEROS, PONTOS E UNDERLINES."},
 		{name : 'entradaSaida', pattern : "^([E|S])$", message : "O campo deve ser preenchido com uma letra MAIUSCULA informando E para entrada ou S para saida."},
 		{name : 'espacoLetraBarraPonto', pattern : "^(([A-Z\\.\\/])+(\\s[A-Z\\.\\/]+)*)$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros e aceita os seguintes caracteres especiais: (. /)."},
 		{name : 'espacoLetraMin3', pattern : "^(([A-Z])(\\s[A-Z])*){3,}$", message : "O campo deve ser preenchido com letras MAIUSCULAS contendo no minimo 3 caracteres."},
@@ -20,6 +21,7 @@ document.addEventListener('DOMContentLoaded',function (event) {
 		{name : 'espacoLetraNumeroBarraPontoTracoVirgula', pattern : "^(([A-Z\\d\\.\\/\\-,])+(\\s[A-Z\\d\\.\\/\\-,]+)*)$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros e aceita os seguintes caracteres especiais: (. - / ,)."},
 		{name : 'espacoLetraNumeroPonto', pattern : "^(([A-Z\\d\\.])+(\\s[A-Z\\d\\.]+)*)$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros e aceita os seguintes caracteres especiais: (.)."},
 		{name : 'espacoLetraNumeroPontoMin2', pattern : "^(([A-Z\\d\\.])(\\s[A-Z\\d\\.])*){2,}$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros e aceita os seguintes caracteres especiais: (.) contendo no minimo 2 caracteres."},
+		{name : 'espacoLetraNumeroPontoMin3', pattern : "^(([A-Z\\d\\.])(\\s[A-Z\\d\\.])*){3,}$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros e aceita os seguintes caracteres especiais: (.) contendo no minimo 3 caracteres."},
 		{name : 'espacoLetraPontoTracoBarraMin4', pattern : "^(([A-Z\\.\\-\\/])(\\s[A-Z\\.\\-\\/])*){4,}$", message : "O campo deve ser preenchido com letras MAIUSCULAS e aceita os seguintes caracteres especiais: (. - /) contendo no minimo 4 caracteres."},
 		{name : 'espacoLetraPontoTracoMin4', pattern : "^(([A-Z\\.\\-])(\\s[A-Z\\.\\-])*){4,}$", message : "O campo deve ser preenchido com letras MAIUSCULAS e aceita os seguintes caracteres especiais: (. -) contendo no minimo 4 caracteres."},
 		{name : 'estado', pattern : '^([AC|AL|AP|AM|BA|CE|DF|ES|GO|MA|MT|MS|MG|PA|PB|PR|PE|PI|RJ|RN|RS|RO|RR|SC|SP|SE|TO|EX]{2})$', message : 'O campo deve preenchido com a sigla de um estado brasileiro em MAIUSCULO ou com EX para informar exportacao.'},
@@ -36,9 +38,10 @@ document.addEventListener('DOMContentLoaded',function (event) {
 		{name : 'numeric18-2', pattern : "^(([\\d]{1,18})(\\.([\\d]{1,2}))?)$", message : "O campo deve ser preenchido com numeros ou ponto, a parte inteira aceita no maximo 18 digitos e a decimal no maximo 2."},
 		{name : 'numeric18-4', pattern : "^(([\\d]{1,18})(\\.([\\d]{1,4}))?)$", message : "O campo deve ser preenchido com numeros ou ponto, a parte inteira aceita no maximo 18 digitos e a decimal no maximo 4."},
 		{name : 'numeric18-6', pattern : "^(([\\d]{1,18})(\\.([\\d]{1,6}))?)$", message : "O campo deve ser preenchido com numeros ou ponto, a parte inteira aceita no maximo 18 digitos e a decimal no maximo 6."},
-		{name : 'password', pattern : "^([A-Z\\d@-_\\.]{8})$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros sem espacos e aceita os seguintes caracteres especiais: (@ - _ .)."},
+		{name : 'password', pattern : "^([A-Z\\d@-_\\.]{8})$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros sem espacos e aceita os seguintes caracteres especiais: (@ - _ .) contendo 8 caracteres."},
 		{name : 'textareaEspacoLetraNumeroBarraPontoTracoVirgula', pattern : "^([A-Z\\d\\s\\.\\/\\-\\,]+)$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros sem espacos e aceita os seguintes caracteres especiais: (@ - _ .)."},
-		{name : 'tipoMunicipio', pattern : "^([MR])$", message : "O campo deve ser preenchido apenas com M(Municipio) ou R(Regiao)."}
+		{name : 'tipoMunicipio', pattern : "^([MR])$", message : "O campo deve ser preenchido apenas com M(Municipio) ou R(Regiao)."},
+		{name : 'user', pattern : "^([A-Z\\d\\.]+)$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros sem espacos e aceita os seguintes caracteres especiais: (.)."}
 	];
 	
 	patterns.forEach(pattern => setPattern(pattern));
@@ -67,9 +70,7 @@ function setMessageTooltip(pattern, input) {
 }
 
 function buildMessageFromInput(input) {
-	if (input.type.equals('text'))
-		return `Intervalo: ${input.getAttribute('minlength')} a ${input.getAttribute('maxlength')} caracteres.`;
 	if (input.type.equals('number'))
 		return `Intervalo: ${input.getAttribute('min')} a ${input.getAttribute('max')}.`;
-	return '';
+	return `Intervalo: ${input.getAttribute('minlength')} a ${input.getAttribute('maxlength')} caracteres.`;
 }
