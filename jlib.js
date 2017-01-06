@@ -131,9 +131,9 @@ function requestPostModal(obj, event) {
 			LoadGrid.load(loadGrid.dataset.load).then(response => {
 				loadGrid.innerHTML = '';
 				loadGrid.append(response);
-				closeModal();
 			}).catch(error => console.error(error));
 		}
+		closeModal();
 	}).catch(error => console.error(error));
 }
 
