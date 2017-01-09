@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded',function (event) {
 		{name : 'estado', pattern : '^([AC|AL|AP|AM|BA|CE|DF|ES|GO|MA|MT|MS|MG|PA|PB|PR|PE|PI|RJ|RN|RS|RO|RR|SC|SP|SE|TO|EX]{2})$', message : 'O campo deve preenchido com a sigla de um estado brasileiro em MAIUSCULO ou com EX para informar exportacao.'},
 		{name : 'modulo', pattern : "^([ARM|COM|EXP|FIN|FRO|SUP]{3})$", message : "O campo deve ser preenchido com os seguintes modulos: ARM(Armazem), COM(Compras), EXP(Expedicao), FIN(Financeiro), FRO(Frota) ou SUP(Suprimento)."},
 		{name : 'modulos', pattern : "^([ACEFRS]*)$", message : "O campo deve ser preenchido com as seguintes letras: A(Armazem), C(Compras), E(Expedicao), F(Financeiro), R(Frota) ou S(Suprimento)."},
-		{name : 'letraNumero', pattern : "^([A-Z\\d]+)$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros sem espacos."},
+		{name : 'letraNumeroBarraTraco', pattern : "^([A-Z\\d\\/\\-]+)$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros sem espacos e aceita os seguintes caracteres especiais: (/ -)."},
 		{name : 'letraNumeroMin2', pattern : "^([A-Z\\d]{2,})$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros sem espacos e contendo no minimo 4 caracteres."},
 		{name : 'letraNumeroMin4', pattern : "^([A-Z\\d]{4,})$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros sem espacos e contendo no minimo 4 caracteres."},
 		{name : 'letraNumeroPonto', pattern : "^([A-Z\\d\\.]+)$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros sem espacos e aceita os seguintes caracteres especiais: (.)."},
