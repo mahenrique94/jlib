@@ -19,9 +19,9 @@ document.addEventListener('DOMContentLoaded', function(event) {
     const selects = $$('select[data-select][data-url]');
     if (selects.length > 0) {
         selects.forEach(select => {
-            const url = getUrl(select.dataset.url);
-            if (!url.endsWith('sl')) {
-                HttpService.request(url, 'GET').then(response => {
+            const URL = getUrl(select.dataset.url);
+            if (!URL.endsWith('sl')) {
+                HttpService.request(URL, 'GET').then(response => {
                     let list = JSON.parse(response);
                     let text, value;
                     switch (select.dataset.select) {

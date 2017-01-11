@@ -1,6 +1,8 @@
 NodeList.prototype.forEach = Array.prototype.forEach; 
 HTMLCollection.prototype.forEach = Array.prototype.forEach;
 
+const WEBSERVICE = 'http://mhcws.herokuapp.com/ws';
+
 /****************************** FUNCTION ******************************/
 document.addEventListener('DOMContentLoaded',function (event) {
 	
@@ -87,12 +89,12 @@ function insertDate(button) {
  *  Botão para deletar itens via Ajax utilizando @Delete
  */
 function requestDelete(obj) {
-	const url = obj.href || obj.formAction;
-	const id = url.substring(url.lastIndexOf('=') + 1);
+	const URL = obj.href || obj.formAction;
+	const ID = URL.substring(URL.lastIndexOf('=') + 1);
 	if (confirm("Deseja confirmar a exlusão ?")) {
-		HttpService.request(url, 'DELETE').then(response => {
+		HttpService.request(URL, 'DELETE').then(response => {
 			if (obj.parentNode.classList.contains('has-Father')) {
-				let children = obj.parentNode.parentNode.parentNode.querySelectorAll(`.js-Father${id}`);
+				let children = obj.parentNode.parentNode.parentNode.querySelectorAll(`.js-Father${ID}`);
 				if (children.length > 0)
 					children.forEach(child => child.parentNode.remove());
 			}
@@ -116,9 +118,9 @@ function closeModal() {
 
 function requestPost(obj, event) {
 	event.preventDefault();
-	const url = obj.href || obj.formAction || obj.action;
+	const URL = obj.href || obj.formAction || obj.action;
 	return new Promise((resolve, reject) => {
-		HttpService.request(url, 'POST', obj.elements).then(response => {
+		HttpService.request(URL, 'POST', obj.elements).then(response => {
 			resolve(response);
 		}).catch(error => reject(error));	
 	});
