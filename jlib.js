@@ -21,6 +21,13 @@ function append(element) {
 	document.body.appendChild(element);
 }
 
+/** @auth Matheus Castiglioni
+ *  Disparando evento change manualmente em um determinado elemento
+ */
+function invokeChange(element) {
+	element.dispatchEvent(new Event('change'));
+}
+
 /****************************** FUNCTION ******************************/
 document.addEventListener('DOMContentLoaded',function (event) {
 	

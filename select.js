@@ -43,8 +43,11 @@ document.addEventListener('DOMContentLoaded', function(event) {
     selectsChange.forEach(select => {
     	select.addEventListener('change', function() {
     		let change = $(`select[data-select=${select.dataset.change}]`);
-    		if (change != undefined)
-    			requestData(change);
+    		if (change != undefined) {
+    			requestData(change).then(function() {
+    				setOptipnSelected(change);
+        		}).catch(error => console.error(error));
+    		}
     	});
     });
 
@@ -131,6 +134,8 @@ function fillSelect(select, list, text, value) {
  */
 function setOptipnSelected(select) {
     let aux = $(`input[name='${select.name}aux'][type=hidden]`);
-    if (aux != undefined)
+    if (aux != undefined) {
     	select.value = aux.value;
+    	invokeChange(select);
+    }
 }
