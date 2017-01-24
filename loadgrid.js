@@ -3,6 +3,9 @@
  */
 document.addEventListener('DOMContentLoaded',function (event) {
 	
+	/** @auth Matheus Castiglioni
+	 *  Buscando todas as divs que tenham a classe js-loadgrid e alimentando-as com o laodgrid 
+	 */
 	let loadGrids = $$('.js-loadgrid');
 	if (loadGrids.length > 0) {
 		loadGrids.forEach(loadGrid => {
@@ -14,6 +17,9 @@ document.addEventListener('DOMContentLoaded',function (event) {
 	
 });
 
+/** @auth Matheus Castiglioni
+ *  Classe responsável por buscar o loadgrid 
+ */
 class LoadGrid {
 	
 	static load(url) {

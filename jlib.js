@@ -3,6 +3,24 @@ HTMLCollection.prototype.forEach = Array.prototype.forEach;
 
 const WEBSERVICE = 'http://mhcws.herokuapp.com/ws';
 
+/****************************** BASE ******************************/
+/** @auth Matheus Castiglioni
+ * Criando um atalho para buscar elementos na página com javascript puro 
+ */
+function $(selector) {
+	return document.querySelector(selector);
+}
+function $$(selector) {
+	return document.querySelectorAll(selector);
+}
+
+/** @auth Matheus Castiglioni
+ *  Inserir elementos no body 
+ */
+function append(element) {
+	document.body.appendChild(element);
+}
+
 /****************************** FUNCTION ******************************/
 document.addEventListener('DOMContentLoaded',function (event) {
 	
@@ -36,22 +54,30 @@ document.addEventListener('DOMContentLoaded',function (event) {
 	
 });
 
-// LIMPA TODOS OS ESPACOS DE UMA STRING
+/** @auth Matheus Castiglioni
+ *  Retira todos os espaços de uma string 
+ */
 function trimAll(string) {
 	return string.replace(/\s/g, "");
 }
 
-// LIMPA ESPACOS A ESQUERDA
+/** @auth Matheus Castiglioni
+ *  Retira espaços a direita 
+ */
 function trimLeft(string) {
 	return string.replace(/^\s+/, "");
 }
 
-// LIMPA ESPACOS A DIREITA
+/** @auth Matheus Castiglioni
+ *  Retira espaços a direita
+ */
 function trimRight(string) {
 	return string.replace(/\s+$/, "");
 }
 
-// LIMPA ESPACOS A DIREITA E ESQUERDA
+/** @auth Matheus Castiglioni
+ *  Retira espaços a direita e esquerda 
+ */
 function trimLeftRight(string) {
 	return string.replace(/^\s+|\s+$/g, "");
 }
@@ -116,47 +142,6 @@ function closeModal() {
 	}
 }
 
-function requestPost(obj, event) {
-	event.preventDefault();
-	const URL = obj.href || obj.formAction || obj.action;
-	return new Promise((resolve, reject) => {
-		HttpService.request(URL, 'POST', obj.elements).then(response => {
-			resolve(response);
-		}).catch(error => reject(error));	
-	});
-}
-
-function requestPostModal(obj, event) {
-	requestPost(obj, event).then(function() {
-		let loadGrid = parent.document.querySelector(`.js-loadgrid[id^=${obj.id.substring(4)}]`);
-		if (loadGrid != undefined) {
-			LoadGrid.load(loadGrid.dataset.load).then(response => {
-				loadGrid.innerHTML = '';
-				loadGrid.append(response);
-			}).catch(error => console.error(error));
-		}
-		closeModal();
-	}).catch(error => console.error(error));
-}
-
-/****************************** BASE ******************************/
-/** @auth Matheus Castiglioni
- * Criando um atalho para buscar elementos na página com javascript puro 
- */
-function $(selector) {
-	return document.querySelector(selector);
-}
-function $$(selector) {
-	return document.querySelectorAll(selector);
-}
-
-/** @auth Matheus Castiglioni
- *  Inserir elementos no body 
- */
-function append(element) {
-	document.body.appendChild(element);
-}
-
 /** @auth Matheus Castiglioni
  *  Cria um toast para quando a exclusão via ajax é realizada com sucesso 
  */
@@ -169,6 +154,36 @@ function toastDelete() {
 		toast.style.display = 'none';
 	}, 2000);
 	return toast;
+}
+
+/** @auth Matheus Castiglioni
+ *  Função genérica para realizar uma requisição POST via AJAX 
+ */
+function requestPost(obj, event) {
+	event.preventDefault();
+	const URL = obj.href || obj.formAction || obj.action;
+	return new Promise((resolve, reject) => {
+		HttpService.request(URL, 'POST', obj.elements).then(response => {
+			resolve(response);
+		}).catch(error => reject(error));	
+	});
+}
+
+/** @auth Matheus Castiglioni
+ *  Realizar uma requisição POST via AJAX para o servidor e se tudo der certo fechar o modal, caso o formulário
+ *  possua um loadgrid na tela PAI o mesmo é carregado sem fazer reload na página toda. 
+ */
+function requestPostModal(obj, event) {
+	requestPost(obj, event).then(function() {
+		let loadGrid = parent.document.querySelector(`.js-loadgrid[id^=${obj.id.substring(4)}]`);
+		if (loadGrid != undefined) {
+			LoadGrid.load(loadGrid.dataset.load).then(response => {
+				loadGrid.innerHTML = '';
+				loadGrid.append(response);
+			}).catch(error => console.error(error));
+		}
+		closeModal();
+	}).catch(error => console.error(error));
 }
 
 /****************************** OVERRIDE ******************************/
