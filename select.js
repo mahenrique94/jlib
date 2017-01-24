@@ -27,9 +27,12 @@ document.addEventListener('DOMContentLoaded', function(event) {
     if (selects.length > 0) {
         selects.forEach(select => {
         	if (!select.dataset.url.endsWith('sl')) {
-        		requestData(select);
+        		requestData(select).then(function() {
+    				setOptipnSelected(select);
+        		}).catch(error => console.error(error));
+        	} else {
+        		setOptipnSelected(select);
         	}
-            setOptipnSelected(select);
         });
     }
     
@@ -52,33 +55,36 @@ document.addEventListener('DOMContentLoaded', function(event) {
  */
 function requestData(select) {
 	const URL = getUrl(select);
-    HttpService.request(URL, 'GET').then(response => {
-    	let text, value;
-        let list = JSON.parse(response);
-        switch (select.dataset.select) {
-            case 'slAdmGroup':
-            	text = 'describe';
-            	value = 'id';
-            	break; 
-            case 'slCadMunicipio':
-            	text = 'nome';
-            	value = 'nome';
-            	break; 
-            case 'slCadUfText':
-                text = 'uf';
-                value = 'uf';
-                break; 
-            case 'slJson':
-                text = 'descricao';
-                value = 'id';
-                    break; 
-            default:
-                text = 'descricao';
-                value = 'id';
-                break; 
-        }
-        fillSelect(select, list.list, text, value);                            
-    }).catch(error => console.error(error));        
+	return new Promise((resolve, reject) => {
+		HttpService.request(URL, 'GET').then(response => {
+			let text, value;
+			let list = JSON.parse(response);
+			switch (select.dataset.select) {
+			case 'slAdmGroup':
+				text = 'describe';
+				value = 'id';
+				break; 
+			case 'slCadMunicipio':
+				text = 'nome';
+				value = 'nome';
+				break; 
+			case 'slCadUfText':
+				text = 'uf';
+				value = 'uf';
+				break; 
+			case 'slJson':
+				text = 'descricao';
+				value = 'id';
+				break; 
+			default:
+				text = 'descricao';
+			value = 'id';
+			break; 
+			}
+			fillSelect(select, list.list, text, value);
+			resolve(true);
+		}).catch(error => reject(error));        
+	});
 }
 
 /** @auth Matheus Castiglioni
@@ -125,9 +131,6 @@ function fillSelect(select, list, text, value) {
  */
 function setOptipnSelected(select) {
     let aux = $(`input[name='${select.name}aux'][type=hidden]`);
-    if (aux != undefined) {
-    	let option = select.querySelector(`option[value='${aux.value}']`);
-    	if (option != undefined)
-    		option.selected = true;
-    }
+    if (aux != undefined)
+    	select.value = aux.value;
 }
