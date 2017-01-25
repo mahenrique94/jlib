@@ -34,8 +34,10 @@ function editBox(box) {
  */
 function activeElement(element) {
 	element.classList.remove('is-disabled');
-	element.removeAttribute('readonly');
-	element.removeAttribute('aria-readonly');
+	if (element.dataset.readonly == undefined) {
+		element.removeAttribute('readonly');
+		element.removeAttribute('aria-readonly');
+	}
 }
 
 
