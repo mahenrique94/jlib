@@ -1,7 +1,7 @@
 /** @auth Matheus Castiglioni
  *  Desabilitar inputs para simular cadastros passo a passo na internet
  */
-const SELECTOR_ELEMENTS = 'input, select, textarea, button:not(.o-box__edit)';
+const SELECTOR_ELEMENTS = '[class*=o-box] input, [class*=o-box] select, [class*=o-box] textarea, [class*=o-box] button:not(.o-box__edit)';
 
 document.addEventListener('DOMContentLoaded',function (event) {
 	

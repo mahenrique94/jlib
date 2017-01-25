@@ -71,6 +71,8 @@ function findCep(button) {
 	if (input.value.length === 9) {
 		const CEP = input.value.replace('-', '');
 		requestCep(CEP, icon);
+	} else {
+		input.focus();
 	}
 }
 
@@ -84,6 +86,7 @@ function requestCep(cep, icon) {
 	HttpService.request(URL, 'GET').then(response => {
 		let json = JSON.parse(response);
 		fillFields(json);
+		$('[data-cep=numero]').focus();
 		if (icon != undefined)
 			stopAnimate(icon);
 	}).catch(error => console.error(error));
