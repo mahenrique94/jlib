@@ -66,21 +66,24 @@ function findData(cnpj) {
  *  Função responsável por buscar o endereço de um determinado CEP 
  */
 function findCep(button) {
+	let icon = button.querySelector('i');
 	let input = button.parentNode.parentNode.querySelector('.o-form__data');
 	if (input.value.length === 9) {
 		const CEP = input.value.replace('-', '');
-		requestCep(CEP);
+		requestCep(CEP, icon);
 	}
 }
 
 /** @auth Matheus Castiglioni
  *  Função responsável por buscar o endereço de um determinado CEP via web service 
  */
-function requestCep(cep) {
+function requestCep(cep, icon) {
 	const URL = `${WEBSERVICE}/cep/find/${cep}/json/simple/upper`;
+	initAnimate(icon);
 	HttpService.request(URL, 'GET').then(response => {
 		let json = JSON.parse(response);
 		fillFields(json);
+		stopAnimate(icon);
 	}).catch(error => console.error(error));
 }
 
@@ -94,4 +97,20 @@ function fillFields(json) {
 	$('[data-cep=complemento]').value = json.complemento;
 	$('[data-cep=estado]').innerHTML = `<option value="${json.estado}">${json.estado}</option>`;
 	$('[data-cep=cidade]').innerHTML = `<option value="${json.cidade}">${json.cidade}</option>`;
+}
+
+/** @auth Matheus Castiglioni
+ *  Função responsável por iniciar a animação de loading do icone do botão 
+ */
+function initAnimate(icon) {
+	icon.classList.remove('icon-globe');
+	icon.classList.add('icon-spin3', 'animate-spin');
+}
+
+/** @auth Matheus Castiglioni
+ *  Função responsável por parar a animação de loading do icone do botão 
+ */
+function stopAnimate(icon) {
+	icon.classList.remove('icon-spin3', 'animate-spin');
+	icon.classList.add('icon-globe');
 }

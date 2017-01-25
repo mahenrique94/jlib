@@ -134,7 +134,7 @@ function fillSelect(select, list, text, value) {
  */
 function setOptipnSelected(select) {
     let aux = $(`input[name='${select.name}aux'][type=hidden]`);
-    if (aux != undefined) {
+    if (aux != undefined && !aux.value.equals('')) {
     	select.value = aux.value;
     	invokeChange(select);
     }
