@@ -57,7 +57,7 @@ function findData(cnpj) {
 			let json = JSON.parse(response);
 			$('[data-cnpj=razaosocial]').value = json.razaosocial;
 			requestCep(json.endereco.cep);
-		}).catch(error => console.log(error));
+		}).catch(error => console.error(error));
 	}
 }
 
@@ -79,11 +79,13 @@ function findCep(button) {
  */
 function requestCep(cep, icon) {
 	const URL = `${WEBSERVICE}/cep/find/${cep}/json/simple/upper`;
-	initAnimate(icon);
+	if (icon != undefined)
+		initAnimate(icon);
 	HttpService.request(URL, 'GET').then(response => {
 		let json = JSON.parse(response);
 		fillFields(json);
-		stopAnimate(icon);
+		if (icon != undefined)
+			stopAnimate(icon);
 	}).catch(error => console.error(error));
 }
 

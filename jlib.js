@@ -28,6 +28,22 @@ function invokeChange(element) {
 	element.dispatchEvent(new Event('change'));
 }
 
+/** @auth Matheus Castiglioni
+ *  Mostrar elemento
+ */
+function showElement(element) {
+	element.classList.remove('is-hide');
+	element.classList.add('is-show');
+}
+
+/** @auth Matheus Castiglioni
+ *  Esconder elemento
+ */
+function hideElement(element) {
+	element.classList.remove('is-show');
+	element.classList.add('is-hide');
+}
+
 /****************************** FUNCTION ******************************/
 document.addEventListener('DOMContentLoaded',function (event) {
 	
