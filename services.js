@@ -28,7 +28,7 @@ function checkDocument(document, input) {
  *  Função responsável por informar para o usuário no HTML se o CNPJ é válido ou inválido
  */
 function setFeedback(document, input, type) {
-	let feedback = input.parentNode.querySelector('.o-form__feedback');
+	let feedback = input.parentNode.find('.o-form__feedback');
 	if (feedback) {
 		if (type.equals('valid')) {
 			let message = `${document} valido`;
@@ -67,7 +67,7 @@ function findData(cnpj) {
  */
 function findCep(button) {
 	let icon = button.querySelector('i');
-	let input = button.parentNode.parentNode.querySelector('.o-form__data');
+	let input = button.parentNode.parentNode.find('.o-form__data');
 	if (input.value.length === 9) {
 		const CEP = input.value.replace('-', '');
 		requestCep(CEP, icon);

@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 	if (validates.length > 0) {
 		validates.forEach(validate => {
 			let scope = $(`.${validate.dataset.validateScope}`);
-			let elements = scope.querySelectorAll('input, select, textarea');
+			let elements = scope.findAll('input, select, textarea');
 			if (elements.length > 0) {
 				elements.forEach(element => {
 					element.addEventListener('keyup', function() {
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
  *  Validando se o escopo possui algum input inválido, caso não possua o botão é liberado para ser clicado
  */
 function validating(validate, scope) {
-	let invalids = scope.querySelectorAll(':invalid');
+	let invalids = scope.findAll(':invalid');
 	if (invalids.length > 0)
 		validate.setAttribute('disabled', 'true');
 	else

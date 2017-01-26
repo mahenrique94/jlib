@@ -85,7 +85,7 @@ function hasTooltip(element) {
  *  Setando a mensagem para ser informado no tooltip 
  */
 function setMessageTooltip(pattern, input) {
-	let tooltip = input.parentNode.querySelector('[class*=o-tooltip]');
+	let tooltip = input.parentNode.find('[class*=o-tooltip]');
 	tooltip.innerHTML = `${pattern.message}<br/>${buildMessageFromInput(input)}`;
 }
 

@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 function parametrosWebDynamic() {
 	let row = $('[class*=o-navbar] .l-row:last-child');
 	if (row != undefined) {
-		let lastCol = row.querySelector('[class*=u-grid]:last-child');
+		let lastCol = row.find('[class*=u-grid]:last-child');
 		row.classList.add('o-dynamic');
 		row.style.position = 'relative';
 		lastCol.style.marginRight = 0;
@@ -80,7 +80,7 @@ function cloneRow(obj) {
 	let band = obj.parentNode.parentNode;
 	let row = obj.parentNode;
 	let rowCloned = row.cloneNode(true);
-	let elementsCloned = rowCloned.querySelectorAll('input, select');
+	let elementsCloned = rowCloned.findAll('input, select');
 	elementsCloned.forEach(element => {
 		if (element.nodeName.equals('INPUT')) {
 			elementsToUpperCase([element]);

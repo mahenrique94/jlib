@@ -15,6 +15,21 @@ Object.prototype.equals = function(string) {
 	return s == string;
 }
 
+/** @auth Matheus Castiglioni
+ *  Adicionando a find para buscar elementos filhos de uma forma mais fácil
+ */
+Object.prototype.find = function(selector) {
+	let object;
+	object = this.querySelector(selector);
+	return object;
+}
+Object.prototype.findAll = function(selector) {
+	let objects;
+	objects = this.querySelectorAll(selector);
+	return objects;
+}
+
+
 /****************************** BASE ******************************/
 /** @auth Matheus Castiglioni
  * Criando um atalho para buscar elementos na página com javascript puro 
@@ -104,9 +119,9 @@ document.addEventListener('DOMContentLoaded', function(event) {
 	if (trs.length > 0) {
 		trs.forEach(tr => {
 			tr.addEventListener('dblclick', function(e) {
-				let select = e.target.parentNode.querySelector('[data-select]');
+				let select = e.target.parentNode.find('[data-select]');
 				select.options.forEach(option => {
-					let element = parent.document.querySelector(`[data-target='${option.dataset.provide}']`);
+					let element = parent.document.find(`[data-target='${option.dataset.provide}']`);
 					if (element)
 						element.value = option.value;
 				});
@@ -121,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
  *  Função para gerar um código de acordo a data atual e informar no input
  */
 function createCode(button) {
-	let input = button.parentNode.parentNode.querySelector('input');
+	let input = button.parentNode.parentNode.find('input');
 	var data = new Date();
 	var code = `${data.getDate()}${(data.getMonth() + 1)}${data.getFullYear().toString().substring(2)}${data.getHours()}${data.getMinutes()}${data.getSeconds()}${data.getMilliseconds()}`;
 	if (input)
@@ -132,7 +147,7 @@ function createCode(button) {
  *  Função para pegar a data atual e informar no input
  */
 function insertDate(button) {
-	let input = button.parentNode.parentNode.querySelector('input');
+	let input = button.parentNode.parentNode.find('input');
 	let agora = new Date();
 	let dia = agora.getDate();
 	let mes = agora.getMonth() + 1;
@@ -155,7 +170,7 @@ function requestDelete(obj) {
 	if (confirm("Deseja confirmar a exlusão ?")) {
 		HttpService.request(URL, 'DELETE').then(response => {
 			if (obj.parentNode.classList.contains('has-Father')) {
-				let children = obj.parentNode.parentNode.parentNode.querySelectorAll(`.js-Father${ID}`);
+				let children = obj.parentNode.parentNode.parentNode.findAll(`.js-Father${ID}`);
 				if (children.length > 0)
 					children.forEach(child => child.parentNode.remove());
 			}
@@ -169,8 +184,8 @@ function requestDelete(obj) {
  *  Função para fechar os modais após alguma execução de script
  */
 function closeModal() {
-	let modal = parent.document.querySelector('.js-o-modal');
-	let background = parent.document.querySelector('.js-o-modal__background');
+	let modal = parent.document.find('.js-o-modal');
+	let background = parent.document.find('.js-o-modal__background');
 	if (modal && background) {
 		modal.remove()
 		background.remove();
@@ -210,7 +225,7 @@ function requestPost(obj, event) {
  */
 function requestPostModal(obj, event) {
 	requestPost(obj, event).then(function() {
-		let loadGrid = parent.document.querySelector(`.js-loadgrid[id^=${obj.id.substring(4)}]`);
+		let loadGrid = parent.document.find(`.js-loadgrid[id^=${obj.id.substring(4)}]`);
 		if (loadGrid) {
 			LoadGrid.load(loadGrid.dataset.load).then(response => {
 				loadGrid.innerHTML = '';
