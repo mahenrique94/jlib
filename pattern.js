@@ -1,7 +1,7 @@
 /** @auth Matheus Castiglioni
  *  Inserindo todos os possíveis valores para os patterns do HTML5, com isso é possível validar o formulário ao submete-lo
  */
-document.addEventListener('DOMContentLoaded',function (event) {
+document.addEventListener('DOMContentLoaded', function(event) {
 	
 	let patterns = [
 		{name : 'cep', pattern : '^(([\\d]){5}([\\-])([\\d]{3}))$', message : 'O campo deve preenchido com um CEP no formato: #####-###.'},

@@ -3,7 +3,7 @@
  */
 const SELECTOR_ELEMENTS = '[class*=o-box] input, [class*=o-box] select, [class*=o-box] textarea, [class*=o-box] button:not(.o-box__edit)';
 
-document.addEventListener('DOMContentLoaded',function (event) {
+document.addEventListener('DOMContentLoaded', function(event) {
 	
 	disableElements();
 	
@@ -55,7 +55,7 @@ function disableElement(element) {
  */
 function showSave(box) {
 	const buttonSave = box.querySelector('.js-save');
-	if (buttonSave != undefined)
+	if (buttonSave)
 		showElement(buttonSave);
 }
 
@@ -63,9 +63,9 @@ function showSave(box) {
  *  Escondendo botão salvar
  */
 function hideSave(box) {
-	if (box != undefined) {
+	if (box) {
 		const buttonSave = box.querySelector('.js-save');
-		if (buttonSave != undefined)
+		if (buttonSave)
 			hideElement(buttonSave);
 	}
 }

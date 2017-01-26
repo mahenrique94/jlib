@@ -29,7 +29,7 @@ function checkDocument(document, input) {
  */
 function setFeedback(document, input, type) {
 	let feedback = input.parentNode.querySelector('.o-form__feedback');
-	if (feedback != undefined) {
+	if (feedback) {
 		if (type.equals('valid')) {
 			let message = `${document} valido`;
 			feedback.setAttribute('aria-label', message)
@@ -51,7 +51,7 @@ function setFeedback(document, input, type) {
  *  Função responsável por buscar as informações referente a um determinado CNPJ
  */
 function findData(cnpj) {
-	if (cnpj != undefined) {
+	if (cnpj) {
 		const URL = `${WEBSERVICE}/document/cnpj/data/${cnpj}/json/simple/upper`;
 		HttpService.request(URL, 'GET').then(response => {
 			let json = JSON.parse(response);
@@ -81,13 +81,13 @@ function findCep(button) {
  */
 function requestCep(cep, icon) {
 	const URL = `${WEBSERVICE}/cep/find/${cep}/json/simple/upper`;
-	if (icon != undefined)
+	if (icon)
 		initAnimate(icon);
 	HttpService.request(URL, 'GET').then(response => {
 		let json = JSON.parse(response);
 		fillFields(json);
 		$('[data-cep=numero]').focus();
-		if (icon != undefined)
+		if (icon)
 			stopAnimate(icon);
 	}).catch(error => console.error(error));
 }

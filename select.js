@@ -8,9 +8,9 @@ document.addEventListener('DOMContentLoaded', function(event) {
 	 *  Alimentando select para informar o campo que deseja-se realizar a busca nas telas de listagens
 	 */
     const table = $('table');
-    if (table != undefined) {
+    if (table) {
         const select = $('select[data-select=slTable]');
-        if (select != undefined) {
+        if (select) {
         	table.tHead.children[0].children.forEach(th => {
         		if (th.hasAttribute('scope'))
         			select.appendChild(new Option(th.textContent, th.getAttribute('scope')));
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
     selectsChange.forEach(select => {
     	select.addEventListener('change', function() {
     		let change = $(`select[data-select=${select.dataset.change}]`);
-    		if (change != undefined) {
+    		if (change) {
     			requestData(change).then(function() {
     				setOptipnSelected(change);
         		}).catch(error => console.error(error));
@@ -108,7 +108,7 @@ function getUrl(select) {
 			}
 		}
 	}
-	if (parameters != undefined)
+	if (parameters)
 		url += `?${parameters}`;
     return url;
 }
@@ -134,7 +134,7 @@ function fillSelect(select, list, text, value) {
  */
 function setOptipnSelected(select) {
     let aux = $(`input[name='${select.name}aux'][type=hidden]`);
-    if (aux != undefined && !aux.value.equals('')) {
+    if (aux && !aux.value.equals('')) {
     	select.value = aux.value;
     	invokeChange(select);
     }

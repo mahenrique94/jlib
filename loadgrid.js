@@ -1,7 +1,7 @@
 /** @auth Matheus Castiglioni
  *  Carregar tabelas via ajax sem recarregar as páginas
  */
-document.addEventListener('DOMContentLoaded',function (event) {
+document.addEventListener('DOMContentLoaded', function(event) {
 	
 	/** @auth Matheus Castiglioni
 	 *  Buscando todas as divs que tenham a classe js-loadgrid e alimentando-as com o laodgrid 

@@ -1,0 +1,32 @@
+/** @auth Matheus Castiglioni
+ *  Criar validações em formulários
+ */
+document.addEventListener('DOMContentLoaded', function(event) {
+	
+	let validates = $$('[data-validate]');
+	if (validates.length > 0) {
+		validates.forEach(validate => {
+			let scope = $(`.${validate.dataset.validateScope}`);
+			let elements = scope.querySelectorAll('input, select, textarea');
+			if (elements.length > 0) {
+				elements.forEach(element => {
+					element.addEventListener('keyup', function() {
+						validating(validate, scope);
+					});
+				});
+			}
+		});
+	}
+	
+});
+
+/** @auth Matheus Castiglioni
+ *  Validando se o escopo possui algum input inválido, caso não possua o botão é liberado para ser clicado
+ */
+function validating(validate, scope) {
+	let invalids = scope.querySelectorAll(':invalid');
+	if (invalids.length > 0)
+		validate.setAttribute('disabled', 'true');
+	else
+		validate.removeAttribute('disabled');
+}

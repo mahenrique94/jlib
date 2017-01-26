@@ -3,6 +3,18 @@ HTMLCollection.prototype.forEach = Array.prototype.forEach;
 
 const WEBSERVICE = 'http://mhcws.herokuapp.com/ws';
 
+/****************************** OVERRIDE ******************************/
+/** @auth Matheus Castiglioni
+ *  Adicionando a função equals para comparar Strings de forma mais fácil
+ */
+Object.prototype.equals = function(string) {
+	let s = '';
+	for (let i = 0; i < this.length; i++) {
+		s = s.concat(this[i]);
+	}
+	return s == string;
+}
+
 /****************************** BASE ******************************/
 /** @auth Matheus Castiglioni
  * Criando um atalho para buscar elementos na página com javascript puro 
@@ -12,6 +24,34 @@ function $(selector) {
 }
 function $$(selector) {
 	return document.querySelectorAll(selector);
+}
+
+/** @auth Matheus Castiglioni
+ *  Retira todos os espaços de uma string 
+ */
+function trimAll(string) {
+	return string.replace(/\s/g, "");
+}
+
+/** @auth Matheus Castiglioni
+ *  Retira espaços a direita 
+ */
+function trimLeft(string) {
+	return string.replace(/^\s+/, "");
+}
+
+/** @auth Matheus Castiglioni
+ *  Retira espaços a direita
+ */
+function trimRight(string) {
+	return string.replace(/\s+$/, "");
+}
+
+/** @auth Matheus Castiglioni
+ *  Retira espaços a direita e esquerda 
+ */
+function trimLeftRight(string) {
+	return string.replace(/^\s+|\s+$/g, "");
 }
 
 /** @auth Matheus Castiglioni
@@ -45,7 +85,7 @@ function hideElement(element) {
 }
 
 /****************************** FUNCTION ******************************/
-document.addEventListener('DOMContentLoaded',function (event) {
+document.addEventListener('DOMContentLoaded', function(event) {
 	
 	/** @auth Matheus Castiglioni
 	 *  Esconder qualquer elemento que tenha a classe js-timeOut após 2 segundos
@@ -67,7 +107,7 @@ document.addEventListener('DOMContentLoaded',function (event) {
 				let select = e.target.parentNode.querySelector('[data-select]');
 				select.options.forEach(option => {
 					let element = parent.document.querySelector(`[data-target='${option.dataset.provide}']`);
-					if (element != undefined)
+					if (element)
 						element.value = option.value;
 				});
 				closeModal();
@@ -78,41 +118,13 @@ document.addEventListener('DOMContentLoaded',function (event) {
 });
 
 /** @auth Matheus Castiglioni
- *  Retira todos os espaços de uma string 
- */
-function trimAll(string) {
-	return string.replace(/\s/g, "");
-}
-
-/** @auth Matheus Castiglioni
- *  Retira espaços a direita 
- */
-function trimLeft(string) {
-	return string.replace(/^\s+/, "");
-}
-
-/** @auth Matheus Castiglioni
- *  Retira espaços a direita
- */
-function trimRight(string) {
-	return string.replace(/\s+$/, "");
-}
-
-/** @auth Matheus Castiglioni
- *  Retira espaços a direita e esquerda 
- */
-function trimLeftRight(string) {
-	return string.replace(/^\s+|\s+$/g, "");
-}
-
-/** @auth Matheus Castiglioni
  *  Função para gerar um código de acordo a data atual e informar no input
  */
 function createCode(button) {
 	let input = button.parentNode.parentNode.querySelector('input');
 	var data = new Date();
 	var code = `${data.getDate()}${(data.getMonth() + 1)}${data.getFullYear().toString().substring(2)}${data.getHours()}${data.getMinutes()}${data.getSeconds()}${data.getMilliseconds()}`;
-	if (input != undefined)
+	if (input)
 		input.value = code;
 }
 
@@ -130,7 +142,7 @@ function insertDate(button) {
 	mes = mes < 10 ? `0${mes}` : mes;
 	hora = hora >= 1 && hora <= 9 ? `0${hora}` : hora;
 	minuto = minuto >= 0 && minuto <= 9 ? `0${minuto}` : minuto;
-	if (!input.readOnly && input != undefined)
+	if (!input.readOnly && input)
 		input.value = `${dia}/${mes}/${agora.getFullYear()} ${hora}:${minuto}`;
 }
 
@@ -159,7 +171,7 @@ function requestDelete(obj) {
 function closeModal() {
 	let modal = parent.document.querySelector('.js-o-modal');
 	let background = parent.document.querySelector('.js-o-modal__background');
-	if (modal != undefined && background != undefined) {
+	if (modal && background) {
 		modal.remove()
 		background.remove();
 	}
@@ -199,7 +211,7 @@ function requestPost(obj, event) {
 function requestPostModal(obj, event) {
 	requestPost(obj, event).then(function() {
 		let loadGrid = parent.document.querySelector(`.js-loadgrid[id^=${obj.id.substring(4)}]`);
-		if (loadGrid != undefined) {
+		if (loadGrid) {
 			LoadGrid.load(loadGrid.dataset.load).then(response => {
 				loadGrid.innerHTML = '';
 				loadGrid.append(response);
@@ -207,18 +219,6 @@ function requestPostModal(obj, event) {
 		}
 		closeModal();
 	}).catch(error => console.error(error));
-}
-
-/****************************** OVERRIDE ******************************/
-/** @auth Matheus Castiglioni
- *  Adicionando a função equals para comparar Strings de forma mais fácil
- */
-Object.prototype.equals = function(string) {
-	let s = '';
-	for (let i = 0; i < this.length; i++) {
-		s = s.concat(this[i]);
-	}
-	return s == string;
 }
 
 /****************************** CLASSES ******************************/
@@ -253,7 +253,7 @@ class HttpService {
 	}
 	
 	static populateParams(params) {
-		if (params != undefined && params.length > 0) {
+		if (params && params.length > 0) {
 			let data = '';
 			params.forEach(param => {
 				if (!param.name.endsWith('aux'))
