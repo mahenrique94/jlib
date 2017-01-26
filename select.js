@@ -98,6 +98,16 @@ function getUrl(select) {
 	let url = select.dataset.url;
 	url = url.substring(2, url.lastIndexOf('_')).replace(/[_]/g, '/').toLowerCase();
 	url = window.location.pathname.substring(0, window.location.pathname.substring(1).indexOf('/') + 2) + url;
+	switch (select.dataset.select.substring(2).toLowerCase()) {
+		case 'json' :
+			url = `${url}.json`;
+			break;
+		case 'txt' :
+			url = `${url}.txt`;
+			break;
+		default:
+			break;
+	}
 	if (select.dataset.parametersFields && select.dataset.parametersValues) {
 		let regExp = /[\[\]\']/g;
 		let fields = select.dataset.parametersFields.replace(regExp, '').split(',');
