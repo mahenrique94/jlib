@@ -63,26 +63,30 @@ function requestData(select) {
 			let text, value;
 			let list = JSON.parse(response);
 			switch (select.dataset.select) {
-			case 'slAdmGroup':
+			case 'slAdmGroup' :
 				text = 'describe';
 				value = 'id';
 				break; 
-			case 'slCadMunicipio':
+			case 'slCadEmpresa' :
+				text = 'id-razaosocial';
+				value = 'id';
+				break; 
+			case 'slCadMunicipio' :
 				text = 'nome';
 				value = 'nome';
 				break; 
-			case 'slCadUfText':
+			case 'slCadUfText' :
 				text = 'uf';
 				value = 'uf';
 				break; 
-			case 'slJson':
+			case 'slJson' :
 				text = 'descricao';
 				value = 'id';
 				break; 
-			default:
+			default :
 				text = 'descricao';
-			value = 'id';
-			break; 
+				value = 'id';
+				break; 
 			}
 			fillSelect(select, list.list, text, value);
 			resolve(true);
@@ -136,7 +140,27 @@ function getValueParameter(value) {
  *  Alimentando os options do select de acordo com os registros encontrados no banco de dados 
  */
 function fillSelect(select, list, text, value) {
-    list.forEach(item => select.appendChild(new Option(item[text], item[value])));
+    list.forEach(item => select.appendChild(createOption(item, text, value)));
+}
+
+/** @auth Matheus Castiglioni
+ *  Criando os options para serem inseridos nos selects 
+ */
+function createOption(item, text, value) {
+	let option;
+	let regExp = new RegExp('([^a-z0-9])', 'gi');
+	if (text.indexOf('-') >= 0 || text.indexOf('/') >= 0) {
+		let match = regExp.exec(text)[0];
+		let split = text.split(match);
+		let describe = ''; 
+		for(let i = 0; i < split.length; i++) {
+			describe = describe.concat(item[split[i]], ' ', match, ' ');
+		}
+		option = new Option(describe.substring(0, (describe.length - 3)), item[value]);
+	} else {
+		option = new Option(item[text], item[value]);
+	}
+	return option;
 }
 
 /** @auth Matheus Castiglioni
