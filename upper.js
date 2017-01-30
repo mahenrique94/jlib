@@ -2,7 +2,7 @@
  *  Transformando todos os inputs e textareas em uppercase,
  *  caso queira que o input não fique UPPERCASE basta adicionar o atributo data-upper="false"
  */
-elementsToUpperCase($$('input[type=text]:not([data-upper=false]), input[type=password]:not([data-upper=false]), input[type=search]:not([data-upper=false]), input[type=email]:not([data-upper=false]), select:not([data-upper=false]), textarea:not([data-upper=false])'));
+elementsToUpperCase($$('input[type=text]:not([data-upper=false]), input[type=password]:not([data-upper=false]), input[type=search]:not([data-upper=false]), input[type=email]:not([data-upper=false]), input[type=url]:not([data-upper=false]), select:not([data-upper=false]), textarea:not([data-upper=false])'));
 
 function elementsToUpperCase(elementsUpper) {
 	if (elementsUpper.length > 0) {

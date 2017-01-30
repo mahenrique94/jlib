@@ -167,7 +167,7 @@ function insertDate(button) {
 function requestDelete(obj) {
 	const URL = obj.href || obj.formAction;
 	const ID = URL.substring(URL.lastIndexOf('=') + 1);
-	if (confirm("Deseja confirmar a exlusão ?")) {
+	if (confirm("Deseja confirmar a exlusao ?")) {
 		HttpService.request(URL, 'DELETE').then(response => {
 			if (obj.parentNode.classList.contains('has-Father')) {
 				let children = obj.parentNode.parentNode.parentNode.findAll(`.js-Father${ID}`);

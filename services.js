@@ -1,6 +1,11 @@
 /** @auth Matheus Castiglioni
  *  Serviços para realizar requisições ajax
  */
+document.addEventListener('DOMContentLoaded', function(event) {
+	
+	checkAddresWithCep();
+	
+});
 
 /*********************************************** DOCUMENTS ***********************************************/
 /** @auth Matheus Castiglioni
@@ -102,6 +107,23 @@ function fillFields(json) {
 	$('[data-cep=complemento]').value = json.complemento;
 	$('[data-cep=estado]').innerHTML = `<option value="${json.estado}">${json.estado}</option>`;
 	$('[data-cep=cidade]').innerHTML = `<option value="${json.cidade}">${json.cidade}</option>`;
+	disabledFiledsCep();
+}
+
+/** @auth Matheus Castiglioni
+ *  Travar os campos referente as informações do CEP para digitação 
+ */
+function disabledFiledsCep() {
+	$('[data-cep=logradouro]').setAttribute('readonly', 'true');
+	$('[data-cep=bairro]').setAttribute('readonly', 'true');
+	$('[data-cep=estado]').setAttribute('readonly', 'true');
+	$('[data-cep=cidade]').setAttribute('readonly', 'true');
+}
+
+function checkAddresWithCep() {
+	const cep = $('[data-cep]');
+	if (cep.value.length == 9 && !cep.value.endsWith('000'))
+		disabledFiledsCep();
 }
 
 /** @auth Matheus Castiglioni

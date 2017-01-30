@@ -26,6 +26,7 @@ function editBox(box) {
 	const elements = box.findAll(SELECTOR_ELEMENTS);
 	if (elements.length > 0)
 		elements.forEach(element => activeElement(element));
+	checkAddresWithCep();
 	showSave(box);
 }
 
