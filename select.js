@@ -83,6 +83,10 @@ function requestData(select) {
 				text = 'descricao';
 				value = 'id';
 				break; 
+			case 'slTxt' :
+				text = 'descricao';
+				value = 'id';
+				break; 
 			default :
 				text = 'descricao';
 				value = 'id';
