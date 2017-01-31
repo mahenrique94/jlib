@@ -100,7 +100,7 @@ function requestData(select) {
 function getUrl(select) {
 	let parameters = '';
 	let url = select.dataset.url;
-	url = url.substring(2, url.lastIndexOf('_')).replace(/[_]/g, '/').toLowerCase();
+	url = url.substring(2).replace(/[_]/g, '/').toLowerCase();
 	url = window.location.pathname.substring(0, window.location.pathname.substring(1).indexOf('/') + 2) + url;
 	switch (select.dataset.select.substring(2).toLowerCase()) {
 		case 'json' :

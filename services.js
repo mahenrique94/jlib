@@ -114,7 +114,7 @@ function enabledFiledsCep() {
 
 function checkAddresWithCep() {
 	const cep = $('[data-cep]');
-	if (cep.value.length == 9 && !cep.value.endsWith('000'))
+	if (cep && cep.value.length == 9 && !cep.value.endsWith('000'))
 		disabledFiledsCep();
 }
 
