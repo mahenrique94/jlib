@@ -30,29 +30,6 @@ function checkDocument(document, input) {
 }
 
 /** @auth Matheus Castiglioni
- *  Função responsável por informar para o usuário no HTML se o CNPJ é válido ou inválido
- */
-function setFeedback(document, input, type) {
-	let feedback = input.parentNode.find('.o-form__feedback');
-	if (feedback) {
-		if (type.equals('valid')) {
-			let message = `${document} valido`;
-			feedback.setAttribute('aria-label', message)
-			feedback.textContent = message;
-			feedback.classList.add('is-valid', 'is-show');
-			feedback.classList.remove('is-hide');
-		} else {
-			let message = `${document} invalido`;
-			feedback.setAttribute('aria-label', message)
-			feedback.textContent = message;
-			feedback.textContent = message;
-			feedback.classList.add('is-invalid', 'is-show');
-			feedback.classList.remove('is-hide');
-		}
-	}
-}
-
-/** @auth Matheus Castiglioni
  *  Função responsável por buscar as informações referente a um determinado CNPJ
  */
 function findData(cnpj) {
@@ -75,7 +52,7 @@ function findCep(button) {
 	let input = button.parentNode.parentNode.find('.o-form__data');
 	if (input.value.length === 9) {
 		const CEP = input.value.replace('-', '');
-		requestCep(CEP, icon);
+		requestCep(CEP, icon, button);
 	} else {
 		input.focus();
 	}
@@ -84,7 +61,7 @@ function findCep(button) {
 /** @auth Matheus Castiglioni
  *  Função responsável por buscar o endereço de um determinado CEP via web service 
  */
-function requestCep(cep, icon) {
+function requestCep(cep, icon, button) {
 	const URL = `${WEBSERVICE}/cep/find/${cep}/json/simple/upper`;
 	if (icon)
 		initAnimate(icon);
@@ -94,7 +71,12 @@ function requestCep(cep, icon) {
 		$('[data-cep=numero]').focus();
 		if (icon)
 			stopAnimate(icon);
-	}).catch(error => console.error(error));
+	}).catch(error => {
+		console.error(error);
+		setFeedback('CEP', button.parentNode.parentNode, 'invalid');
+		enabledFiledsCep();
+		stopAnimate(icon);
+	});
 }
 
 /** @auth Matheus Castiglioni
@@ -120,6 +102,16 @@ function disabledFiledsCep() {
 	$('[data-cep=cidade]').setAttribute('readonly', 'true');
 }
 
+/** @auth Matheus Castiglioni
+ *  Liberar os campos referente as informações do CEP para digitação 
+ */
+function enabledFiledsCep() {
+	$('[data-cep=logradouro]').removeAttribute('readonly');
+	$('[data-cep=bairro]').removeAttribute('readonly');
+	$('[data-cep=estado]').removeAttribute('readonly');
+	$('[data-cep=cidade]').removeAttribute('readonly');
+}
+
 function checkAddresWithCep() {
 	const cep = $('[data-cep]');
 	if (cep.value.length == 9 && !cep.value.endsWith('000'))
@@ -140,4 +132,26 @@ function initAnimate(icon) {
 function stopAnimate(icon) {
 	icon.classList.remove('icon-spin3', 'animate-spin');
 	icon.classList.add('icon-globe');
+}
+
+/** @auth Matheus Castiglioni
+ *  Função responsável por informar para o usuário no HTML se o CNPJ é válido ou inválido
+ */
+function setFeedback(object, element, type) {
+	let feedback = element.parentNode.find('.o-form__feedback');
+	if (feedback) {
+		if (type.equals('valid')) {
+			let message = `${object} valido`;
+			feedback.setAttribute('aria-label', message)
+			feedback.textContent = message;
+			feedback.classList.add('is-valid', 'is-show');
+			feedback.classList.remove('is-hide');
+		} else {
+			let message = `${object} invalido`;
+			feedback.setAttribute('aria-label', message)
+			feedback.textContent = message;
+			feedback.classList.add('is-invalid', 'is-show');
+			feedback.classList.remove('is-hide');
+		}
+	}
 }

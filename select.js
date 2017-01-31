@@ -140,6 +140,11 @@ function getValueParameter(value) {
  *  Alimentando os options do select de acordo com os registros encontrados no banco de dados 
  */
 function fillSelect(select, list, text, value) {
+	if (select.required) {
+		let optionRequired = new Option('', '');
+		optionRequired.style.display = 'none';
+		select.appendChild(optionRequired);
+	}
     list.forEach(item => select.appendChild(createOption(item, text, value)));
 }
 

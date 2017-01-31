@@ -13,6 +13,9 @@ document.addEventListener('DOMContentLoaded', function(event) {
 					element.addEventListener('keyup', function() {
 						validating(validate, scope);
 					});
+					element.addEventListener('change', function() {
+						validating(validate, scope);
+					});
 				});
 			}
 		});
