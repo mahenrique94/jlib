@@ -119,9 +119,10 @@ document.addEventListener('DOMContentLoaded', function(event) {
 	if (trs.length > 0) {
 		trs.forEach(tr => {
 			tr.addEventListener('dblclick', function(e) {
+				let search = $('[data-search]');
 				let select = e.target.parentNode.find('[data-select]');
 				select.options.forEach(option => {
-					let element = parent.document.find(`[data-target='${option.dataset.provide}']`);
+					let element = search != undefined ? parent.document.find(`[data-target='${option.dataset.provide}'][data-search='${search.value}']`) : parent.document.find(`[data-target='${option.dataset.provide}']`);
 					if (element)
 						element.value = option.value;
 				});
