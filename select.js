@@ -75,6 +75,10 @@ function requestData(select) {
 				text = 'nome';
 				value = 'nome';
 				break; 
+			case 'slCadSituacao' :
+				text = 'descricao';
+				value = 'id.tipo';
+				break; 
 			case 'slCadUfText' :
 				text = 'uf';
 				value = 'uf';
@@ -162,14 +166,27 @@ function createOption(item, text, value) {
 		let match = regExp.exec(text)[0];
 		let split = text.split(match);
 		let describe = ''; 
-		for(let i = 0; i < split.length; i++) {
+		for (let i = 0; i < split.length; i++) {
 			describe = describe.concat(item[split[i]], ' ', match, ' ');
 		}
-		option = new Option(describe.substring(0, (describe.length - 3)), item[value]);
+		option = new Option(describe.substring(0, (describe.length - 3)), getValueOption(item, value));
 	} else {
-		option = new Option(item[text], item[value]);
+		option = new Option(item[text], getValueOption(item, value));
 	}
 	return option;
+}
+
+/** @auth Matheus Castiglioni
+ *  Pegar o valor referente ao select e seta-lo no option 
+ */
+function getValueOption(item, value) {
+	const split = value.split('.');
+	if (split.length > 1) {
+		for (let i = 0; i < (split.length - 1); i++) {
+			return getValueOption(item[split[i]], split[i + 1]);
+		}
+	}
+	return item[value];
 }
 
 /** @auth Matheus Castiglioni
