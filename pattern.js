@@ -4,6 +4,7 @@
 document.addEventListener('DOMContentLoaded', function(event) {
 	
 	let patterns = [
+		{name : 'ano', pattern : '^([\\d]{4})$', message : 'O campo deve ser preenchido com um ano válido entre: 1900 á 2100 no formato ####'},
 		{name : 'cep', pattern : '^(([\\d]){5}([\\-])([\\d]{3}))$', message : 'O campo deve preenchido com um CEP no formato: #####-###.'},
 		{name : 'cnpj', pattern : '^(([\\d]{2})\\.([\\d]{3})\\.([\\d]{3})\\/([\\d]{4})-([\\d]{2}))$', message : 'O campo deve preenchido com um CNPJ no formato: ##.###.###/####-##'},
 		{name : 'contabil', pattern : '^([.\\d]{1,60})$', message : 'O campo deve preenchido com numeros ou pontos contendo no minimo 1 caracter.'},
@@ -50,6 +51,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 		{name : 'number1to9', pattern : "^([1-9]+)$", message : "O campo deve ser preenchido com apenas numeros inteiros de 1 a 9."},
 		{name : 'numberMinus0to9', pattern : "^(([-1]*)|([0-9])*)$", message : "O campo deve ser preenchido com apenas numeros inteiros de 0 a 9 ou -1."},
 		{name : 'numberMinus1to9', pattern : "^(([-1]*)|([1-9])*)$", message : "O campo deve ser preenchido com apenas numeros inteiros de 1 a 9 ou -1."},
+		{name : 'numeric3-2', pattern : "^(([\\d]{1,3})(\\.([\\d]{1,2}))?)$", message : "O campo deve ser preenchido com numeros ou ponto, a parte inteira aceita no maximo 3 digitos e a decimal no maximo 2."},
 		{name : 'numeric5-2', pattern : "^(([\\d]{1,5})(\\.([\\d]{1,2}))?)$", message : "O campo deve ser preenchido com numeros ou ponto, a parte inteira aceita no maximo 5 digitos e a decimal no maximo 2."},
 		{name : 'numeric18-2', pattern : "^(([\\d]{1,18})(\\.([\\d]{1,2}))?)$", message : "O campo deve ser preenchido com numeros ou ponto, a parte inteira aceita no maximo 18 digitos e a decimal no maximo 2."},
 		{name : 'numeric18-3', pattern : "^(([\\d]{1,18})(\\.([\\d]{1,3}))?)$", message : "O campo deve ser preenchido com numeros ou ponto, a parte inteira aceita no maximo 18 digitos e a decimal no maximo 3."},

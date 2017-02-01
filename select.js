@@ -71,13 +71,17 @@ function requestData(select) {
 				text = 'id-razaosocial';
 				value = 'id';
 				break; 
-			case 'slCadMunicipio' :
+			case 'slCadMunicipioText' :
 				text = 'nome';
 				value = 'nome';
 				break; 
 			case 'slCadSituacao' :
 				text = 'descricao';
 				value = 'id.tipo';
+				break; 
+			case 'slCadSituacaoDescricao' :
+				text = 'descricao';
+				value = 'descricao';
 				break; 
 			case 'slCadUfText' :
 				text = 'uf';

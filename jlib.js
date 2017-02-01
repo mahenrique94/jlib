@@ -123,8 +123,10 @@ document.addEventListener('DOMContentLoaded', function(event) {
 				let select = e.target.parentNode.find('[data-select]');
 				select.options.forEach(option => {
 					let element = search != undefined ? parent.document.find(`[data-target='${option.dataset.provide}'][data-search='${search.value}']`) : parent.document.find(`[data-target='${option.dataset.provide}']`);
-					if (element)
+					if (element) {
 						element.value = option.value;
+						invokeChange(element);
+					}
 				});
 				closeModal();
 			});
