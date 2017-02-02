@@ -210,30 +210,32 @@ function toastDelete() {
 }
 
 /** @auth Matheus Castiglioni
- *  Função genérica para realizar uma requisição POST via AJAX 
+ *  Função genérica para realizar uma requisição via AJAX 
  */
-function requestPost(obj, event) {
+function request(obj, event) {
 	event.preventDefault();
 	const URL = obj.href || obj.formAction || obj.action;
 	return new Promise((resolve, reject) => {
-		HttpService.request(URL, 'POST', obj.elements).then(response => {
+		HttpService.request(URL, obj.method, obj.elements).then(response => {
 			resolve(response);
 		}).catch(error => reject(error));	
 	});
 }
 
 /** @auth Matheus Castiglioni
- *  Realizar uma requisição POST via AJAX para o servidor e se tudo der certo fechar o modal, caso o formulário
+ *  Realizar uma requisição Pvia AJAX para o servidor e se tudo der certo fechar o modal, caso o formulário
  *  possua um loadgrid na tela PAI o mesmo é carregado sem fazer reload na página toda. 
  */
-function requestPostModal(obj, event) {
-	requestPost(obj, event).then(function() {
+function requestModal(obj, event) {
+	request(obj, event).then(function() {
 		let loadGrid = parent.document.find(`.js-loadgrid[id^=${obj.id.substring(4)}]`);
 		if (loadGrid) {
 			LoadGrid.load(loadGrid.dataset.load).then(response => {
 				loadGrid.innerHTML = '';
 				loadGrid.append(response);
 			}).catch(error => console.error(error));
+		} else {
+			parent.document.location = parent.document.location;
 		}
 		closeModal();
 	}).catch(error => console.error(error));
@@ -256,11 +258,10 @@ class HttpService {
 				xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			xhr.onreadystatechange = function() {
 				if (xhr.readyState == CODE_DONE) {
-					if (xhr.status == CODE_OK) {
+					if (xhr.status == CODE_OK)
 						resolve(xhr.responseText);
-					} else {
+					else
 						reject(xhr.responseText);
-					}
 				}
 			}
 			xhr.ontimeout = function() {
@@ -274,12 +275,16 @@ class HttpService {
 		if (params && params.length > 0) {
 			let data = '';
 			params.forEach(param => {
-				if (!param.name.endsWith('aux'))
+				if (!param.name.endsWith('aux') && this.isData(param))
 					data = data.concat(encodeURIComponent(param.name), '=', encodeURIComponent(param.value), '&');
 			});
 			return data;
 		}
 		return null;
+	}
+	
+	static isData(element) {
+		return element.nodeName.toLowerCase().equals('input') || element.nodeName.toLowerCase().equals('select') || element.nodeName.toLowerCase().equals('textarea');
 	}
 	
 }
