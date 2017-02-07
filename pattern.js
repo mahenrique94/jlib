@@ -64,6 +64,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 		{name : 'telefone', pattern : "^(([\\d]{4})([\\-])([\\d{4}])*)$", message : "O campo deve ser preenchido com um telefone no formato: ####-####."},
 		{name : 'textareaEspacoLetraNumeroBarraPontoTracoVirgula', pattern : "^([A-Z\\d\\s\\.\\/\\-\\,]+)$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros sem espacos e aceita os seguintes caracteres especiais: (@ - _ .)."},
 		{name : 'tipoMunicipio', pattern : "^([MR])$", message : "O campo deve ser preenchido apenas com M(Municipio) ou R(Regiao)."},
+		{name : 'unidadeMedida', pattern : "^([UN|PC|GR|KG|TO|LT|CX|RE|BO|FD|SK|PR|PT|JG|BG]{2})$", message : "O campo deve ser preenchido com uma unidade de medida válida contendo dois caracteres."},
 		{name : 'user', pattern : "^([A-Z\\d\\.]+)$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros sem espacos e aceita os seguintes caracteres especiais: (.)."}
 	];
 	
