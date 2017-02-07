@@ -68,7 +68,7 @@ function requestData(select) {
 				value = 'id';
 				break; 
 			case 'slCadEmpresa' :
-				text = 'id-razaosocial';
+				text = ['id', 'razaosocial'];
 				value = 'id';
 				break; 
 			case 'slCadMunicipioText' :
@@ -90,6 +90,10 @@ function requestData(select) {
 			case 'slJson' :
 				text = 'descricao';
 				value = 'id';
+				break; 
+			case 'slPsbClasse' :
+				text = ['id.idgrupo.descricao', 'descricao'];
+				value = ['id.idgrupo.id', 'id.id'];
 				break; 
 			case 'slTxt' :
 				text = 'descricao';
@@ -164,33 +168,37 @@ function fillSelect(select, list, text, value) {
  *  Criando os options para serem inseridos nos selects 
  */
 function createOption(item, text, value) {
-	let option;
-	let regExp = new RegExp('([^a-z0-9])', 'gi');
-	if (text.indexOf('-') >= 0 || text.indexOf('/') >= 0) {
-		let match = regExp.exec(text)[0];
-		let split = text.split(match);
-		let describe = ''; 
-		for (let i = 0; i < split.length; i++) {
-			describe = describe.concat(item[split[i]], ' ', match, ' ');
-		}
-		option = new Option(describe.substring(0, (describe.length - 3)), getValueOption(item, value));
-	} else {
-		option = new Option(item[text], getValueOption(item, value));
-	}
-	return option;
+	return new Option(getPropertyJSON(item, text), getPropertyJSON(item, value));
 }
 
 /** @auth Matheus Castiglioni
- *  Pegar o valor referente ao select e seta-lo no option 
+ *  Busca as informações desejadas no JSON, se for um objeto o mesmo é navegado até seu ponto primitivo 
  */
-function getValueOption(item, value) {
-	const split = value.split('.');
-	if (split.length > 1) {
-		for (let i = 0; i < (split.length - 1); i++) {
-			return getValueOption(item[split[i]], split[i + 1]);
+function getPropertyJSON(item, propertys) {
+	let split, value = '';
+	if (Array.isArray(propertys)) {
+		for (let i = 0; i < propertys.length; i++) {
+			value = value.concat(getPrimitiveValue(item, propertys[i]), ' / ');
 		}
+		value = value.substring(0, (value.length - 3));
+	} else {
+		value = getPrimitiveValue(item, propertys);
 	}
-	return item[value];
+	return value;
+}
+
+/** @auth Matheus Castiglioni
+ *  Navegando no objeto até seu ponto primitivo 
+ */
+function getPrimitiveValue(item, propertys) {
+	let value, split;
+	split = propertys.split('.');
+	for (let i = 0; i < split.length; i++) {
+		value = item[split[i]];
+		if (value instanceof Object)
+			item = value;
+	}
+	return value;
 }
 
 /** @auth Matheus Castiglioni
