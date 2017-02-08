@@ -19,16 +19,11 @@ Object.prototype.equals = function(string) {
  *  Adicionando a find para buscar elementos filhos de uma forma mais fácil
  */
 Object.prototype.find = function(selector) {
-	let object;
-	object = this.querySelector(selector);
-	return object;
+	return this.querySelector(selector);
 }
 Object.prototype.findAll = function(selector) {
-	let objects;
-	objects = this.querySelectorAll(selector);
-	return objects;
+	return this.querySelectorAll(selector);
 }
-
 
 /****************************** BASE ******************************/
 /** @auth Matheus Castiglioni
