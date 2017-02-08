@@ -14,15 +14,21 @@ document.addEventListener('DOMContentLoaded', function(event) {
 function checkDocument(document, input) {
 	if (input.value.length === 18) {
 		if (document.equals('CNPJ')) {
+			icon = input.parentNode.find('.o-form__icon');
+			if (icon)
+				initAnimateInput(icon);
 			const CNPJ = input.value.replace(/[\/\.\-]/g, '');
 			const URL = `${WEBSERVICE}/document/cnpj/information/${CNPJ}/json`; 
 			HttpService.request(URL, 'GET').then(response => {
 				let json = JSON.parse(response);
 				if (json.valido) {
-					setFeedback(document, input, 'valid');
+					setFeedback(document, input.parentNode, 'valid');
 					findData(json.desformatado);
+					stopAnimateInput(icon);
 				} else {
-					setFeedback(document, input, 'invalid');
+					setFeedback(document, input.parentNode, 'invalid');
+					fillFieldsCNPJ('');
+					stopAnimateInput(icon);
 				}
 			}).catch(error => console.error(error));
 		}
@@ -33,15 +39,27 @@ function checkDocument(document, input) {
  *  Função responsável por buscar as informações referente a um determinado CNPJ
  */
 function findData(cnpj) {
+	let icon = $('[data-cnpj=razaosocial]').parentNode.find('.o-form__icon');
+	if (icon)
+		initAnimateInput(icon);
 	if (cnpj) {
 		const URL = `${WEBSERVICE}/document/cnpj/data/${cnpj}/json/simple/upper`;
 		HttpService.request(URL, 'GET').then(response => {
 			let json = JSON.parse(response);
-			$('[data-cnpj=razaosocial]').value = json.razaosocial;
+			fillFieldsCNPJ(json.razaosocial.replace(/([\s]{2})/gi, ' ').trim());
+			stopAnimateInput(icon);
 			requestCep(json.endereco.cep);
 		}).catch(error => console.error(error));
 	}
 }
+
+/** @auth Matheus Castiglioni
+ *  Função responsável por pegar as informações de um CNPJ e preencher os campos na tela 
+ */
+function fillFieldsCNPJ(razaosocial) {
+	$('[data-cnpj=razaosocial]').value = razaosocial;
+}
+
 
 /*********************************************** CEP ***********************************************/
 /** @auth Matheus Castiglioni
@@ -64,25 +82,25 @@ function findCep(button) {
 function requestCep(cep, icon, button) {
 	const URL = `${WEBSERVICE}/cep/find/${cep}/json/simple/upper`;
 	if (icon)
-		initAnimate(icon);
+		initAnimateButton(icon);
 	HttpService.request(URL, 'GET').then(response => {
 		let json = JSON.parse(response);
-		fillFields(json);
+		fillFieldsCep(json);
 		$('[data-cep=numero]').focus();
 		if (icon)
-			stopAnimate(icon);
+			stopAnimateButton(icon);
 	}).catch(error => {
 		console.error(error);
 		setFeedback('CEP', button.parentNode.parentNode, 'invalid');
 		enabledFiledsCep();
-		stopAnimate(icon);
+		stopAnimateButton(icon);
 	});
 }
 
 /** @auth Matheus Castiglioni
  *  Função responsável por pegar as informações de um CEP e preencher os campos na tela 
  */
-function fillFields(json) {
+function fillFieldsCep(json) {
 	$('[data-cep=cep]').value = json.cep;
 	$('[data-cep=logradouro]').value = json.logradouro;
 	$('[data-cep=bairro]').value = json.bairro;
@@ -119,9 +137,25 @@ function checkAddresWithCep() {
 }
 
 /** @auth Matheus Castiglioni
+ *  Função responsável por iniciar a animação de loading do icone em um input 
+ */
+function initAnimateInput(icon) {
+	icon.classList.remove('is-hide');
+	icon.classList.add('is-show', 'animate-spin');
+}
+
+/** @auth Matheus Castiglioni
+ *  Função responsável por parar a animação de loading do icone em um input 
+ */
+function stopAnimateInput(icon) {
+	icon.classList.remove('is-show', 'animate-spin');
+	icon.classList.add('is-hide');
+}
+
+/** @auth Matheus Castiglioni
  *  Função responsável por iniciar a animação de loading do icone do botão 
  */
-function initAnimate(icon) {
+function initAnimateButton(icon) {
 	icon.classList.remove('icon-globe');
 	icon.classList.add('icon-spin3', 'animate-spin');
 }
@@ -129,7 +163,7 @@ function initAnimate(icon) {
 /** @auth Matheus Castiglioni
  *  Função responsável por parar a animação de loading do icone do botão 
  */
-function stopAnimate(icon) {
+function stopAnimateButton(icon) {
 	icon.classList.remove('icon-spin3', 'animate-spin');
 	icon.classList.add('icon-globe');
 }
@@ -145,13 +179,13 @@ function setFeedback(object, element, type) {
 			feedback.setAttribute('aria-label', message)
 			feedback.textContent = message;
 			feedback.classList.add('is-valid', 'is-show');
-			feedback.classList.remove('is-hide');
+			feedback.classList.remove('is-invalid', 'is-hide');
 		} else {
 			let message = `${object} invalido`;
 			feedback.setAttribute('aria-label', message)
 			feedback.textContent = message;
 			feedback.classList.add('is-invalid', 'is-show');
-			feedback.classList.remove('is-hide');
+			feedback.classList.remove('is-valid', 'is-hide');
 		}
 	}
 }
