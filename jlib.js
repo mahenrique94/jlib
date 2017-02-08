@@ -40,28 +40,28 @@ function $$(selector) {
  *  Retira todos os espaços de uma string 
  */
 function trimAll(string) {
-	return string.replace(/\s/g, "");
+	return string.replace(/([\\s]+)/g, "");
 }
 
 /** @auth Matheus Castiglioni
  *  Retira espaços a direita 
  */
 function trimLeft(string) {
-	return string.replace(/^\s+/, "");
+	return string.replace(/^([\\s]+)/, "");
 }
 
 /** @auth Matheus Castiglioni
  *  Retira espaços a direita
  */
 function trimRight(string) {
-	return string.replace(/\s+$/, "");
+	return string.replace(/([\\s]+)$/, "");
 }
 
 /** @auth Matheus Castiglioni
  *  Retira espaços a direita e esquerda 
  */
 function trimLeftRight(string) {
-	return string.replace(/^\s+|\s+$/g, "");
+	return string.replace(/(^([\\s]*)|([\\s]+)$)/g, "");
 }
 
 /** @auth Matheus Castiglioni
