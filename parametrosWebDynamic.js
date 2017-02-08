@@ -7,8 +7,6 @@ document.addEventListener('DOMContentLoaded', function(event) {
 	
 });
 
-
-
 /** @auth Matheus Castiglioni
  *  Adicionar parâmetros dinamicamente nas telas de pesquisa
  */
