@@ -95,6 +95,10 @@ function requestData(select) {
 				text = ['id.idgrupo.descricao', 'descricao'];
 				value = ['id.idgrupo.id', 'id.id'];
 				break; 
+			case 'slPsbClassificacaoFiscal' :
+				text = 'descricao';
+				value = 'classificacaofiscal';
+				break; 
 			case 'slTxt' :
 				text = 'descricao';
 				value = 'id';
