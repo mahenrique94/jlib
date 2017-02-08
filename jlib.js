@@ -12,7 +12,7 @@ Object.prototype.equals = function(string) {
 	for (let i = 0; i < this.length; i++) {
 		s = s.concat(this[i]);
 	}
-	return s == string;
+	return s === string;
 }
 
 /** @auth Matheus Castiglioni
