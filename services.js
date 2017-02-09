@@ -47,7 +47,10 @@ function validatingDocument(input, document) {
 				fillFieldsCNPJ('');
 			stopAnimateInput(icon);
 		}
-	}).catch(error => console.error(error));
+	}).catch(error => {
+		console.error(error)
+		stopAnimateInput(icon);
+	});
 }
 
 /** @auth Matheus Castiglioni
