@@ -6,10 +6,10 @@ document.addEventListener('DOMContentLoaded', function(event) {
 	let patterns = [
 		{name : 'ano', pattern : '^([\\d]{4})$', message : 'O campo deve ser preenchido com um ano válido entre: 1900 á 2100 no formato ####'},
 		{name : 'cep', pattern : '^(([\\d]){5}([\\-])([\\d]{3}))$', message : 'O campo deve preenchido com um CEP no formato: #####-###.'},
-		{name : 'cnpj', pattern : '^(([\\d]{2})\\.([\\d]{3})\\.([\\d]{3})\\/([\\d]{4})-([\\d]{2}))$', message : 'O campo deve preenchido com um CNPJ no formato: ##.###.###/####-##'},
+		{name : 'cnpj', pattern : '^(([\\d]{2})([\\.])([\\d]{3})([\\.])([\\d]{3})([\\/])([\\d]{4})([\\-])([\\d]{2}))$', message : 'O campo deve preenchido com um CNPJ no formato: ##.###.###/####-##'},
 		{name : 'contabil', pattern : '^([.\\d]{1,60})$', message : 'O campo deve preenchido com numeros ou pontos contendo no minimo 1 caracter.'},
-		{name : 'cpf', pattern : '^(([\\d]{3})\\.([\\d]{3})\\.([\\d]{3})\\-([\\d]{2}))$', message : 'O campo deve preenchido com um CPF no formato: ###.###.###-##'},
-		{name : 'cpfCnpj', pattern : '^((([\\d]{3})\\.([\\d]{3})\\.([\\d]{3})\\-([\\d]{2}))|(([\\d]{2})\\.([\\d]{3})\\.([\\d]{3})\\/([\\d]{4})\\-([\\d]{2})))$', message : 'O campo deve preenchido com um CPF ou CNPJ nos formatos: ###.###.###-## e ##.###.###/####-##'},
+		{name : 'cpf', pattern : '^(([\\d]{3})([\\.])([\\d]{3})([\\.])([\\d]{3})([\\-])([\\d]{2}))$', message : 'O campo deve preenchido com um CPF no formato: ###.###.###-##'},
+		{name : 'cpfCnpj', pattern : '^((([\\d]{3})([\\.])([\\d]{3})([\\.])([\\d]{3})([\\-])([\\d]{2}))|(([\\d]{2})([\\.])([\\d]{3})([\\.])([\\d]{3})([\\/])([\\d]{4})([\\-])([\\d]{2})))$', message : 'O campo deve preenchido com um CPF ou CNPJ nos formatos: ###.###.###-## e ##.###.###/####-##'},
 		{name : 'cst', pattern : '^([\\d]{3})$', message : 'O campo deve preenchido com uma situacao tributaria contendo no maximo 3 caracteres'},
 		{name : 'data', pattern : '^(([0][1-9]|[1][\\d]|[2][\\d]|[3][0-1])\\/([0][1-9]|[1][0-2])\\/([19][7-9][\\d]+|[20][\\d]+))$', message : 'O campo deve preenchido com uma data no formato: DD/MM/AAAA onde o ano deve ser maior que 1900'},
 		{name : 'dataHora', pattern : '^(([0][1-9]|[1][\\d]|[2][\\d]|[3][0-1])\\/([0][1-9]|[1][0-2])\\/([19][\\d]+|[20][\\d]+)\\s([0][\\d]|[1][\\d]|[2][\\d]):([0][\\d]|[1][\\d]|[2][\\d]|[3][\\d]))$', message : 'O campo deve preenchido com uma data no formato: DD/MM/AAAA HH:MM onde o ano deve ser maior que 1900'},

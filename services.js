@@ -12,27 +12,42 @@ document.addEventListener('DOMContentLoaded', function(event) {
  *  Função responsável por realizar a validação de documentos ao sair do campo
  */
 function checkDocument(document, input) {
-	if (input.value.length === 18) {
-		if (document.equals('CNPJ')) {
-			icon = input.parentNode.find('.o-form__icon');
-			if (icon)
-				initAnimateInput(icon);
-			const CNPJ = input.value.replace(/[\/\.\-]/g, '');
-			const URL = `${WEBSERVICE}/document/cnpj/information/${CNPJ}/json`; 
-			HttpService.request(URL, 'GET').then(response => {
-				let json = JSON.parse(response);
-				if (json.valido) {
-					setFeedback(document, input.parentNode, 'valid');
-					findData(json.desformatado);
-					stopAnimateInput(icon);
-				} else {
-					setFeedback(document, input.parentNode, 'invalid');
-					fillFieldsCNPJ('');
-					stopAnimateInput(icon);
-				}
-			}).catch(error => console.error(error));
+	if (input.value.length === 14) {
+		validatingDocument(input, document);
+	} else if (input.value.length === 18) {
+		validatingDocument(input, document);
+	} else {
+		let feedback = input.parentNode.parentNode.find('.o-form__feedback');
+		if (feedback) {
+			feedback.classList.remove('is-show');
+			feedback.classList.add('is-hide');
 		}
 	}
+}
+
+/** @auth Matheus Castiglioni
+ *  Função responsável por validar um CNPJ ou CPF
+ */
+function validatingDocument(input, document) {
+	icon = input.parentNode.find('.o-form__icon');
+	if (icon)
+		initAnimateInput(icon);
+	const DOCUMENT = input.value.replace(/[\/\.\-]/g, '');
+	const URL = `${WEBSERVICE}/document/${document.toLowerCase()}/information/${DOCUMENT}/json`; 
+	HttpService.request(URL, 'GET').then(response => {
+		let json = JSON.parse(response);
+		if (json.valido) {
+			setFeedback(document, input.parentNode, 'valid');
+			if (document.equals('CNPJ'))
+				findData(json.desformatado);
+			stopAnimateInput(icon);
+		} else {
+			setFeedback(document, input.parentNode, 'invalid');
+			if (document.equals('CNPJ'))
+				fillFieldsCNPJ('');
+			stopAnimateInput(icon);
+		}
+	}).catch(error => console.error(error));
 }
 
 /** @auth Matheus Castiglioni
