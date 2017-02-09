@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 		{name : 'cst', pattern : '^([\\d]{3})$', message : 'O campo deve preenchido com uma situacao tributaria contendo no maximo 3 caracteres'},
 		{name : 'data', pattern : '^(([0][1-9]|[1][\\d]|[2][\\d]|[3][0-1])\\/([0][1-9]|[1][0-2])\\/([19][7-9][\\d]+|[20][\\d]+))$', message : 'O campo deve preenchido com uma data no formato: DD/MM/AAAA onde o ano deve ser maior que 1900'},
 		{name : 'dataHora', pattern : '^(([0][1-9]|[1][\\d]|[2][\\d]|[3][0-1])\\/([0][1-9]|[1][0-2])\\/([19][\\d]+|[20][\\d]+)\\s([0][\\d]|[1][\\d]|[2][\\d]):([0][\\d]|[1][\\d]|[2][\\d]|[3][\\d]))$', message : 'O campo deve preenchido com uma data no formato: DD/MM/AAAA HH:MM onde o ano deve ser maior que 1900'},
-		{name : 'inscricao', pattern : "^(([\\d\\.\\-])*([ISENTO]{6})*([NAO CONTRIBUINTE]*))$", message : "O campo deve ser preenchido com uma inscrição válida, caso não possua informar ISENTO."},
+		{name : 'inscricao', pattern : "^(([\\d\\.\\-]+)|([I][S][E][N][T][O])|([N][A][O][\\s][C][O][N][T][R][I][B][U][I][N][T][E]))$", message : "O campo deve ser preenchido com uma inscrição válida, caso não possua informar ISENTO ou NÃO CONTRIBUINTE."},
 		{name : 'email', pattern : "^(([A-Z\\d\\w]+)([@])([A-Z]+)([\\.])([A-Z]+)(([\\.])([A-Z])+)*)$", message : "O campo deve ser preenchido com um email válido aceitando apenas letras MAIUSCULAS, NUMEROS, PONTOS E UNDERLINES."},
 		{name : 'entradaSaida', pattern : "^([E|S])$", message : "O campo deve ser preenchido com uma letra MAIUSCULA informando E para entrada ou S para saida."},
 		{name : 'espacoLetraBarraPonto', pattern : "^(([A-Z\\.\\/])+(\\s[A-Z\\.\\/]+)*)$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros e aceita os seguintes caracteres especiais: (. /)."},
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 		{name : 'letraNumeroMin4', pattern : "^([A-Z\\d]{4,})$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros sem espacos e contendo no minimo 4 caracteres."},
 		{name : 'letraNumeroPonto', pattern : "^([A-Z\\d\\.]+)$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros sem espacos e aceita os seguintes caracteres especiais: (.)."},
 		{name : 'letraNumeroPontoMin2', pattern : "^([A-Z\\d\\.]){2,}$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros sem espacos e aceita os seguintes caracteres especiais: (.)."},
-		{name : 'modulo', pattern : "^([ARM|COM|EXP|FIN|FRO|SUP]{3})$", message : "O campo deve ser preenchido com os seguintes modulos: ARM(Armazem), COM(Compras), EXP(Expedicao), FIN(Financeiro), FRO(Frota) ou SUP(Suprimento)."},
+		{name : 'modulo', pattern : "^(([A][R][M])|([C][O][M])|([E][X][P])|([F][I][N])|([F][R][O])|([S][U][P]))$", message : "O campo deve ser preenchido com os seguintes modulos: ARM(Armazem), COM(Compras), EXP(Expedicao), FIN(Financeiro), FRO(Frota) ou SUP(Suprimento)."},
 		{name : 'modulos', pattern : "^([ACEFRS]*)$", message : "O campo deve ser preenchido com as seguintes letras: A(Armazem), C(Compras), E(Expedicao), F(Financeiro), R(Frota) ou S(Suprimento)."},
 		{name : 'municipio', pattern : "^(([A-Z\\'])+(\\s[A-Z\\']+)*)$", message : "O campo deve ser preenchido com letras MAISCULAS e aceita os seguintes caracteres especiais: (')."},
 		{name : 'number0to9', pattern : "^([\\d]+)$", message : "O campo deve ser preenchido com apenas numeros inteiros de 0 a 9."},
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 		{name : 'telefone', pattern : "^(([\\d]{4})([\\-])([\\d{4}])*)$", message : "O campo deve ser preenchido com um telefone no formato: ####-####."},
 		{name : 'textareaEspacoLetraNumeroBarraPontoTracoVirgula', pattern : "^([A-Z\\d\\s\\.\\/\\-\\,]+)$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros sem espacos e aceita os seguintes caracteres especiais: (@ - _ .)."},
 		{name : 'tipoMunicipio', pattern : "^([MR])$", message : "O campo deve ser preenchido apenas com M(Municipio) ou R(Regiao)."},
-		{name : 'unidadeMedida', pattern : "^([UN|PC|GR|KG|TO|LT|CX|RE|BO|FD|SK|PR|PT|JG|BG]{2})$", message : "O campo deve ser preenchido com uma unidade de medida válida contendo dois caracteres."},
+		{name : 'unidadeMedida', pattern : "^(([B][G])|([B][O])|([C][X])|([F][D])|([G][R])|([J][G])|([K][G])|([L][T])|([P][C])|([P][R])|([P][T])|([R][E])|([S][K])|([T][O])|([U][N]))$", message : "O campo deve ser preenchido com uma unidade de medida válida contendo dois caracteres."},
 		{name : 'user', pattern : "^([A-Z\\d\\.]+)$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros sem espacos e aceita os seguintes caracteres especiais: (.)."}
 	];
 	
