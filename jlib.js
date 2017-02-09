@@ -128,6 +128,21 @@ document.addEventListener('DOMContentLoaded', function(event) {
 		});
 	}
 	
+	/** @auth Matheus Castiglioni
+	 *  Amarrando dois elementos como um só, caso algum deles esteja valido o outro é validado também
+	 */
+	const dependencys = $$('[data-dependency]');
+	if (dependencys.length > 0) {
+		dependencys.forEach(dependency => {
+			dependency.addEventListener('input', function() {
+				if (this.checkValidity())
+					elementRemoveAttribute(`#${this.dataset.dependency}`, 'required');
+				else
+					elementAddAttribute(`#${this.dataset.dependency}`, 'required', 'true');
+			});
+		});
+	}
+	
 });
 
 /** @auth Matheus Castiglioni
@@ -234,6 +249,24 @@ function requestModal(obj, event) {
 		}
 		closeModal();
 	}).catch(error => console.error(error));
+}
+
+/** @auth Matheus Castiglioni
+ *  Busca um determinado elemento e remove um determinado atributo 
+ */
+function elementRemoveAttribute(selector, attribute) {
+	let element = $(selector);
+	if (element)
+		element.removeAttribute(attribute);
+}
+
+/** @auth Matheus Castiglioni
+ *  Busca um determinado elemento e adiciona um determinado atributo 
+ */
+function elementAddAttribute(selector, attribute, value) {
+	let element = $(selector);
+	if (element)
+		element.setAttribute(attribute, value);
 }
 
 /****************************** CLASSES ******************************/
