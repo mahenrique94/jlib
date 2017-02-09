@@ -72,7 +72,7 @@ function findData(cnpj) {
 			fillFieldsCNPJ(json);
 			stopAnimateInput(iconNomeRazaoSocial);
 			stopAnimateInput(iconNomeFantasia);
-			requestCep(json.endereco.cep);
+			fillFieldsCep(json.endereco);
 		}).catch(error => console.error(error));
 	}
 }
