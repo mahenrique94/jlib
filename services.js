@@ -54,15 +54,21 @@ function validatingDocument(input, document) {
  *  Função responsável por buscar as informações referente a um determinado CNPJ
  */
 function findData(cnpj) {
-	let icon = $('[data-cnpj=razaosocial]').parentNode.find('.o-form__icon');
-	if (icon)
-		initAnimateInput(icon);
+	let iconNomeRazaoSocial = $('[data-cnpj=nomerazaosocial]').parentNode.find('.o-form__icon');
+	if (iconNomeRazaoSocial)
+		initAnimateInput(iconNomeRazaoSocial);
+	
+	let iconNomeFantasia = $('[data-cnpj=nomefantasia]').parentNode.find('.o-form__icon');
+	if (iconNomeFantasia)
+		initAnimateInput(iconNomeFantasia);
+	
 	if (cnpj) {
 		const URL = `${WEBSERVICE}/document/cnpj/data/${cnpj}/json/simple/upper`;
 		HttpService.request(URL, 'GET').then(response => {
 			let json = JSON.parse(response);
-			fillFieldsCNPJ(json.razaosocial.replace(/([\s]{2})/gi, ' ').trim());
-			stopAnimateInput(icon);
+			fillFieldsCNPJ(json);
+			stopAnimateInput(iconNomeRazaoSocial);
+			stopAnimateInput(iconNomeFantasia);
 			requestCep(json.endereco.cep);
 		}).catch(error => console.error(error));
 	}
@@ -71,10 +77,12 @@ function findData(cnpj) {
 /** @auth Matheus Castiglioni
  *  Função responsável por pegar as informações de um CNPJ e preencher os campos na tela 
  */
-function fillFieldsCNPJ(razaosocial) {
-	$('[data-cnpj=razaosocial]').value = razaosocial;
+function fillFieldsCNPJ(json) {
+	$('[data-cnpj=nomerazaosocial]').value = json.razaosocial.replace(/([\s]{2})/gi, ' ').trim();
+	let nomeFantasia = $('[data-cnpj=nomefantasia]');
+	if (nomeFantasia)
+		nomeFantasia.value = json.nomefantasia;
 }
-
 
 /*********************************************** CEP ***********************************************/
 /** @auth Matheus Castiglioni
@@ -106,8 +114,9 @@ function requestCep(cep, icon, button) {
 			stopAnimateButton(icon);
 	}).catch(error => {
 		console.error(error);
-		setFeedback('CEP', button.parentNode.parentNode, 'invalid');
-		enabledFiledsCep();
+		if (button)
+			setFeedback('CEP', button.parentNode.parentNode, 'invalid');
+		enabledFieldsCep();
 		stopAnimateButton(icon);
 	});
 }
@@ -138,7 +147,7 @@ function disabledFiledsCep() {
 /** @auth Matheus Castiglioni
  *  Liberar os campos referente as informações do CEP para digitação 
  */
-function enabledFiledsCep() {
+function enabledFieldsCep() {
 	$('[data-cep=logradouro]').removeAttribute('readonly');
 	$('[data-cep=bairro]').removeAttribute('readonly');
 	$('[data-cep=estado]').removeAttribute('readonly');
