@@ -134,16 +134,24 @@ document.addEventListener('DOMContentLoaded', function(event) {
 	const dependencys = $$('[data-dependency]');
 	if (dependencys.length > 0) {
 		dependencys.forEach(dependency => {
+			checkValidateDependency(dependency);
 			dependency.addEventListener('input', function() {
-				if (this.checkValidity())
-					elementRemoveAttribute(`#${this.dataset.dependency}`, 'required');
-				else
-					elementAddAttribute(`#${this.dataset.dependency}`, 'required', 'true');
+				checkValidateDependency(this);
 			});
 		});
 	}
 	
 });
+
+/** @auth Matheus Castiglioni
+ *  Função para chekcar se o input esta válido ou não para poder inválidar ou validar sua dependência
+ */
+function checkValidateDependency(element) {
+	if (element.checkValidity())
+		elementRemoveAttribute(`#${element.dataset.dependency}`, 'required');
+	else
+		elementAddAttribute(`#${element.dataset.dependency}`, 'required', 'true');
+}
 
 /** @auth Matheus Castiglioni
  *  Função para gerar um código de acordo a data atual e informar no input
