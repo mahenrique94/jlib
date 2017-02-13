@@ -1,12 +1,13 @@
 /** @auth Matheus Castiglioni
  *  Formatar inputs de acordo com suas máscaras, onde somente sera aceito a digitação da mesma
  */
-const maskCelular = '#.####-####';
+const maskCelular = '#####-####';
 const maskCep = '#####-###';
 const maskCnpj = '##.###.###/####-##'
 const maskCpf = '###.###.###-##';
 const maskData = '##/##/####';
 const maskDataHora = '##/##/#### ##:##';
+const maskHora = '##:##';
 const maskTelefone = '####-####';
 
 function mask(mask, input, event) {
