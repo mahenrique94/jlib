@@ -50,9 +50,6 @@ function mask(mask, input, event) {
 		} else {
 			masking(input, mask);
 		}
-	} else {
-		event.preventDefault();
-		event.stopPropagation();
 	}
 }
 
@@ -63,5 +60,15 @@ function masking(input, mask) {
 	input.value = input.value.replace(/[\\.\-\\/]/g, '');
 	for (let i = 0; i < mask.length; i++) {
 		input.value = input.value.replace(mask[i][0], mask[i][1]);
+	}
+}
+
+/** @auth Matheus Castiglioni
+ *  Verifica se a tecla digitada é um dígito
+ */
+function checkMask(event) {
+	if(!((event.keyCode >= 48 && event.keyCode <= 57) || event.keyCode == 8)) {
+		event.preventDefault();
+		event.stopPropagation();
 	}
 }
