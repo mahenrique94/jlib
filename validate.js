@@ -13,6 +13,9 @@ document.addEventListener('DOMContentLoaded', function(event) {
 					element.addEventListener('keyup', function() {
 						validating(validate, scope);
 					});
+					element.addEventListener('input', function() {
+						validating(validate, scope);
+					});
 					element.addEventListener('change', function() {
 						validating(validate, scope);
 					});
@@ -34,13 +37,14 @@ function validating(validate, scope) {
 		let requireds = scope.findAll(':required');
 		if (requireds.length > 0) {
 			requireds.forEach(required => {
-				if (required.value.equals('')) {
+				if (required.value.equals(''))
 					validate.setAttribute('disabled', 'true');
-				} else {
+				else
 					validate.removeAttribute('disabled');
-					return false;
-				}
+				return false;
 			});
+		} else {
+			validate.removeAttribute('disabled');
 		}
 	}
 }
