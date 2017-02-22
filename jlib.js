@@ -277,6 +277,17 @@ function elementAddAttribute(selector, attribute, value) {
 		element.setAttribute(attribute, value);
 }
 
+/** @auth Matheus Castiglioni
+ *  Função para limpar os valores dos inputs que são alimentados via ListaSL
+ */
+function clearSL(obj) {
+	let input = obj.parentNode.parentNode.querySelector('input[id][readonly]');
+	let inputsLimpar = document.querySelectorAll(`[data-search=${input.dataset.search}]`);
+	inputsLimpar.forEach(input => {
+		input.value = '';
+	});
+}
+
 /****************************** CLASSES ******************************/
 const CODE_DONE = 4;
 const CODE_OK = 200;

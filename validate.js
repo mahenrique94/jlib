@@ -28,8 +28,19 @@ document.addEventListener('DOMContentLoaded', function(event) {
  */
 function validating(validate, scope) {
 	let invalids = scope.findAll(':invalid');
-	if (invalids.length > 0)
+	if (invalids.length > 0) {
 		validate.setAttribute('disabled', 'true');
-	else
-		validate.removeAttribute('disabled');
+	} else {
+		let requireds = scope.findAll(':required');
+		if (requireds.length > 0) {
+			requireds.forEach(required => {
+				if (required.value.equals('')) {
+					validate.setAttribute('disabled', 'true');
+				} else {
+					validate.removeAttribute('disabled');
+					return false;
+				}
+			});
+		}
+	}
 }
