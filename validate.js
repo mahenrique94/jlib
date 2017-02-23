@@ -37,11 +37,11 @@ function validating(validate, scope) {
 		let requireds = scope.findAll(':required');
 		if (requireds.length > 0) {
 			requireds.forEach(required => {
-				if (required.value.equals(''))
+				validate.removeAttribute('disabled');
+				if (required.value.equals('')) {
 					validate.setAttribute('disabled', 'true');
-				else
-					validate.removeAttribute('disabled');
-				return false;
+					throw BreakException;
+				}
 			});
 		} else {
 			validate.removeAttribute('disabled');

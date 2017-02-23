@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 				let search = $('[data-search]');
 				let select = e.target.parentNode.find('[data-select]');
 				select.options.forEach(option => {
-					let element = !search.value.equals('') ? parent.document.find(`[data-target='${option.dataset.provide}'][data-search='${search.value}']`) : parent.document.find(`[data-target='${option.dataset.provide}']`);
+					let element = !search.value.equals('') ? parent.document.find(`[data-target*='${option.dataset.provide}'][data-search='${search.value}']`) : parent.document.find(`[data-target*='${option.dataset.provide}']`);
 					if (element) {
 						element.value = option.value;
 						invokeChange(element);

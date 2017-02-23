@@ -133,7 +133,7 @@ function getUrl(select) {
 			break;
 	}
 	if (select.dataset.parametersFields && select.dataset.parametersValues) {
-		let regExp = /[\[\]\']/g;
+		let regExp = /[\[\]\'\s]/g;
 		let fields = select.dataset.parametersFields.replace(regExp, '').split(',');
 		let values = select.dataset.parametersValues.replace(regExp, '').split(',');
 		if (fields.length === values.length) {

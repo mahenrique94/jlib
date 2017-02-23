@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 		{name : 'ano', pattern : '^([\\d]{4})$', message : 'O campo deve ser preenchido com um ano válido entre: 1900 á 2100 no formato ####'},
 		{name : 'cep', pattern : '^(([\\d]){5}([\\-])([\\d]{3}))$', message : 'O campo deve preenchido com um CEP no formato: #####-###.'},
 		{name : 'celular', pattern : '^(([\\d]{5})([\\-])([\\d]{4}))$', message : 'O campo deve preenchido com um CELULAR no formato: ######-####.'},
+		{name : 'chave', pattern : '^([\\d]){44}$', message : 'O campo deve preenchido com uma CHAVE numerica contendo 44 digitos.'},
 		{name : 'cnpj', pattern : '^(([\\d]{2})([\\.])([\\d]{3})([\\.])([\\d]{3})([\\/])([\\d]{4})([\\-])([\\d]{2}))$', message : 'O campo deve preenchido com um CNPJ no formato: ##.###.###/####-##'},
 		{name : 'contabil', pattern : '^([.\\d]{1,60})$', message : 'O campo deve preenchido com numeros ou pontos contendo no minimo 1 caracter.'},
 		{name : 'cpf', pattern : '^(([\\d]{3})([\\.])([\\d]{3})([\\.])([\\d]{3})([\\-])([\\d]{2}))$', message : 'O campo deve preenchido com um CPF no formato: ###.###.###-##'},
