@@ -99,6 +99,10 @@ function requestData(select) {
 				text = 'descricao';
 				value = 'classificacaofiscal';
 				break; 
+			case 'slVieCadOperacaoTipoDocumento' :
+				text = 'descricaotipodocumento';
+				value = 'idtipodocumento';
+				break; 
 			case 'slTxt' :
 				text = 'descricao';
 				value = 'id';
@@ -138,7 +142,7 @@ function getUrl(select) {
 		let values = select.dataset.parametersValues.replace(regExp, '').split(',');
 		if (fields.length === values.length) {
 			for (let i = 0; i < fields.length; i++) {
-				parameters += `parametrosWeb[${i}].campo=${fields[i]}&parametrosWeb[${i}].parametroInicial=${getValueParameter(values[i])}`;
+				parameters += `parametrosWeb[${i}].campo=${fields[i]}&parametrosWeb[${i}].parametroInicial=${getValueParameter(values[i])}&`;
 			}
 		}
 	}
