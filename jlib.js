@@ -234,7 +234,7 @@ function request(obj, event) {
 	event.preventDefault();
 	const URL = obj.href || obj.formAction || obj.action;
 	return new Promise((resolve, reject) => {
-		HttpService.request(URL, obj.method, obj.elements).then(response => {
+		HttpService.request(URL, obj.method, obj.elements, true).then(response => {
 			resolve(response);
 		}).catch(error => reject(error));	
 	});
@@ -297,7 +297,7 @@ const CODE_OK = 200;
  */
 class HttpService {
 
-	static request(url, verb, params) {
+	static request(url, verb, params, buildParams) {
 		return new Promise((resolve, reject) => {
 			const xhr = new XMLHttpRequest();
 			xhr.open(verb, url, true);
@@ -314,20 +314,24 @@ class HttpService {
 			xhr.ontimeout = function() {
 				console.error('A requisição excedeu o tempo limite');
 			}
-			xhr.send(this.populateParams(params));
+			xhr.send(this.populateParams(params, buildParams));
 		});
 	}
 	
-	static populateParams(params) {
+	static populateParams(params, buildParams) {
+		// Verificando se ja esta sendo passado os dados para requisição via POST
+		if (!buildParams)
+			return params;
+		
 		if (params && params.length > 0) {
-			let data = '';
+			let data = new FormData();
 			params.forEach(param => {
 				if (!param.name.endsWith('aux') && this.isData(param))
-					data = data.concat(encodeURIComponent(param.name), '=', encodeURIComponent(param.value), '&');
+					data.append(param.name, param.value);
 			});
-			console.log(data);
 			return data;
 		}
+		
 		return null;
 	}
 	
