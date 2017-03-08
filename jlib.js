@@ -246,7 +246,7 @@ function request(obj, event) {
  */
 function requestModal(obj, event) {
 	request(obj, event).then(function() {
-		let loadGrid = parent.document.find(`.js-loadgrid[id^=${obj.id.substring(4)}]`);
+		const loadGrid = parent.document.find(`.js-loadgrid[id^=${obj.id.substring(4)}]`);
 		if (loadGrid) {
 			LoadGrid.load(loadGrid.dataset.load).then(response => {
 				loadGrid.innerHTML = '';
@@ -325,6 +325,7 @@ class HttpService {
 				if (!param.name.endsWith('aux') && this.isData(param))
 					data = data.concat(encodeURIComponent(param.name), '=', encodeURIComponent(param.value), '&');
 			});
+			console.log(data);
 			return data;
 		}
 		return null;
