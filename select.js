@@ -71,6 +71,10 @@ function requestData(select) {
 				text = ['id', 'razaosocial'];
 				value = 'id';
 				break; 
+			case 'slCadEmpresaDocumento' :
+				text = 'id.idtipodocumento.descricao';
+				value = 'id.idtipodocumento.id';
+				break; 
 			case 'slCadMunicipioText' :
 				text = 'nome';
 				value = 'nome';
