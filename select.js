@@ -179,9 +179,7 @@ function fillSelect(select, list, text, value) {
 /** @auth Matheus Castiglioni
  *  Criando os options para serem inseridos nos selects 
  */
-function createOption(item, text, value) {
-	return new Option(getPropertyJSON(item, text), getPropertyJSON(item, value));
-}
+const createOption = (item, text, value) => new Option(getPropertyJSON(item, text), getPropertyJSON(item, value));
 
 /** @auth Matheus Castiglioni
  *  Busca as informações desejadas no JSON, se for um objeto o mesmo é navegado até seu ponto primitivo 

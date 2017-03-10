@@ -101,9 +101,7 @@ function setPattern(pattern) {
 /** @auth Matheus Castiglioni
  *  Verificando se o input tem tooltip 
  */
-function hasTooltip(element) {
-	return element.parentNode.classList.contains('o-form__tooltip');
-}
+const hasTooltip = element => element.parentNode.classList.contains('o-form__tooltip');
 
 /** @auth Matheus Castiglioni
  *  Setando a mensagem para ser informado no tooltip 

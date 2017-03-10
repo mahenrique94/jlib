@@ -94,6 +94,4 @@ function cloneRow(obj) {
 /** @auth Matheus Castiglioni
  *  Função responsável por deletar a linha com SELECT e INPUT
  */
-function deleteRow(obj) {
-	obj.parentNode.remove();
-}
+const deleteRow = obj => obj.parentNode.remove();

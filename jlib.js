@@ -29,54 +29,26 @@ Object.prototype.findAll = function(selector) {
 /** @auth Matheus Castiglioni
  * Criando um atalho para buscar elementos na página com javascript puro 
  */
-function $(selector) {
-	return document.querySelector(selector);
-}
-function $$(selector) {
-	return document.querySelectorAll(selector);
-}
+const $ = selector => document.querySelector(selector);
+const $$ = selector => document.querySelectorAll(selector);
 
 /** @auth Matheus Castiglioni
- *  Retira todos os espaços de uma string 
+ *  Retirando espaços de uma string 
  */
-function trimAll(string) {
-	return string.replace(/([\\s]+)/g, "");
-}
-
-/** @auth Matheus Castiglioni
- *  Retira espaços a direita 
- */
-function trimLeft(string) {
-	return string.replace(/^([\\s]+)/, "");
-}
-
-/** @auth Matheus Castiglioni
- *  Retira espaços a direita
- */
-function trimRight(string) {
-	return string.replace(/([\\s]+)$/, "");
-}
-
-/** @auth Matheus Castiglioni
- *  Retira espaços a direita e esquerda 
- */
-function trimLeftRight(string) {
-	return string.replace(/(^([\\s]*)|([\\s]+)$)/g, "");
-}
+const trimAll = s => s.replace(/([\\s]+)/g, ""); // Todos os espaços
+const trimLeft = s => s.replace(/^([\\s]+)/, ""); // Espaços á esquerda
+const trimRight = s => s.replace(/([\\s]+)$/, ""); // Espaços a direita
+const trimLeftRight = s => s.replace(/(^([\\s]*)|([\\s]+)$)/g, ""); // Espaços a direita e esquerda
 
 /** @auth Matheus Castiglioni
  *  Inserir elementos no body 
  */
-function append(element) {
-	document.body.appendChild(element);
-}
+const append = element => document.body.appendChild(element);
 
 /** @auth Matheus Castiglioni
  *  Disparando evento change manualmente em um determinado elemento
  */
-function invokeChange(element) {
-	element.dispatchEvent(new Event('change'));
-}
+const invokeChange = element => element.dispatchEvent(new Event('change'));
 
 /** @auth Matheus Castiglioni
  *  Mostrar elemento
