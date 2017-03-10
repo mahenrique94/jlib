@@ -168,8 +168,11 @@ function requestDelete(obj) {
 					children.forEach(child => child.parentNode.remove());
 			}
 			obj.parentNode.parentNode.remove();
-			append(toastDelete());
-		}).catch(error => console.error(error));
+			append(toastDelete('o-toast--success', 'Registro excluido com sucesso', 'icon-ok-circled'));
+		}).catch(error => {
+			append(toastDelete('o-toast--error', 'Registro nao pode ser excluido', 'icon-cancel-circled'));
+			console.error(error);
+		});
 	}
 };	
 
@@ -188,14 +191,18 @@ function closeModal() {
 /** @auth Matheus Castiglioni
  *  Cria um toast para quando a exclusão via ajax é realizada com sucesso 
  */
-function toastDelete() {
+function toastDelete(type, message, icon) {
 	let toast = document.createElement('DIV')
 	toast.setAttribute('role', 'alert');
-	toast.classList.add('o-toast--success', 'has-icon', 'is-fixedTop', 'js-timeOut');
-	toast.innerHTML = '<p class="o-toast__message">Registro excluido com sucesso<i class="icon-ok-circled o-toast__icon--left"></i></p>'
-	setTimeout(function() {
-		toast.style.display = 'none';
-	}, 2000);
+	toast.classList.add(type, 'has-icon', 'is-fixedTop', 'js-timeOut');
+	toast.innerHTML = `<p class="o-toast__message">${message}<i class="${icon} o-toast__icon--left"></i></p>`;
+	if (type.equals('o-toast--error'))
+		toast.innerHTML += '<button class="o-toast__close" onclick="ToastController.close(this.parentNode);"><i class="icon-cancel"></i></button>';
+	if (type.equals('o-toast--success')) {
+		setTimeout(function() {
+			toast.style.display = 'none';
+		}, 2000);
+	}
 	return toast;
 }
 
