@@ -57,21 +57,31 @@ function validatingDocument(input, document) {
  *  Função responsável por buscar as informações referente a um determinado CNPJ
  */
 function findData(cnpj) {
-	let iconNomeRazaoSocial = $('[data-cnpj=nomerazaosocial]').parentNode.find('.o-form__icon');
-	if (iconNomeRazaoSocial)
-		initAnimateInput(iconNomeRazaoSocial);
+	let iconNomeRazaoSocial;
+	let inputRazaoSocial = $('[data-cnpj=nomerazaosocial]');
+	if (inputRazaoSocial) {
+		iconNomeRazaoSocial = inputRazaoSocial.parentNode.find('.o-form__icon');
+		if (iconNomeRazaoSocial)
+			initAnimateInput(iconNomeRazaoSocial);
+	}
 	
-	let iconNomeFantasia = $('[data-cnpj=nomefantasia]').parentNode.find('.o-form__icon');
-	if (iconNomeFantasia)
-		initAnimateInput(iconNomeFantasia);
+	let iconNomeFantasia;
+	let inputNomeFantasia = $('[data-cnpj=nomefantasia]');
+	if (inputNomeFantasia) {
+		iconNomeFantasia = inputNomeFantasia.parentNode.find('.o-form__icon');
+		if (iconNomeFantasia)
+			initAnimateInput(iconNomeFantasia);
+	}
 	
 	if (cnpj) {
 		const URL = `${WEBSERVICE}/document/cnpj/data/${cnpj}/json/simple/upper`;
 		HttpService.request(URL, 'GET').then(response => {
 			let json = JSON.parse(response);
 			fillFieldsCNPJ(json);
-			stopAnimateInput(iconNomeRazaoSocial);
-			stopAnimateInput(iconNomeFantasia);
+			if (iconNomeRazaoSocial)
+				stopAnimateInput(iconNomeRazaoSocial);
+			if (iconNomeFantasia)
+				stopAnimateInput(iconNomeFantasia);
 			fillFieldsCep(json.endereco);
 		}).catch(error => console.error(error));
 	}
