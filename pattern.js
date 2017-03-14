@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 		{name : 'espacoLetraPontoTracoBarraMin4', pattern : "^(([A-Z\\.\\-\\/])(\\s[A-Z\\.\\-\\/])*){4,}$", message : "O campo deve ser preenchido com letras MAIUSCULAS e aceita os seguintes caracteres especiais: (. - /) contendo no minimo 4 caracteres."},
 		{name : 'espacoLetraPontoTracoMin4', pattern : "^(([A-Z\\.\\-])(\\s[A-Z\\.\\-])*){4,}$", message : "O campo deve ser preenchido com letras MAIUSCULAS e aceita os seguintes caracteres especiais: (. -) contendo no minimo 4 caracteres."},
 		{name : 'estado', pattern : '^([AC|AL|AP|AM|BA|CE|DF|ES|GO|MA|MT|MS|MG|PA|PB|PR|PE|PI|RJ|RN|RS|RO|RR|SC|SP|SE|TO|EX]{2})$', message : 'O campo deve preenchido com a sigla de um estado brasileiro em MAIUSCULO ou com EX para informar exportacao.'},
-		{name : 'hora', pattern : '^(([\\d]{2})([\\:])([\\d]{2}))$', message : 'O campo deve preenchido com uma hora no formato ##:##.'},
+		{name : 'hora', pattern : '^(([\\d]{2})([:])([\\d]{2}))$', message : 'O campo deve preenchido com uma hora no formato ##:##.'},
 		{name : 'inscricao', pattern : "^(([\\d\\.\\-]+)|([I][S][E][N][T][O])|([N][A][O][\\s][C][O][N][T][R][I][B][U][I][N][T][E]))$", message : "O campo deve ser preenchido com uma inscricao valida, caso nao possua, informar ISENTO ou NAO CONTRIBUINTE."},
 		{name : 'letra', pattern : "^([A-Z]*)$", message : "O campo deve ser preenchido apenas letras MAIUSCULAS."},
 		{name : 'letraMin1Max1', pattern : "^([A-Z]{1})$", message : "O campo deve ser preenchido apenas com uma letra MAIUSCULA."},
