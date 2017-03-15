@@ -2,38 +2,38 @@
  *  Formatar inputs de acordo com suas máscaras, onde somente sera aceito a digitação da mesma
  */
 const maskCelular = [
-	[/([\d]{5})([\d])/, '$1-$2']
+	[/([\d]{5})([\d])/, "$1-$2"]
 ];
 const maskCep = [
-	[/([\d]{5})([\d])/, '$1-$2']
+	[/([\d]{5})([\d])/, "$1-$2"]
 ];
 const maskCnpj = [
-	[/([\d]{2})([\d])/, '$1.$2'],
-	[/([\d]{3})([\d])/, '$1.$2'],
-	[/([\d]{3})([\d])/, '$1/$2'],
-	[/([\d]{4})([\d])/, '$1-$2']
+	[/([\d]{2})([\d])/, "$1.$2"],
+	[/([\d]{3})([\d])/, "$1.$2"],
+	[/([\d]{3})([\d])/, "$1/$2"],
+	[/([\d]{4})([\d])/, "$1-$2"]
 ];
 const maskCpf = [
-	[/([\d]{3})([\d])/, '$1.$2'],
-	[/([\d]{3})([\d])/, '$1.$2'],
-	[/([\d]{3})([\d]{1,2})/, '$1-$2']
+	[/([\d]{3})([\d])/, "$1.$2"],
+	[/([\d]{3})([\d])/, "$1.$2"],
+	[/([\d]{3})([\d]{1,2})/, "$1-$2"]
 ];
 const maskCpfCnpj = [maskCpf, maskCnpj];
 const maskData = [
-	[/([\d]{2})([\d])/, '$1/$2'],
-	[/([\d]{2})([\d])/, '$1/$2']
+	[/([\d]{2})([\d])/, "$1/$2"],
+	[/([\d]{2})([\d])/, "$1/$2"]
 ];
 const maskDataHora = [
-	[/([\d]{2})([\d])/, '$1/$2'],
-	[/([\d]{2})([\d])/, '$1/$2'],
-	[/([\d]{4})([\d])/, '$1 $2'],
-	[/(\s[\d]{2})([\d])/, '$1:$2']
+	[/([\d]{2})([\d])/, "$1/$2"],
+	[/([\d]{2})([\d])/, "$1/$2"],
+	[/([\d]{4})([\d])/, "$1 $2"],
+	[/(\s[\d]{2})([\d])/, "$1:$2"]
 ];
 const maskHora = [
-	[/([\d]{2})([\d])/, '$1:$2']
+	[/([\d]{2})([\d])/, "$1:$2"]
 ];
 const maskTelefone = [
-	[/([\d]{4})([\d])/, '$1-$2']
+	[/([\d]{4})([\d])/, "$1-$2"]
 ];
 const maskTelefoneCelular = [maskTelefone, maskCelular];
 
@@ -57,7 +57,7 @@ function mask(mask, input, event) {
  *  Pega a mascara e formata o campo
  */
 function masking(input, mask) {
-	input.value = input.value.replace(/[\\.\-\\/]/g, '');
+	input.value = input.value.replace(/[\\.\-\\/]/g, "");
 	for (let i = 0; i < mask.length; i++) {
 		input.value = input.value.replace(mask[i][0], mask[i][1]);
 	}

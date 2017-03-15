@@ -1,10 +1,10 @@
 /** @auth Matheus Castiglioni
  *  Retirar auto complete dos formulários e inputs
  */
-document.addEventListener('DOMContentLoaded', function(event) {
+document.addEventListener("DOMContentLoaded", function(event) {
 	
-	const forms = $$('form');
+	const forms = $$("form");
 	if (forms.length > 0)
-		forms.forEach(form => form.setAttribute('autocomplete', 'off'));
+		forms.forEach(form => form.setAttribute("autocomplete", "off"));
 	
 });

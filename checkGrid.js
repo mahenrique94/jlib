@@ -8,9 +8,9 @@ var qtdChecks = 0;
  *  Função principal onde será chamada nos elementos HTML
  */
 function checkGrid(obj) {
-	if (obj.classList.contains('checkAll'))
+	if (obj.classList.contains("checkAll"))
 		checkAll(obj);
-	else if (obj.classList.contains('checkOnly'))
+	else if (obj.classList.contains("checkOnly"))
 		checkOnly(obj);
 	else
 		check(obj);
@@ -29,7 +29,7 @@ function check(obj) {
 function checkAll(obj) {
 	if (obj.checked) {
 		existeCheckado(obj);
-		obj.parentNode.parentNode.parentNode.parentNode.findAll('tbody > tr > td:first-child > input[type=checkbox]').forEach(input => {
+		obj.parentNode.parentNode.parentNode.parentNode.findAll("tbody > tr > td:first-child > input[type=checkbox]").forEach(input => {
 			input.checked = obj.checked; 
 			atualizarCheck(input);
 		});
@@ -64,7 +64,7 @@ function atualizaQtdChecks(obj) {
 		qtdChecks++;
 	else
 		qtdChecks--;
-	atualizaCaption(obj.parentNode.parentNode.parentNode.parentNode.find('caption'));
+	atualizaCaption(obj.parentNode.parentNode.parentNode.parentNode.find("caption"));
 }
 
 /** @auth Matheus Castiglioni
@@ -80,7 +80,7 @@ function atualizaCaption(caption) {
  *  irão ser desseleciondas
  */
 function existeCheckado(obj) {
-	obj.parentNode.parentNode.parentNode.parentNode.findAll('tbody > tr > td:first-child > input[type=checkbox]:checked:not([name="' + obj.name + '"])').forEach(input => {
+	obj.parentNode.parentNode.parentNode.parentNode.findAll(`tbody > tr > td:first-child > input[type=checkbox]:checked:not([name="${obj.name}"])`).forEach(input => {
 		input.checked = false; 
 		atualizarCheck(input);
 	});
@@ -91,7 +91,7 @@ function existeCheckado(obj) {
  *  @param obj = input[type=checkbox] 
  */
 function pintaLinha(obj) {
-	obj.parentNode.parentNode.classList.toggle('c-table__marked');
+	obj.parentNode.parentNode.classList.toggle("c-table__marked");
 	toggleDisableds(obj);
 }
 
@@ -100,7 +100,7 @@ function pintaLinha(obj) {
  *  @param obj = input[type=checkbox] 
  */
 function toggleDisableds(obj) {
-	let disableds = obj.parentNode.parentNode.findAll('button, fieldset, input:not([type=checkbox]), select');
+	let disableds = obj.parentNode.parentNode.findAll("button, fieldset, input:not([type=checkbox]), select");
 	if (disableds.length > 0)
 		disableds.forEach(disabled => disabled.disabled = !obj.checked);
 	atualizaQtdChecks(obj);

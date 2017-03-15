@@ -1,9 +1,9 @@
 /** @auth Matheus Castiglioni
  *  Desabilitar inputs para simular cadastros passo a passo na internet
  */
-const SELECTOR_ELEMENTS = '[class*=o-box] input, [class*=o-box] select, [class*=o-box] textarea, [class*=o-box] button:not(.o-box__edit), [class*=o-box] a, [class*=o-box] span';
+const SELECTOR_ELEMENTS = "[class*=o-box] input, [class*=o-box] select, [class*=o-box] textarea, [class*=o-box] button:not(.o-box__edit), [class*=o-box] a, [class*=o-box] span";
 
-document.addEventListener('DOMContentLoaded', function(event) {
+document.addEventListener("DOMContentLoaded", function(event) {
 	
 	disableElements();
 	
@@ -34,10 +34,10 @@ function editBox(box) {
  *  Habilitando os elementos do formulario
  */
 function activeElement(element) {
-	element.classList.remove('is-disabled');
+	element.classList.remove("is-disabled");
 	if (element.dataset.readonly == undefined) {
-		element.removeAttribute('readonly');
-		element.removeAttribute('aria-readonly');
+		element.removeAttribute("readonly");
+		element.removeAttribute("aria-readonly");
 	}
 }
 
@@ -45,16 +45,16 @@ function activeElement(element) {
  *  Desabilitando os elementos do formulario 
  */
 function disableElement(element) {
-	element.classList.add('o-box__element', 'is-disabled');
-	element.setAttribute('readonly', 'true');
-	element.setAttribute('aria-readonly', 'true');
+	element.classList.add("o-box__element", "is-disabled");
+	element.setAttribute("readonly", "true");
+	element.setAttribute("aria-readonly", "true");
 }
 
 /** @auth Matheus Castiglioni
  *  Mostrando botão salvar
  */
 function showSave(box) {
-	const buttonSave = box.find('.js-save');
+	const buttonSave = box.find(".js-save");
 	if (buttonSave)
 		showElement(buttonSave);
 }
@@ -64,7 +64,7 @@ function showSave(box) {
  */
 function hideSave(box) {
 	if (box) {
-		const buttonSave = box.find('.js-save');
+		const buttonSave = box.find(".js-save");
 		if (buttonSave)
 			hideElement(buttonSave);
 	}

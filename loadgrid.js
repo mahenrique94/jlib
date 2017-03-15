@@ -1,12 +1,12 @@
 /** @auth Matheus Castiglioni
  *  Carregar tabelas via ajax sem recarregar as páginas
  */
-document.addEventListener('DOMContentLoaded', function(event) {
+document.addEventListener("DOMContentLoaded", function(event) {
 	
 	/** @auth Matheus Castiglioni
 	 *  Buscando todas as divs que tenham a classe js-loadgrid e alimentando-as com o laodgrid 
 	 */
-	let loadGrids = $$('.js-loadgrid');
+	let loadGrids = $$(".js-loadgrid");
 	if (loadGrids.length > 0) {
 		loadGrids.forEach(loadGrid => {
 			LoadGrid.load(loadGrid.dataset.load).then(response => {
@@ -24,8 +24,8 @@ class LoadGrid {
 	
 	static load(url) {
 		return new Promise((resolve, reject) => {
-			HttpService.request(url, 'GET').then(response => {
-				resolve(new DOMParser().parseFromString(response, 'text/html').find('table'));
+			HttpService.request(url, "GET").then(response => {
+				resolve(new DOMParser().parseFromString(response, "text/html").find("table"));
 			}).catch(error => reject(error));
 		});
 	}

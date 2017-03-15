@@ -1,7 +1,7 @@
 /** @auth Matheus Castiglioni
  *  Serviços para realizar requisições ajax
  */
-document.addEventListener('DOMContentLoaded', function(event) {
+document.addEventListener("DOMContentLoaded", function(event) {
 	
 	checkAddresWithCep();
 	
@@ -17,10 +17,10 @@ function checkDocument(document, input) {
 	} else if (input.value.length === 18) {
 		validatingDocument(input, document);
 	} else {
-		let feedback = input.parentNode.parentNode.find('.o-form__feedback');
+		let feedback = input.parentNode.parentNode.find(".o-form__feedback");
 		if (feedback) {
-			feedback.classList.remove('is-show');
-			feedback.classList.add('is-hide');
+			feedback.classList.remove("is-show");
+			feedback.classList.add("is-hide");
 		}
 	}
 }
@@ -29,22 +29,22 @@ function checkDocument(document, input) {
  *  Função responsável por validar um CNPJ ou CPF
  */
 function validatingDocument(input, document) {
-	icon = input.parentNode.find('.o-form__icon');
+	icon = input.parentNode.find(".o-form__icon");
 	if (icon)
 		initAnimateInput(icon);
-	const DOCUMENT = input.value.replace(/[\/\.\-]/g, '');
+	const DOCUMENT = input.value.replace(/[\/\.\-]/g, "");
 	const URL = `${WEBSERVICE}/document/${document.toLowerCase()}/information/${DOCUMENT}/json`; 
-	HttpService.request(URL, 'GET').then(response => {
+	HttpService.request(URL, "GET").then(response => {
 		let json = JSON.parse(response);
 		if (json.valido) {
-			setFeedback(document, input.parentNode, 'valid');
-			if (document.equals('CNPJ'))
+			setFeedback(document, input.parentNode, "valid");
+			if (document.equals("CNPJ"))
 				findData(json.desformatado);
 			stopAnimateInput(icon);
 		} else {
-			setFeedback(document, input.parentNode, 'invalid');
-			if (document.equals('CNPJ'))
-				fillFieldsCNPJ('');
+			setFeedback(document, input.parentNode, "invalid");
+			if (document.equals("CNPJ"))
+				fillFieldsCNPJ("");
 			stopAnimateInput(icon);
 		}
 	}).catch(error => {
@@ -58,24 +58,24 @@ function validatingDocument(input, document) {
  */
 function findData(cnpj) {
 	let iconNomeRazaoSocial;
-	let inputRazaoSocial = $('[data-cnpj=nomerazaosocial]');
+	let inputRazaoSocial = $("[data-cnpj=nomerazaosocial]");
 	if (inputRazaoSocial) {
-		iconNomeRazaoSocial = inputRazaoSocial.parentNode.find('.o-form__icon');
+		iconNomeRazaoSocial = inputRazaoSocial.parentNode.find(".o-form__icon");
 		if (iconNomeRazaoSocial)
 			initAnimateInput(iconNomeRazaoSocial);
 	}
 	
 	let iconNomeFantasia;
-	let inputNomeFantasia = $('[data-cnpj=nomefantasia]');
+	let inputNomeFantasia = $("[data-cnpj=nomefantasia]");
 	if (inputNomeFantasia) {
-		iconNomeFantasia = inputNomeFantasia.parentNode.find('.o-form__icon');
+		iconNomeFantasia = inputNomeFantasia.parentNode.find(".o-form__icon");
 		if (iconNomeFantasia)
 			initAnimateInput(iconNomeFantasia);
 	}
 	
 	if (cnpj) {
 		const URL = `${WEBSERVICE}/document/cnpj/data/${cnpj}/json/simple/upper`;
-		HttpService.request(URL, 'GET').then(response => {
+		HttpService.request(URL, "GET").then(response => {
 			let json = JSON.parse(response);
 			fillFieldsCNPJ(json);
 			if (iconNomeRazaoSocial)
@@ -91,8 +91,8 @@ function findData(cnpj) {
  *  Função responsável por pegar as informações de um CNPJ e preencher os campos na tela 
  */
 function fillFieldsCNPJ(json) {
-	$('[data-cnpj=nomerazaosocial]').value = json.razaosocial.replace(/([\s]{2})/gi, ' ').trim();
-	let nomeFantasia = $('[data-cnpj=nomefantasia]');
+	$("[data-cnpj=nomerazaosocial]").value = json.razaosocial.replace(/([\s]{2})/gi, " ").trim();
+	let nomeFantasia = $("[data-cnpj=nomefantasia]");
 	if (nomeFantasia)
 		nomeFantasia.value = json.nomefantasia;
 }
@@ -102,10 +102,10 @@ function fillFieldsCNPJ(json) {
  *  Função responsável por buscar o endereço de um determinado CEP 
  */
 function findCep(button) {
-	let icon = button.querySelector('i');
-	let input = button.parentNode.parentNode.find('.o-form__data');
+	let icon = button.querySelector("i");
+	let input = button.parentNode.parentNode.find(".o-form__data");
 	if (input.value.length === 9) {
-		const CEP = input.value.replace('-', '');
+		const CEP = input.value.replace("-", "");
 		requestCep(CEP, icon, button);
 	} else {
 		input.focus();
@@ -119,16 +119,16 @@ function requestCep(cep, icon, button) {
 	const URL = `${WEBSERVICE}/cep/find/${cep}/json/simple/upper`;
 	if (icon)
 		initAnimateButton(icon);
-	HttpService.request(URL, 'GET').then(response => {
+	HttpService.request(URL, "GET").then(response => {
 		let json = JSON.parse(response);
 		fillFieldsCep(json);
-		$('[data-cep=numero]').focus();
+		$("[data-cep=numero]").focus();
 		if (icon)
 			stopAnimateButton(icon);
 	}).catch(error => {
 		console.error(error);
 		if (button)
-			setFeedback('CEP', button.parentNode.parentNode, 'invalid');
+			setFeedback("CEP", button.parentNode.parentNode, "invalid");
 		enabledFieldsCep();
 		stopAnimateButton(icon);
 	});
@@ -138,12 +138,12 @@ function requestCep(cep, icon, button) {
  *  Função responsável por pegar as informações de um CEP e preencher os campos na tela 
  */
 function fillFieldsCep(json) {
-	$('[data-cep=cep]').value = json.cep;
-	$('[data-cep=logradouro]').value = json.logradouro;
-	$('[data-cep=bairro]').value = json.bairro;
-	$('[data-cep=complemento]').value = json.complemento;
-	$('[data-cep=estado]').innerHTML = `<option value="${json.estado}">${json.estado}</option>`;
-	$('[data-cep=cidade]').innerHTML = `<option value="${json.cidade}">${json.cidade}</option>`;
+	$("[data-cep=cep]").value = json.cep;
+	$("[data-cep=logradouro]").value = json.logradouro;
+	$("[data-cep=bairro]").value = json.bairro;
+	$("[data-cep=complemento]").value = json.complemento;
+	$("[data-cep=estado]").innerHTML = `<option value="${json.estado}">${json.estado}</option>`;
+	$("[data-cep=cidade]").innerHTML = `<option value="${json.cidade}">${json.cidade}</option>`;
 	disabledFiledsCep();
 }
 
@@ -151,25 +151,25 @@ function fillFieldsCep(json) {
  *  Travar os campos referente as informações do CEP para digitação 
  */
 function disabledFiledsCep() {
-	$('[data-cep=logradouro]').setAttribute('readonly', 'true');
-	$('[data-cep=bairro]').setAttribute('readonly', 'true');
-	$('[data-cep=estado]').setAttribute('readonly', 'true');
-	$('[data-cep=cidade]').setAttribute('readonly', 'true');
+	$("[data-cep=logradouro]").setAttribute("readonly", "true");
+	$("[data-cep=bairro]").setAttribute("readonly", "true");
+	$("[data-cep=estado]").setAttribute("readonly", "true");
+	$("[data-cep=cidade]").setAttribute("readonly", "true");
 }
 
 /** @auth Matheus Castiglioni
  *  Liberar os campos referente as informações do CEP para digitação 
  */
 function enabledFieldsCep() {
-	$('[data-cep=logradouro]').removeAttribute('readonly');
-	$('[data-cep=bairro]').removeAttribute('readonly');
-	$('[data-cep=estado]').removeAttribute('readonly');
-	$('[data-cep=cidade]').removeAttribute('readonly');
+	$("[data-cep=logradouro]").removeAttribute("readonly");
+	$("[data-cep=bairro]").removeAttribute("readonly");
+	$("[data-cep=estado]").removeAttribute("readonly");
+	$("[data-cep=cidade]").removeAttribute("readonly");
 }
 
 function checkAddresWithCep() {
-	const cep = $('[data-cep]');
-	if (cep && cep.value.length == 9 && !cep.value.endsWith('000'))
+	const cep = $("[data-cep]");
+	if (cep && cep.value.length == 9 && !cep.value.endsWith("000"))
 		disabledFiledsCep();
 }
 
@@ -177,52 +177,52 @@ function checkAddresWithCep() {
  *  Função responsável por iniciar a animação de loading do icone em um input 
  */
 function initAnimateInput(icon) {
-	icon.classList.remove('is-hide');
-	icon.classList.add('is-show', 'animate-spin');
+	icon.classList.remove("is-hide");
+	icon.classList.add("is-show", "animate-spin");
 }
 
 /** @auth Matheus Castiglioni
  *  Função responsável por parar a animação de loading do icone em um input 
  */
 function stopAnimateInput(icon) {
-	icon.classList.remove('is-show', 'animate-spin');
-	icon.classList.add('is-hide');
+	icon.classList.remove("is-show", "animate-spin");
+	icon.classList.add("is-hide");
 }
 
 /** @auth Matheus Castiglioni
  *  Função responsável por iniciar a animação de loading do icone do botão 
  */
 function initAnimateButton(icon) {
-	icon.classList.remove('icon-globe');
-	icon.classList.add('icon-spin3', 'animate-spin');
+	icon.classList.remove("icon-globe");
+	icon.classList.add("icon-spin3", "animate-spin");
 }
 
 /** @auth Matheus Castiglioni
  *  Função responsável por parar a animação de loading do icone do botão 
  */
 function stopAnimateButton(icon) {
-	icon.classList.remove('icon-spin3', 'animate-spin');
-	icon.classList.add('icon-globe');
+	icon.classList.remove("icon-spin3", "animate-spin");
+	icon.classList.add("icon-globe");
 }
 
 /** @auth Matheus Castiglioni
  *  Função responsável por informar para o usuário no HTML se o CNPJ é válido ou inválido
  */
 function setFeedback(object, element, type) {
-	let feedback = element.parentNode.find('.o-form__feedback');
+	let feedback = element.parentNode.find(".o-form__feedback");
 	if (feedback) {
-		if (type.equals('valid')) {
+		if (type.equals("valid")) {
 			let message = `${object} valido`;
-			feedback.setAttribute('aria-label', message)
+			feedback.setAttribute("aria-label", message)
 			feedback.textContent = message;
-			feedback.classList.add('is-valid', 'is-show');
-			feedback.classList.remove('is-invalid', 'is-hide');
+			feedback.classList.add("is-valid", "is-show");
+			feedback.classList.remove("is-invalid", "is-hide");
 		} else {
 			let message = `${object} invalido`;
-			feedback.setAttribute('aria-label', message)
+			feedback.setAttribute("aria-label", message)
 			feedback.textContent = message;
-			feedback.classList.add('is-invalid', 'is-show');
-			feedback.classList.remove('is-valid', 'is-hide');
+			feedback.classList.add("is-invalid", "is-show");
+			feedback.classList.remove("is-valid", "is-hide");
 		}
 	}
 }
