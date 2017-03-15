@@ -176,18 +176,6 @@ function requestDelete(obj) {
 	}
 };	
 
-/** @auth Mahteus Castiglioni
- *  Função para fechar os modais após alguma execução de script
- */
-function closeModal() {
-	let modal = parent.document.find(".js-o-modal");
-	let background = parent.document.find(".js-o-modal__background");
-	if (modal && background) {
-		modal.remove()
-		background.remove();
-	}
-}
-
 /** @auth Matheus Castiglioni
  *  Cria um toast para quando a exclusão via ajax é realizada com sucesso 
  */
@@ -220,7 +208,7 @@ function request(obj, event) {
 }
 
 /** @auth Matheus Castiglioni
- *  Realizar uma requisição Pvia AJAX para o servidor e se tudo der certo fechar o modal, caso o formulário
+ *  Realizar uma requisição via AJAX para o servidor e se tudo der certo fechar o modal, caso o formulário
  *  possua um loadgrid na tela PAI o mesmo é carregado sem fazer reload na página toda. 
  */
 function requestModal(obj, event) {
@@ -230,12 +218,24 @@ function requestModal(obj, event) {
 			LoadGrid.load(loadGrid.dataset.load).then(response => {
 				loadGrid.innerHTML = "";
 				loadGrid.append(response);
+				closeModal();
 			}).catch(error => console.error(error));
 		} else {
 			parent.document.location = parent.document.location;
 		}
-		closeModal();
 	}).catch(error => console.error(error));
+}
+
+/** @auth Mahteus Castiglioni
+ *  Função para fechar os modais após alguma execução de script
+ */
+function closeModal() {
+	let modal = parent.document.find(".js-o-modal");
+	let background = parent.document.find(".js-o-modal__background");
+	if (modal && background) {
+		modal.remove()
+		background.remove();
+	}
 }
 
 /** @auth Matheus Castiglioni
