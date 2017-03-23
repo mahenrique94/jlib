@@ -59,6 +59,14 @@ function showElement(element) {
 }
 
 /** @auth Matheus Castiglioni
+ *  Mostrar/Esconder elemento
+ */
+function showHideElement(element) {
+	element.classList.toggle("is-hide");
+	element.classList.toggle("is-show");
+}
+
+/** @auth Matheus Castiglioni
  *  Esconder elemento
  */
 function hideElement(element) {

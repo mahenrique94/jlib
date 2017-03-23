@@ -5,6 +5,21 @@
 var qtdChecks = 0;
 
 /** @auth Matheus Castiglioni
+ *  Verificando se cabeçalho da tabela possui recurso para checkar todos
+ */
+document.addEventListener("DOMContentLoaded", function(event) {
+	
+	const thCheckAll = $$("th.checkGrid");
+	if (thCheckAll.length > 0) {
+		thCheckAll.forEach(th => {
+			th.innerHTML = "<input class=\"checkAll\" onclick=\"checkGrid(this);\" type=\"checkbox\">";
+		});
+	}
+	
+});
+
+
+/** @auth Matheus Castiglioni
  *  Função principal onde será chamada nos elementos HTML
  */
 function checkGrid(obj) {
