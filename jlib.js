@@ -168,20 +168,18 @@ function insertDate(button) {
 function requestDelete(obj) {
 	const URL = obj.href || obj.formAction;
 	const ID = URL.substring(URL.lastIndexOf("=") + 1);
-	if (confirm("Deseja confirmar a exlusao ?")) {
-		HttpService.request(URL, "DELETE").then(response => {
-			if (obj.parentNode.classList.contains("has-Father")) {
-				let children = obj.parentNode.parentNode.parentNode.findAll(`.js-Father${ID}`);
-				if (children.length > 0)
-					children.forEach(child => child.parentNode.remove());
-			}
-			obj.parentNode.parentNode.remove();
-			append(toastDelete("o-toast--success", "Registro excluido com sucesso", "icon-ok-circled"));
-		}).catch(error => {
-			append(toastDelete("o-toast--error", "Registro nao pode ser excluido", "icon-cancel-circled"));
-			console.error(error);
-		});
-	}
+	HttpService.request(URL, "DELETE").then(response => {
+		if (obj.parentNode.classList.contains("has-Father")) {
+			let children = obj.parentNode.parentNode.parentNode.findAll(`.js-Father${ID}`);
+			if (children.length > 0)
+				children.forEach(child => child.parentNode.remove());
+		}
+		obj.parentNode.parentNode.remove();
+		append(toastDelete("o-toast--success", "Registro excluido com sucesso", "icon-ok-circled"));
+	}).catch(error => {
+		append(toastDelete("o-toast--error", "Registro nao pode ser excluido", "icon-cancel-circled"));
+		console.error(error);
+	});
 };	
 
 /** @auth Matheus Castiglioni
