@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     const selectsChange = $$("select[data-change]");
     selectsChange.forEach(select => {
     	select.addEventListener("change", function() {
-    		let change = $(`select[data-select=${select.dataset.change}]`);
+    		const change = $(`select[data-select=${select.dataset.change}]`);
     		if (change) {
     			requestData(change).then(function() {
     				setOptipnSelected(change);
@@ -141,9 +141,9 @@ function getUrl(select) {
 			break;
 	}
 	if (select.dataset.parametersFields && select.dataset.parametersValues) {
-		let regExp = /[\[\]\"\s]/g;
-		let fields = select.dataset.parametersFields.replace(regExp, "").split(",");
-		let values = select.dataset.parametersValues.replace(regExp, "").split(",");
+		const regExp = /[\[\]\"\s]/g;
+		const fields = select.dataset.parametersFields.replace(regExp, "").split(",");
+		const values = select.dataset.parametersValues.replace(regExp, "").split(",");
 		if (fields.length === values.length) {
 			for (let i = 0; i < fields.length; i++) {
 				parameters += `parametrosWeb[${i}].campo=${fields[i]}&parametrosWeb[${i}].parametroInicial=${getValueParameter(values[i])}&`;
@@ -169,7 +169,7 @@ function getValueParameter(value) {
  */
 function fillSelect(select, list, text, value) {
 	if (select.required) {
-		let optionRequired = new Option("", "");
+		const optionRequired = new Option("", "");
 		optionRequired.style.display = "none";
 		select.appendChild(optionRequired);
 	}
@@ -215,7 +215,7 @@ function getPrimitiveValue(item, propertys) {
  *  Setando uma determinada opção como selecionado após abrir uma tela para edição 
  */
 function setOptipnSelected(select) {
-    let aux = $(`input[name="${select.name}aux"][type=hidden]`);
+    const aux = $(`input[name="${select.name}aux"][type=hidden]`);
     if (aux && !aux.value.equals("")) {
     	select.value = aux.value;
     	invokeChange(select);

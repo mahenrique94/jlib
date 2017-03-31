@@ -3,11 +3,11 @@
  */
 document.addEventListener("DOMContentLoaded", function(event) {
 	
-	let validates = $$("[data-validate]");
+	const validates = $$("[data-validate]");
 	if (validates.length > 0) {
 		validates.forEach(validate => {
-			let scope = $(`.${validate.dataset.validateScope}`);
-			let elements = scope.findAll("input, select, textarea");
+			const scope = $(`.${validate.dataset.validateScope}`);
+			const elements = scope.findAll("input, select, textarea");
 			if (elements.length > 0) {
 				elements.forEach(element => {
 					element.addEventListener("keyup", function() {
@@ -30,11 +30,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
  *  Validando se o escopo possui algum input inválido, caso não possua o botão é liberado para ser clicado
  */
 function validating(validate, scope) {
-	let invalids = scope.findAll(":invalid");
+	const invalids = scope.findAll(":invalid");
 	if (invalids.length > 0) {
 		validate.setAttribute("disabled", "true");
 	} else {
-		let requireds = scope.findAll(":required");
+		const requireds = scope.findAll(":required");
 		if (requireds.length > 0) {
 			requireds.forEach(required => {
 				validate.removeAttribute("disabled");

@@ -7,7 +7,7 @@ function criaFileInfo(file) {
 }
 
 function criaCheck() {
-	let icon = document.createElement("I");
+	const icon = document.createElement("i");
 	icon.classList.add("l-color--ren", "icon-ok-circled");
 	return icon;
 }
@@ -26,7 +26,7 @@ function fileSelect(event) {
 	event.stopPropagation();
 	event.preventDefault();
 	
-	let dragInfo = $(".js-drag__info");	
+	const dragInfo = $(".js-drag__info");	
 	let reader = null;
 	
 	// Caso for um INPUT é porque a importação esta sendo feita via click e não drop
@@ -63,10 +63,10 @@ function fileSelect(event) {
 		}
 		
 		reader.onload = function(event) {
-			let tr = $(`tr.js-${event.target.fileName.replace("(", "").replace(")","").replace(/\s/g, "-").replace(".", "-").toLowerCase()}`);
-			let progress = tr.find(".js-drag__progress");
-			let label = tr.find(".js-drag__progress span");
-			let percent = tr.find(".js-drag__progress--percent");
+			const tr = $(`tr.js-${event.target.fileName.replace("(", "").replace(")","").replace(/\s/g, "-").replace(".", "-").toLowerCase()}`);
+			const progress = tr.find(".js-drag__progress");
+			const label = tr.find(".js-drag__progress span");
+			const percent = tr.find(".js-drag__progress--percent");
 			percent.style.width = "100%";
 			label.textContent = "100%";
 			progress.parentNode.appendChild(criaCheck());
@@ -74,8 +74,8 @@ function fileSelect(event) {
 		
 		reader.onloadstart = function(event) {
 			if (dragInfo != undefined) {
-				let tbody = dragInfo.find("tbody");
-				let html = tbody.innerHTML;
+				const tbody = dragInfo.find("tbody");
+				const html = tbody.innerHTML;
 				html += criaFileInfo(event.target.file);
 				tbody.innerHTML = html;
 				dragInfo.style.display = "table";
@@ -83,9 +83,9 @@ function fileSelect(event) {
 		}
 		
 		reader.onprogress = function(event) {
-			let tr = $(`tr.js-${event.target.fileName.replace("(", "").replace(")","").replace(/\s/g, "-").replace(".", "-").toLowerCase()}`);
-			let label = tr.find(".js-drag__progress span");
-			let percent = tr.find(".js-drag__progress--percent");
+			const tr = $(`tr.js-${event.target.fileName.replace("(", "").replace(")","").replace(/\s/g, "-").replace(".", "-").toLowerCase()}`);
+			const label = tr.find(".js-drag__progress span");
+			const percent = tr.find(".js-drag__progress--percent");
 			if (event.lengthComputable) {
 				let percentFile = Math.round((event.loaded / event.total) * 100);
 				if (percentFile < 100) {

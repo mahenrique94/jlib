@@ -11,9 +11,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
  *  Adicionar parâmetros dinamicamente nas telas de pesquisa
  */
 function parametrosWebDynamic() {
-	let row = $("[class*=o-navbar] .l-row:last-child");
+	const row = $("[class*=o-navbar] .l-row:last-child");
 	if (row != undefined) {
-		let lastCol = row.find("[class*=u-grid]:last-child");
+		const lastCol = row.find("[class*=u-grid]:last-child");
 		row.classList.add("o-dynamic");
 		row.style.position = "relative";
 		lastCol.style.marginRight = 0;
@@ -25,7 +25,7 @@ function parametrosWebDynamic() {
  *  Função responsável por criar um botão onde será para adicionar novos parâmetros ou remove-los
  */
 function createDynamicButton() {
-	let button = document.createElement("BUTTON");
+	const button = document.createElement("button");
 	button.setAttribute("type", "button");
 	button.setAttribute("role", "button");
 	return button;
@@ -35,7 +35,7 @@ function createDynamicButton() {
  *  Função responsável por criar um botão para adicionar parâmetros
  */
 function createDynamicButtonPlus() {
-	let button = createDynamicButton();
+	const button = createDynamicButton();
 	button.classList.add("o-dynamic__button--clone");
 	button.setAttribute("onclick", "cloneRow(this);");
 	button.appendChild(createDynamicIcon("plus"));
@@ -46,7 +46,7 @@ function createDynamicButtonPlus() {
  *  Função responsável por criar um botão para remover parâmetros
  */
 function createDynamicButtonMinus() {
-	let button = createDynamicButton();
+	const button = createDynamicButton();
 	button.setAttribute("onclick", "deleteRow(this);");
 	button.classList.add("o-dynamic__button--delete");
 	button.appendChild(createDynamicIcon("minus"));
@@ -57,7 +57,7 @@ function createDynamicButtonMinus() {
  *  Função responsável por criar o ícone do botão, seja ele + ou -
  */
 function createDynamicIcon(clazz) {
-	let icon = document.createElement("I");
+	const icon = document.createElement("I");
 	icon.classList.add(`icon-${clazz}`);
 	return icon;
 }
@@ -66,8 +66,8 @@ function createDynamicIcon(clazz) {
  *  Função responsável por incrementar o índice do @ParametrosWeb
  */
 function regexName(obj) {
-	let regex = new RegExp("[\\d]", "g");
-	let indice = regex.exec(obj.name);
+	const regex = new RegExp("[\\d]", "g");
+	const indice = regex.exec(obj.name);
 	obj.name = obj.name.replace(regex, parseInt(indice[0]) + 1);
 }
 
@@ -75,10 +75,10 @@ function regexName(obj) {
  *  Função responsável por clonar a linha com SELECT e INPUT para informar novos parâmetros
  */
 function cloneRow(obj) {
-	let band = obj.parentNode.parentNode;
-	let row = obj.parentNode;
-	let rowCloned = row.cloneNode(true);
-	let elementsCloned = rowCloned.findAll("input, select");
+	const band = obj.parentNode.parentNode;
+	const row = obj.parentNode;
+	const rowCloned = row.cloneNode(true);
+	const elementsCloned = rowCloned.findAll("input, select");
 	elementsCloned.forEach(element => {
 		if (element.nodeName.equals("INPUT")) {
 			elementsToUpperCase([element]);

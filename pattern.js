@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
  *  Setando o pattern para cada input de acordo com o seu nome 
  */
 function setPattern(pattern) {
-	let elements = $$(`[pattern=${pattern.name}]`);
+	const elements = $$(`[pattern=${pattern.name}]`);
 	if (elements.length > 0) {
 		elements.forEach(element => {
 			element.setAttribute("pattern", pattern.pattern);
@@ -107,7 +107,7 @@ const hasTooltip = element => element.parentNode.classList.contains("o-form__too
  *  Setando a mensagem para ser informado no tooltip 
  */
 function setMessageTooltip(pattern, input) {
-	let tooltip = input.parentNode.find("[class*=o-tooltip]");
+	const tooltip = input.parentNode.find("[class*=o-tooltip]");
 	tooltip.innerHTML = `${pattern.message}<br/>${buildMessageFromInput(input)}`;
 }
 

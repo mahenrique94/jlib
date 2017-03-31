@@ -35,7 +35,7 @@ function validatingDocument(input, document) {
 	const DOCUMENT = input.value.replace(/[\/\.\-]/g, "");
 	const URL = `${WEBSERVICE}/document/${document.toLowerCase()}/information/${DOCUMENT}/json`; 
 	HttpService.request(URL, "GET").then(response => {
-		let json = JSON.parse(response);
+		const json = JSON.parse(response);
 		if (json.valido) {
 			setFeedback(document, input.parentNode, "valid");
 			if (document.equals("CNPJ"))
@@ -58,7 +58,7 @@ function validatingDocument(input, document) {
  */
 function findData(cnpj) {
 	let iconNomeRazaoSocial;
-	let inputRazaoSocial = $("[data-cnpj=nomerazaosocial]");
+	const inputRazaoSocial = $("[data-cnpj=nomerazaosocial]");
 	if (inputRazaoSocial) {
 		iconNomeRazaoSocial = inputRazaoSocial.parentNode.find(".o-form__icon");
 		if (iconNomeRazaoSocial)
@@ -66,7 +66,7 @@ function findData(cnpj) {
 	}
 	
 	let iconNomeFantasia;
-	let inputNomeFantasia = $("[data-cnpj=nomefantasia]");
+	const inputNomeFantasia = $("[data-cnpj=nomefantasia]");
 	if (inputNomeFantasia) {
 		iconNomeFantasia = inputNomeFantasia.parentNode.find(".o-form__icon");
 		if (iconNomeFantasia)
@@ -76,7 +76,7 @@ function findData(cnpj) {
 	if (cnpj) {
 		const URL = `${WEBSERVICE}/document/cnpj/data/${cnpj}/json/simple/upper`;
 		HttpService.request(URL, "GET").then(response => {
-			let json = JSON.parse(response);
+			const json = JSON.parse(response);
 			fillFieldsCNPJ(json);
 			if (iconNomeRazaoSocial)
 				stopAnimateInput(iconNomeRazaoSocial);
@@ -92,7 +92,7 @@ function findData(cnpj) {
  */
 function fillFieldsCNPJ(json) {
 	$("[data-cnpj=nomerazaosocial]").value = json.razaosocial.replace(/([\s]{2})/gi, " ").trim();
-	let nomeFantasia = $("[data-cnpj=nomefantasia]");
+	const nomeFantasia = $("[data-cnpj=nomefantasia]");
 	if (nomeFantasia)
 		nomeFantasia.value = json.nomefantasia;
 }
@@ -102,8 +102,8 @@ function fillFieldsCNPJ(json) {
  *  Função responsável por buscar o endereço de um determinado CEP 
  */
 function findCep(button) {
-	let icon = button.querySelector("i");
-	let input = button.parentNode.parentNode.find(".o-form__data");
+	const icon = button.querySelector("i");
+	const input = button.parentNode.parentNode.find(".o-form__data");
 	if (input.value.length === 9) {
 		const CEP = input.value.replace("-", "");
 		requestCep(CEP, icon, button);
@@ -120,7 +120,7 @@ function requestCep(cep, icon, button) {
 	if (icon)
 		initAnimateButton(icon);
 	HttpService.request(URL, "GET").then(response => {
-		let json = JSON.parse(response);
+		const json = JSON.parse(response);
 		fillFieldsCep(json);
 		$("[data-cep=numero]").focus();
 		if (icon)
@@ -209,7 +209,7 @@ function stopAnimateButton(icon) {
  *  Função responsável por informar para o usuário no HTML se o CNPJ é válido ou inválido
  */
 function setFeedback(object, element, type) {
-	let feedback = element.parentNode.find(".o-form__feedback");
+	const feedback = element.parentNode.find(".o-form__feedback");
 	if (feedback) {
 		if (type.equals("valid")) {
 			let message = `${object} valido`;

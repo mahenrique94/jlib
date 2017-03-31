@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	/** @auth Matheus Castiglioni
 	 *  Buscando todas as divs que tenham a classe js-loadgrid e alimentando-as com o laodgrid 
 	 */
-	let loadGrids = $$(".js-loadgrid");
+	const loadGrids = $$(".js-loadgrid");
 	if (loadGrids.length > 0) {
 		loadGrids.forEach(loadGrid => {
 			LoadGrid.load(loadGrid.dataset.load).then(response => {

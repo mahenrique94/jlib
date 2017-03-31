@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	 *  Remover qualquer elemento que tenha a classe js-timeOut após 2 segundos
 	 */
 	setTimeout(function() {
-		let timeout = $(".js-timeOut");
+		const timeout = $(".js-timeOut");
 		if (timeout != undefined)
 			timeout.remove();
 	}, 2000);
@@ -90,14 +90,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	 *  Ao realizar double click em uma table irá procurar se possui algum input ou textarea que esta precisando
 	 *  receber algum informação referente a linha clicada, caso existe o valor é jogado para eles e o modal é fechado
 	 */
-	let trs = $$("table.js-slTable > tbody > tr");
+	const trs = $$("table.js-slTable > tbody > tr");
 	if (trs.length > 0) {
 		trs.forEach(tr => {
 			tr.addEventListener("dblclick", function(e) {
-				let search = $("[data-search]");
-				let select = e.target.parentNode.find("[data-select]");
+				const search = $("[data-search]");
+				const select = e.target.parentNode.find("[data-select]");
 				select.options.forEach(option => {
-					let element = !search.value.equals("") ? parent.document.find(`[data-target*="${option.dataset.provide}"][data-search="${search.value}"]`) : parent.document.find(`[data-target*="${option.dataset.provide}"]`);
+					const element = !search.value.equals("") ? parent.document.find(`[data-target*="${option.dataset.provide}"][data-search="${search.value}"]`) : parent.document.find(`[data-target*="${option.dataset.provide}"]`);
 					if (element) {
 						element.value = option.value;
 						invokeChange(element);
@@ -137,9 +137,9 @@ function checkValidateDependency(element) {
  *  Função para gerar um código de acordo a data atual e informar no input
  */
 function createCode(button) {
-	let input = button.parentNode.parentNode.find("input");
-	var data = new Date();
-	var code = `${data.getDate()}${(data.getMonth() + 1)}${data.getFullYear().toString().substring(2)}${data.getHours()}${data.getMinutes()}${data.getSeconds()}${data.getMilliseconds()}`;
+	const input = button.parentNode.parentNode.find("input");
+	const data = new Date();
+	const code = `${data.getDate()}${(data.getMonth() + 1)}${data.getFullYear().toString().substring(2)}${data.getHours()}${data.getMinutes()}${data.getSeconds()}${data.getMilliseconds()}`;
 	if (input)
 		input.value = code;
 }
@@ -148,8 +148,8 @@ function createCode(button) {
  *  Função para pegar a data atual e informar no input
  */
 function insertDate(button) {
-	let input = button.parentNode.parentNode.find("input");
-	let agora = new Date();
+	const input = button.parentNode.parentNode.find("input");
+	const agora = new Date();
 	let dia = agora.getDate();
 	let mes = agora.getMonth() + 1;
 	let hora = agora.getHours();
@@ -170,7 +170,7 @@ function requestDelete(obj) {
 	const ID = URL.substring(URL.lastIndexOf("=") + 1);
 	HttpService.request(URL, "DELETE").then(response => {
 		if (obj.parentNode.classList.contains("has-Father")) {
-			let children = obj.parentNode.parentNode.parentNode.findAll(`.js-Father${ID}`);
+			const children = obj.parentNode.parentNode.parentNode.findAll(`.js-Father${ID}`);
 			if (children.length > 0)
 				children.forEach(child => child.parentNode.remove());
 		}
@@ -186,7 +186,7 @@ function requestDelete(obj) {
  *  Cria um toast para quando a exclusão via ajax é realizada com sucesso 
  */
 function toastDelete(type, message, icon) {
-	let toast = document.createElement("DIV")
+	const toast = document.createElement("DIV")
 	toast.setAttribute("role", "alert");
 	toast.classList.add(type, "has-icon", "is-fixedTop", "js-timeOut");
 	toast.innerHTML = `<p class="o-toast__message">${message}<i class="${icon} o-toast__icon--left"></i></p>`;
@@ -236,8 +236,8 @@ function requestModal(obj, event) {
  *  Função para fechar os modais após alguma execução de script
  */
 function closeModal() {
-	let modal = parent.document.find(".js-o-modal");
-	let background = parent.document.find(".js-o-modal__background");
+	const modal = parent.document.find(".js-o-modal");
+	const background = parent.document.find(".js-o-modal__background");
 	if (modal && background) {
 		modal.remove()
 		background.remove();
@@ -248,7 +248,7 @@ function closeModal() {
  *  Busca um determinado elemento e remove um determinado atributo 
  */
 function elementRemoveAttribute(selector, attribute) {
-	let element = $(selector);
+	const element = $(selector);
 	if (element)
 		element.removeAttribute(attribute);
 }
@@ -257,7 +257,7 @@ function elementRemoveAttribute(selector, attribute) {
  *  Busca um determinado elemento e adiciona um determinado atributo 
  */
 function elementAddAttribute(selector, attribute, value) {
-	let element = $(selector);
+	const element = $(selector);
 	if (element)
 		element.setAttribute(attribute, value);
 }
@@ -266,8 +266,8 @@ function elementAddAttribute(selector, attribute, value) {
  *  Função para limpar os valores dos inputs que são alimentados via ListaSL
  */
 function clearSL(obj) {
-	let input = obj.parentNode.parentNode.find("input");
-	let inputsLimpar = document.findAll(`[data-search=${input.dataset.search}]`);
+	const input = obj.parentNode.parentNode.find("input");
+	const inputsLimpar = document.findAll(`[data-search=${input.dataset.search}]`);
 	inputsLimpar.forEach(input => {
 		input.value = "";
 	});

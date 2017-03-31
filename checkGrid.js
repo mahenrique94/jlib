@@ -115,7 +115,7 @@ function pintaLinha(obj) {
  *  @param obj = input[type=checkbox] 
  */
 function toggleDisableds(obj) {
-	let disableds = obj.parentNode.parentNode.findAll("button, fieldset, input:not([type=checkbox]), select");
+	const disableds = obj.parentNode.parentNode.findAll("button, fieldset, input:not([type=checkbox]), select");
 	if (disableds.length > 0)
 		disableds.forEach(disabled => disabled.disabled = !obj.checked);
 	atualizaQtdChecks(obj);
