@@ -97,6 +97,32 @@ function fillFieldsCNPJ(json) {
 		nomeFantasia.value = json.nomefantasia;
 }
 
+/*********************************************** KEYS ***********************************************/
+/** @auth Matheus Castiglioni
+ *  Função responsável por validar chaves de CTE, MDFE e NFE
+ */
+function checkKey(input) {
+	if (input.value.length == 44) {
+		icon = input.parentNode.find(".o-form__icon");
+		if (icon)
+			initAnimateInput(icon);
+		const URL = `${WEBSERVICE}/document/eletronic/${input.dataset.document}/information/${input.value}/json`; 
+		HttpService.request(URL, "GET").then(response => {
+			const json = JSON.parse(response);
+			if (json.valido) {
+				setFeedback("Chave", input.parentNode.parentNode, "valid");
+				stopAnimateInput(icon);
+			} else {
+				setFeedback("Chave", input.parentNode.parentNode, "invalid");
+				stopAnimateInput(icon);
+			}
+		}).catch(error => {
+			console.error(error)
+			stopAnimateInput(icon);
+		});
+	}
+}
+
 /*********************************************** CEP ***********************************************/
 /** @auth Matheus Castiglioni
  *  Função responsável por buscar o endereço de um determinado CEP 
