@@ -1,7 +1,7 @@
 NodeList.prototype.forEach = Array.prototype.forEach; 
 HTMLCollection.prototype.forEach = Array.prototype.forEach;
 
-const WEBSERVICE = "http://mhcws.herokuapp.com/ws";
+const WEBSERVICE = "http://ws.matheuscastiglioni.com.br/ws";
 
 /****************************** OVERRIDE ******************************/
 /** @auth Matheus Castiglioni
