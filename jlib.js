@@ -286,7 +286,7 @@ class HttpService {
 		return new Promise((resolve, reject) => {
 			const xhr = new XMLHttpRequest();
 			xhr.open(verb, url, true);
-			if (verb.equals("POST"))
+			if (verb.toUpperCase().equals("POST"))
 				xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			xhr.onreadystatechange = function() {
 				if (xhr.readyState == CODE_DONE) {
@@ -309,12 +309,18 @@ class HttpService {
 			return params;
 		
 		if (params && params.length > 0) {
-			let data = new FormData();
+			let data = "";
 			params.forEach(param => {
 				if (!param.name.endsWith("aux") && this.isData(param))
-					data.append(param.name, param.value);
+					data += `${encodeURIComponent(param.name)}=${param.value}&`;
 			});
-			return data;
+			return data.substring(0, (data.length - 1));
+//			const data = new FormData();
+//			params.forEach(param => {
+//				if (!param.name.endsWith("aux") && this.isData(param))
+//					data.append(param.name, param.value);
+//			});
+//			return data;
 		}
 		
 		return null;

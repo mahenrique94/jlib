@@ -75,6 +75,10 @@ function requestData(select) {
 				text = "id.idtipodocumento.descricao";
 				value = "id.idtipodocumento.id";
 				break; 
+			case "slCadFormulario" :
+				text = "nome";
+				value = "id";
+				break; 
 			case "slCadMunicipioText" :
 				text = "nome";
 				value = "nome";
