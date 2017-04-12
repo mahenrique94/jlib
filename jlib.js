@@ -74,6 +74,17 @@ function hideElement(element) {
 	element.classList.add("is-hide");
 }
 
+/** @auth Matheus Castiglioni
+ *  Função para pegar o nome da aplicação que esta sendo executada
+ */
+function getApplicationName() {
+	let href = window.location.href;
+	let app = href.substring(href.indexOf("//") + 2); // Retirando http://
+	app = app.substring(app.indexOf("/") + 1);
+	app = app.substring(0, app.indexOf("/")); 
+	return app;
+}
+
 /****************************** FUNCTION ******************************/
 document.addEventListener("DOMContentLoaded", function(event) {
 	
@@ -219,6 +230,7 @@ function request(obj, event) {
  */
 function requestModal(obj, event) {
 	request(obj, event).then(function() {
+		console.log(obj.id);
 		const loadGrid = parent.document.find(`.js-loadgrid[id^=${obj.id.substring(4)}]`);
 		if (loadGrid) {
 			LoadGrid.load(loadGrid.dataset.load).then(response => {
@@ -315,12 +327,6 @@ class HttpService {
 					data += `${encodeURIComponent(param.name)}=${param.value}&`;
 			});
 			return data.substring(0, (data.length - 1));
-//			const data = new FormData();
-//			params.forEach(param => {
-//				if (!param.name.endsWith("aux") && this.isData(param))
-//					data.append(param.name, param.value);
-//			});
-//			return data;
 		}
 		
 		return null;

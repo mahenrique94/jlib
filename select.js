@@ -79,6 +79,10 @@ function requestData(select) {
 				text = "nome";
 				value = "id";
 				break; 
+			case "slCadMunicipioNome" :
+				text = "nome";
+				value = "id";
+				break; 
 			case "slCadMunicipioText" :
 				text = "nome";
 				value = "nome";
@@ -87,9 +91,17 @@ function requestData(select) {
 				text = "descricao";
 				value = "id.tipo";
 				break; 
+			case "slCadSituacaoCodigo" :
+				text = "descricao";
+				value = "codigo";
+				break; 
 			case "slCadSituacaoDescricao" :
 				text = "descricao";
 				value = "descricao";
+				break; 
+			case "slCadUf" :
+				text = "uf";
+				value = "id";
 				break; 
 			case "slCadUfText" :
 				text = "uf";
