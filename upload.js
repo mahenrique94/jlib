@@ -1,6 +1,6 @@
 var dropZone = $(".js-drag");
 var inputFile = $("#js-upload");
-var files = null;
+var files = new Array();
 
 function criaFileInfo(file) {
 	return `<tr class="js-${file.name.replace("(", "").replace(")","").replace(/\s/g, "-").replace(".", "-").toLowerCase()}"><td>${file.name}</td><td>${file.size}&nbsp;bytes</td><td><div class="o-drag__progress js-drag__progress"><div class="o-drag__progress--percent js-drag__progress--percent"></div><span>0%</span></div></td></tr>`;
@@ -30,10 +30,10 @@ function fileSelect(event) {
 	let reader = null;
 	
 	// Caso for um INPUT é porque a importação esta sendo feita via click e não drop
-	if (event.target.nodeName == "INPUT")
-		files = event.target.files;
+	if (event.target.nodeName.equals("INPUT"))
+		files = pushFiles(files, event.target.files);
 	else
-		files = event.dataTransfer.files;
+		files = pushFiles(files, event.dataTransfer.files);
 	
 	for(var i = 0; i < files.length; i++) {
 		reader = new FileReader();
@@ -67,16 +67,19 @@ function fileSelect(event) {
 			const progress = tr.find(".js-drag__progress");
 			const label = tr.find(".js-drag__progress span");
 			const percent = tr.find(".js-drag__progress--percent");
-			percent.style.width = "100%";
-			label.textContent = "100%";
-			progress.parentNode.appendChild(criaCheck());
+			if (!label.textContent.equals("100%")) {
+				percent.style.width = "100%";
+				label.textContent = "100%";
+				progress.parentNode.appendChild(criaCheck());
+			}
 		}
 		
 		reader.onloadstart = function(event) {
 			if (dragInfo != undefined) {
 				const tbody = dragInfo.find("tbody");
-				const html = tbody.innerHTML;
-				html += criaFileInfo(event.target.file);
+				let html = tbody.innerHTML;
+				if (!tbody.find(`.js-${event.target.file.name.replace("(", "").replace(")","").replace(/\s/g, "-").replace(".", "-").toLowerCase()}`))
+					html += criaFileInfo(event.target.file);
 				tbody.innerHTML = html;
 				dragInfo.style.display = "table";
 			}
@@ -97,6 +100,22 @@ function fileSelect(event) {
 		
 	}
 		
+}
+
+function pushFiles(files, uploads) {
+	if (files)
+		files = files.concat(uploadsToArray(uploads));
+	else
+		files = uploads;
+	return files;
+}
+
+function uploadsToArray(uploads) {
+	let array = new Array();
+	for (let i = 0; i < uploads.length; i++) {
+		array.push(uploads[i]);
+	}
+	return array;
 }
 
 if (dropZone != undefined) {
