@@ -234,12 +234,12 @@ function request(obj, event) {
  *  possua um loadgrid na tela PAI o mesmo é carregado sem fazer reload na página toda. 
  */
 function requestModal(obj, event) {
-	request(obj, event).then(function() {
+	request(obj, event).then(responseRequest => {
 		const loadGrid = parent.document.find(`.js-loadgrid[id^=${obj.id.substring(4)}]`);
 		if (loadGrid) {
-			LoadGrid.load(loadGrid.dataset.load).then(response => {
+			LoadGrid.load(loadGrid.dataset.load).then(responseLoadGrid => {
 				loadGrid.innerHTML = "";
-				loadGrid.append(response);
+				loadGrid.append(responseLoadGrid);
 				appendParent(newToast("o-toast--success", "Operacao realizada com sucesso", "icon-ok-circled"));
 				closeModal();
 			}).catch(error => {
