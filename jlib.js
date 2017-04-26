@@ -46,6 +46,11 @@ const trimLeftRight = s => s.replace(/(^([\\s]*)|([\\s]+)$)/g, ""); // Espaços 
 const append = element => document.body.appendChild(element);
 
 /** @auth Matheus Castiglioni
+ *  Inserir elementos no body do elemento pai 
+ */
+const appendParent = element => parent.document.body.appendChild(element);
+
+/** @auth Matheus Castiglioni
  *  Disparando evento change manualmente em um determinado elemento
  */
 const invokeChange = element => element.dispatchEvent(new Event("change"));
@@ -186,9 +191,9 @@ function requestDelete(obj) {
 				children.forEach(child => child.parentNode.remove());
 		}
 		obj.parentNode.parentNode.remove();
-		append(toastDelete("o-toast--success", "Registro excluido com sucesso", "icon-ok-circled"));
+		append(newToast("o-toast--success", "Registro excluido com sucesso", "icon-ok-circled"));
 	}).catch(error => {
-		append(toastDelete("o-toast--error", "Registro nao pode ser excluido", "icon-cancel-circled"));
+		append(newToast("o-toast--error", "Registro nao pode ser excluido", "icon-cancel-circled"));
 		console.error(error);
 	});
 };	
@@ -196,7 +201,7 @@ function requestDelete(obj) {
 /** @auth Matheus Castiglioni
  *  Cria um toast para quando a exclusão via ajax é realizada com sucesso 
  */
-function toastDelete(type, message, icon) {
+function newToast(type, message, icon) {
 	const toast = document.createElement("DIV")
 	toast.setAttribute("role", "alert");
 	toast.classList.add(type, "has-icon", "is-fixedTop", "js-timeOut");
@@ -230,14 +235,18 @@ function request(obj, event) {
  */
 function requestModal(obj, event) {
 	request(obj, event).then(function() {
-		console.log(obj.id);
 		const loadGrid = parent.document.find(`.js-loadgrid[id^=${obj.id.substring(4)}]`);
 		if (loadGrid) {
 			LoadGrid.load(loadGrid.dataset.load).then(response => {
 				loadGrid.innerHTML = "";
 				loadGrid.append(response);
+				appendParent(newToast("o-toast--success", "Operacao realizada com sucesso", "icon-ok-circled"));
 				closeModal();
-			}).catch(error => console.error(error));
+			}).catch(error => {
+				console.error(error);
+				appendParent(newToast("o-toast--error", "Operacao não foi realizada com sucesso", "icon-cancel-circled"));
+				closeModal();
+			});
 		} else {
 			parent.document.location = parent.document.location;
 		}
