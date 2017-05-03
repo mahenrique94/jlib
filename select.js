@@ -57,6 +57,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
  *  Informando quais serão os campos que irão aparecer para o usuário e ficar como values para serem persistidos
  */
 function requestData(select) {
+	select.innerHTML = "";
 	const URL = getUrl(select);
 	return new Promise((resolve, reject) => {
 		HttpService.request(URL, "GET").then(response => {
@@ -65,6 +66,10 @@ function requestData(select) {
 			switch (select.dataset.select) {
 			case "slAdmGroup" :
 				text = "describe";
+				value = "id";
+				break; 
+			case "slCadContato" :
+				text = "nome";
 				value = "id";
 				break; 
 			case "slCadEmpresa" :
@@ -86,6 +91,10 @@ function requestData(select) {
 			case "slCadMunicipioText" :
 				text = "nome";
 				value = "nome";
+				break; 
+			case "slCadPessoa" :
+				text = "nomerazaosocial";
+				value = "id";
 				break; 
 			case "slCadSituacao" :
 				text = "descricao";
