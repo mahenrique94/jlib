@@ -42,11 +42,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
     const selectsChange = $$("select[data-change]");
     selectsChange.forEach(select => {
     	select.addEventListener("change", function() {
-    		const change = $(`select[data-select=${select.dataset.change}]`);
-    		if (change) {
-    			requestData(change).then(function() {
-    				setOptipnSelected(change);
-        		}).catch(error => console.error(error));
+    		const changes = $$(`select[data-select=${select.dataset.change}]`);
+    		if (changes.length > 0) {
+    			changes.forEach(change => {
+    				requestData(change).then(function() {
+    					setOptipnSelected(change);
+    				}).catch(error => console.error(error));
+    			});
     		}
     	});
     });
@@ -66,6 +68,10 @@ function requestData(select) {
 			switch (select.dataset.select) {
 			case "slAdmGroup" :
 				text = "describe";
+				value = "id";
+				break; 
+			case "slAdmUsuario" :
+				text = "nome";
 				value = "id";
 				break; 
 			case "slCadContato" :
