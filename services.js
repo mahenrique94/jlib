@@ -168,8 +168,8 @@ function fillFieldsCep(json) {
 	$("[data-cep=logradouro]").value = json.logradouro;
 	$("[data-cep=bairro]").value = json.bairro;
 	$("[data-cep=complemento]").value = json.complemento;
-	$("[data-cep=estado]").innerHTML = `<option value="${json.estado}">${json.estado}</option>`;
-	$("[data-cep=cidade]").innerHTML = `<option value="${json.cidade}">${json.cidade}</option>`;
+	$("[data-cep=estado]").innerHTML = `<option value="${json.codestado}">${json.estado}</option>`;
+	$("[data-cep=cidade]").innerHTML = `<option value="${json.codibge}">${json.cidade}</option>`;
 	disabledFiledsCep();
 }
 
