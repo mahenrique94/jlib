@@ -53,6 +53,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		{name : "letraNumeroBarraTraco", pattern : "^([A-Z\\d\\/\\-]+)$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros sem espacos e aceita os seguintes caracteres especiais: (/ -)."},
 		{name : "letraNumeroMin2", pattern : "^([A-Z\\d]{2,})$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros sem espacos e contendo no minimo 2 caracteres."},
 		{name : "letraNumeroMin4", pattern : "^([A-Z\\d]{4,})$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros sem espacos e contendo no minimo 4 caracteres."},
+		{name : "letraNumeroMin8Max8", pattern : "^([A-Z\\d]{8,8})$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros sem espacos e contendo 8 caracteres."},
 		{name : "letraNumeroPonto", pattern : "^([A-Z\\d\\.]+)$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros sem espacos e aceita os seguintes caracteres especiais: (.)."},
 		{name : "letraNumeroPontoTraco", pattern : "^([A-Z\\d\\.\\-]+)$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros sem espacos e aceita os seguintes caracteres especiais: (. -)."},
 		{name : "letraNumeroPontoMin2", pattern : "^([A-Z\\d\\.]){2,}$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros sem espacos e aceita os seguintes caracteres especiais: (.)."},

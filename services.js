@@ -32,6 +32,7 @@ function validatingDocument(input, document) {
 	icon = input.parentNode.find(".o-form__icon");
 	if (icon)
 		initAnimateInput(icon);
+	document = document.equals("CPFCNPJ") ? input.value.length === 14 ? "CPF" : "CNPJ" : document;
 	const DOCUMENT = input.value.replace(/[\/\.\-]/g, "");
 	const URL = `${WEBSERVICE}/document/${document.toLowerCase()}/information/${DOCUMENT}/json`; 
 	HttpService.request(URL, "GET").then(response => {

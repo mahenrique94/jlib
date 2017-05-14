@@ -74,6 +74,10 @@ function requestData(select) {
 				text = "nome";
 				value = "id";
 				break; 
+			case "slAdmComercio" :
+				text = "nomerazaosocial";
+				value = "id";
+				break; 
 			case "slCadContato" :
 				text = "nome";
 				value = "id";

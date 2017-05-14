@@ -64,10 +64,12 @@ function masking(input, mask) {
 }
 
 /** @auth Matheus Castiglioni
- *  Verifica se a tecla digitada é um dígito
+ *  Verifica se a tecla digitada é um dígito, BACKSPACE ou TAB
  */
 function checkMask(event) {
-	if(!((event.keyCode >= 48 && event.keyCode <= 57) || event.keyCode == 8)) {
+	// Devido a diferença de keyCode entre CHROME e FIREFOX tive que usar KEY no lugar de KEYCODE
+	let keyCode = parseInt(event.key);
+	if(!((keyCode >= 0 && keyCode <= 9) || event.key.toLowerCase().equals("backspace") || event.key.toLowerCase().equals("tab"))) {
 		event.preventDefault();
 		event.stopPropagation();
 	}
