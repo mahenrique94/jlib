@@ -171,6 +171,8 @@ function fillFieldsCep(json) {
 	$("[data-cep=complemento]").value = json.complemento;
 	$("[data-cep=estado]").innerHTML = `<option value="${json.codestado}">${json.estado}</option>`;
 	$("[data-cep=cidade]").innerHTML = `<option value="${json.codibge}">${json.cidade}</option>`;
+	if ($("[data-cep=pais]"))
+		$("[data-cep=pais]").innerHTML = `<option value="1058">BRASIL</option>`;
 	disabledFiledsCep();
 }
 
@@ -182,6 +184,8 @@ function disabledFiledsCep() {
 	$("[data-cep=bairro]").setAttribute("readonly", "true");
 	$("[data-cep=estado]").setAttribute("readonly", "true");
 	$("[data-cep=cidade]").setAttribute("readonly", "true");
+	if ($("[data-cep=pais]"))
+		$("[data-cep=pais]").setAttribute("readonly", "true");
 }
 
 /** @auth Matheus Castiglioni
