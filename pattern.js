@@ -3,7 +3,7 @@
  */
 document.addEventListener("DOMContentLoaded", function(event) {
 	
-	let patterns = [
+	const patterns = [
 		{name : "ano", pattern : "^([\\d]{4})$", message : "O campo deve ser preenchido com um ano válido entre: 1900 á 2100 no formato ####"},
 		{name : "cep", pattern : "^(([\\d]){5}([\\-])([\\d]{3}))$", message : "O campo deve preenchido com um CEP no formato: #####-###."},
 		{name : "celular", pattern : "^(([\\d]{5})([\\-])([\\d]{4}))$", message : "O campo deve preenchido com um CELULAR no formato: ######-####."},
@@ -43,6 +43,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		{name : "espacoLetraPontoTracoMin4", pattern : "^(([A-Z\\.\\-])(\\s[A-Z\\.\\-])*){4,}$", message : "O campo deve ser preenchido com letras MAIUSCULAS e aceita os seguintes caracteres especiais: (. -) contendo no minimo 4 caracteres."},
 		{name : "estado", pattern : "^([AC|AL|AP|AM|BA|CE|DF|ES|GO|MA|MT|MS|MG|PA|PB|PR|PE|PI|RJ|RN|RS|RO|RR|SC|SP|SE|TO|EX]{2})$", message : "O campo deve preenchido com a sigla de um estado brasileiro em MAIUSCULO ou com EX para informar exportacao."},
 		{name : "hora", pattern : "^(([0][\\d]|[1][\\d]|[2][\\d])([:])([0-5][\\d]))$", message : "O campo deve preenchido com uma hora no formato ##:##."},
+		{name : "icone", pattern : "^(([iI][cC][oO][nN])([\\-])([\\daA-zZ\\-])+)$", message : "O campo deve ser preenchido com um icone valido, sempre comecando com ICON-XXXX."},
+		{name : "imagem", pattern : "^((([hH][tT][tT][pP])([:])([\\/]{2}))([wW]{3}|[aA-zZ]*)([\\.])([aA-zZ]*)([\\.])([aA-zZ]+)([\\.aA-zZ]*))$", message : "O campo deve ser preenchido com o nome de uma imagem com um dos seguintes formatos: (JPEG, JPG ou PNG)."},
 		{name : "inscricao", pattern : "^(([\\d\\.\\-]+)|([I][S][E][N][T][O])|([N][A][O][\\s][C][O][N][T][R][I][B][U][I][N][T][E]))$", message : "O campo deve ser preenchido com uma inscricao valida, caso nao possua, informar ISENTO ou NAO CONTRIBUINTE."},
 		{name : "letra", pattern : "^([A-Z]*)$", message : "O campo deve ser preenchido apenas letras MAIUSCULAS."},
 		{name : "letraMin1Max1", pattern : "^([A-Z]{1})$", message : "O campo deve ser preenchido apenas com uma letra MAIUSCULA."},
@@ -76,8 +78,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		{name : "numeroPontoTraco", pattern : "^([\\d\\.\\-]*)$", message : "O campo deve ser preenchido com numeros, pontos ou tracos."},
 		{name : "numeroTraco", pattern : "^([\\d\\-]*)$", message : "O campo deve ser preenchido com numeros ou tracos."},
 		{name : "password", pattern : "^([A-Z\\d@-_\\.]{8})$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros sem espacos e aceita os seguintes caracteres especiais: (@ - _ .) contendo 8 caracteres."},
+		{name : "path", pattern : "^((([aA-zZ][:][\\/])|([\\/]))([0-9aA-zZ]+)([\\-\\/0-9aA-zZ]*))", message : "O campo deve ser preenchido com um caminho de pasta e aceita os seguintes caracteres especiais: (- _)."},
 		{name : "pis", pattern : "^(([\\d]{3})([\\.])([\\d]{5})([\\.])([\\d]{2})([\\-])([\\d]))$", message : "O campo deve ser preenchido com PIS no formato: ###.#####.##-#."},
-		{name : "site", pattern : "^((([h][t][t][p])([:])([\\/]{2}))([www]{3}|[a-z]*)([\\.])([a-z]*)([\\.])([a-z]+)([\\.a-z]*))$", message : "O campo deve ser preenchido com um site valido em MAISCULO, o site deve comecar com HTTP:// seguido por www ou subdominio e o restante do site."},
+		{name : "site", pattern : "^((([hH][tY][tY][pP])([:])([\\/]{2}))([wW]{3}|[aA-zZ]*)([\\.])([aA-zZ]*)([\\.])([aA-zZ]+)([\\.aA-zZ]*))$", message : "O campo deve ser preenchido com um site valido em MAISCULO, o site deve comecar com HTTP:// seguido por www ou subdominio e o restante do site."},
 		{name : "telefone", pattern : "^(([\\d]{4})([\\-])([\\d]{4}))$", message : "O campo deve ser preenchido com um telefone no formato: ####-####."},
 		{name : "textarea", pattern : "^([A-Z\\d\\s\\.\\/\\-\\,]+)$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros sem espacos e aceita os seguintes caracteres especiais: (@ - _ .)."},
 		{name : "textareaEspacoLetraNumeroBarraPontoTracoVirgula", pattern : "^([A-Z\\d\\s\\.\\/\\-\\,]+)$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros sem espacos e aceita os seguintes caracteres especiais: (@ - _ .)."},
