@@ -61,6 +61,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 function requestData(select) {
 	select.innerHTML = "";
 	const URL = getUrl(select);
+	console.log(URL);
 	return new Promise((resolve, reject) => {
 		HttpService.request(URL, "GET").then(response => {
 			let text, value;
@@ -72,6 +73,10 @@ function requestData(select) {
 				break; 
 			case "slAdmUsuario" :
 				text = "nome";
+				value = "id";
+				break; 
+			case "slAdmComercio" :
+				text = "nomerazaosocial";
 				value = "id";
 				break; 
 			case "slCadContato" :
@@ -122,8 +127,20 @@ function requestData(select) {
 				text = "uf";
 				value = "uf";
 				break; 
+			case "slFinContaBancaria" :
+				text = ["idtipocontabancaria.descricao", "agencia", "numeroconta"];
+				value = "id";
+				break; 
 			case "slJson" :
 				text = "descricao";
+				value = "id";
+				break; 
+			case "slPesDefinicao" :
+				text = ["idtipo.descricao", "idpessoa.nomerazaosocial"];
+				value = "id";
+				break; 
+			case "slPsGrupoClasse" :
+				text = ["id.idgrupo.descricao", "descricao"];
 				value = "id";
 				break; 
 			case "slPsbClasse" :
