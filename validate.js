@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	if (validates.length > 0) {
 		validates.forEach(validate => {
 			const scope = $(`.${validate.dataset.validateScope}`);
-			const elements = scope.findAll("input, select, textarea");
+			const elements = scope.querySelectorAll("input, select, textarea");
 			if (elements.length > 0) {
 				elements.forEach(element => {
 					element.addEventListener("keyup", function() {
@@ -30,15 +30,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
  *  Validando se o escopo possui algum input inválido, caso não possua o botão é liberado para ser clicado
  */
 function validating(validate, scope) {
-	const invalids = scope.findAll(":invalid");
+	const invalids = scope.querySelectorAll(":invalid");
 	if (invalids.length > 0) {
 		validate.setAttribute("disabled", "true");
 	} else {
-		const requireds = scope.findAll(":required");
+		const requireds = scope.querySelectorAll(":required");
 		if (requireds.length > 0) {
 			requireds.forEach(required => {
 				validate.removeAttribute("disabled");
-				if (required.value.equals("")) {
+				if (required.value === "") {
 					validate.setAttribute("disabled", "true");
 					throw BreakException;
 				}

@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 function parametrosWebDynamic() {
 	const row = $("[class*=o-navbar] .l-row:last-child");
 	if (row != undefined) {
-		const lastCol = row.find("[class*=u-grid]:last-child");
+		const lastCol = row.querySelector("[class*=u-grid]:last-child");
 		row.classList.add("o-dynamic");
 		row.style.position = "relative";
 		lastCol.style.marginRight = 0;
@@ -78,9 +78,9 @@ function cloneRow(obj) {
 	const band = obj.parentNode.parentNode;
 	const row = obj.parentNode;
 	const rowCloned = row.cloneNode(true);
-	const elementsCloned = rowCloned.findAll("input, select");
+	const elementsCloned = rowCloned.querySelector("input, select");
 	elementsCloned.forEach(element => {
-		if (element.nodeName.equals("INPUT")) {
+		if (element.nodeName === "INPUT") {
 			elementsToUpperCase([element]);
 			element.value = "";
 		}

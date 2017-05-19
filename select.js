@@ -264,7 +264,7 @@ function getPrimitiveValue(item, propertys) {
  */
 function setOptipnSelected(select) {
     const aux = $(`input[name="${select.name}aux"][type=hidden]`);
-    if (aux && !aux.value.equals("")) {
+    if (aux && !aux.value === "") {
     	select.value = aux.value;
     	invokeChange(select);
     }

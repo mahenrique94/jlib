@@ -118,7 +118,7 @@ const hasTooltip = element => element.parentNode.classList.contains("o-form__too
  *  Setando a mensagem para ser informado no tooltip 
  */
 function setMessageTooltip(pattern, input) {
-	const tooltip = input.parentNode.find("[class*=o-tooltip]");
+	const tooltip = input.parentNode.querySelector("[class*=o-tooltip]");
 	tooltip.innerHTML = `${pattern.message}<br/>${buildMessageFromInput(input)}`;
 }
 
@@ -128,7 +128,7 @@ function setMessageTooltip(pattern, input) {
  *  Numbers e Date: min e max 
  */
 function buildMessageFromInput(input) {
-	if (input.type.equals("number"))
+	if (input.type === "number")
 		return `Intervalo: ${input.getAttribute("min")} a ${input.getAttribute("max")}.`;
 	return `Intervalo: ${input.getAttribute("minlength")} a ${input.getAttribute("maxlength")} caracteres.`;
 }
