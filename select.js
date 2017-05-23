@@ -61,7 +61,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 function requestData(select) {
 	select.innerHTML = "";
 	const URL = getUrl(select);
-	console.log(URL);
 	return new Promise((resolve, reject) => {
 		HttpService.request(URL, "GET").then(response => {
 			let text, value;
@@ -263,8 +262,8 @@ function getPrimitiveValue(item, propertys) {
  *  Setando uma determinada opção como selecionado após abrir uma tela para edição 
  */
 function setOptipnSelected(select) {
-    const aux = $(`input[name="${select.name}aux"][type=hidden]`);
-    if (aux && !aux.value === "") {
+	const aux = $(`input[name="${select.name}aux"][type=hidden]`);
+    if (aux && aux.value !== "") {
     	select.value = aux.value;
     	invokeChange(select);
     }
