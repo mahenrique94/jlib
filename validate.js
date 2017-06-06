@@ -40,7 +40,7 @@ function validating(validate, scope) {
 				validate.removeAttribute("disabled");
 				if (required.value === "") {
 					validate.setAttribute("disabled", "true");
-					throw BreakException;
+					throw new Error("Campo obrigatorio: " + required.name);
 				}
 			});
 		} else {
