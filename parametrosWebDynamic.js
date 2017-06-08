@@ -85,7 +85,7 @@ function cloneRow(obj) {
 	const band = obj.parentNode.parentNode;
 	const row = obj.parentNode;
 	const rowCloned = row.cloneNode(true);
-	const elementsCloned = rowCloned.querySelector("input, select");
+	const elementsCloned = rowCloned.querySelectorAll("input, select");
 	elementsCloned.forEach(element => {
 		if (element.nodeName === "INPUT") {
 			elementsToUpperCase([element]);
