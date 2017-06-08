@@ -23,7 +23,7 @@ function disableElements(box) {
  *  Editar determinado conteúdo
  */
 function editBox(box) {
-	const elements = box.findAll(SELECTOR_ELEMENTS);
+	const elements = box.querySelectorAll(SELECTOR_ELEMENTS);
 	if (elements.length > 0)
 		elements.forEach(element => activeElement(element));
 	checkAddresWithCep();
@@ -54,7 +54,7 @@ function disableElement(element) {
  *  Mostrando botão salvar
  */
 function showSave(box) {
-	const buttonSave = box.find(".js-save");
+	const buttonSave = box.querySelector(".js-save");
 	if (buttonSave)
 		showElement(buttonSave);
 }
@@ -64,7 +64,7 @@ function showSave(box) {
  */
 function hideSave(box) {
 	if (box) {
-		const buttonSave = box.find(".js-save");
+		const buttonSave = box.querySelector(".js-save");
 		if (buttonSave)
 			hideElement(buttonSave);
 	}
