@@ -123,7 +123,9 @@ function requestData(select) {
 				value = "id";
 				break; 
 			case "slCadUfText" :
-				text = "uf";
+			case "slCadUfTextDestino" :
+			case "slCadUfTextOrigem" :
+				text = "nome";
 				value = "uf";
 				break; 
 			case "slFinContaBancaria" :
