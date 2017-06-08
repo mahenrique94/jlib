@@ -98,8 +98,8 @@ function requestData(select) {
 				text = "nome";
 				value = "id";
 				break; 
-			case "slCadMunicipioDestino" :
-			case "slCadMunicipioOrigem" :
+			case "slCadMunicipioNomeDestino" :
+			case "slCadMunicipioNomeOrigem" :
 				text = "nome";
 				value = "id";
 				break;
