@@ -98,6 +98,11 @@ function requestData(select) {
 				text = "nome";
 				value = "id";
 				break; 
+			case "slCadMunicipioNomeDestino" :
+			case "slCadMunicipioNomeOrigem" :
+				text = "nome";
+				value = "id";
+				break;
 			case "slCadMunicipioText" :
 				text = "nome";
 				value = "nome";
@@ -123,7 +128,9 @@ function requestData(select) {
 				value = "id";
 				break; 
 			case "slCadUfText" :
-				text = "uf";
+			case "slCadUfTextDestino" :
+			case "slCadUfTextOrigem" :
+				text = "nome";
 				value = "uf";
 				break; 
 			case "slFinContaBancaria" :
@@ -262,8 +269,8 @@ function getPrimitiveValue(item, propertys) {
  *  Setando uma determinada opção como selecionado após abrir uma tela para edição 
  */
 function setOptipnSelected(select) {
-    const aux = $(`input[name="${select.name}aux"][type=hidden]`);
-    if (aux && !aux.value.equals("")) {
+	const aux = $(`input[name="${select.name}aux"][type=hidden]`);
+    if (aux && aux.value !== "") {
     	select.value = aux.value;
     	invokeChange(select);
     }

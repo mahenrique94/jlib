@@ -3,28 +3,6 @@ HTMLCollection.prototype.forEach = Array.prototype.forEach;
 
 const WEBSERVICE = "http://ws.matheuscastiglioni.com.br/ws";
 
-/****************************** OVERRIDE ******************************/
-/** @auth Matheus Castiglioni
- *  Adicionando a função equals para comparar Strings de forma mais fácil
- */
-Object.prototype.equals = function(string) {
-	let s = "";
-	for (let i = 0; i < this.length; i++) {
-		s = s.concat(this[i]);
-	}
-	return s === string;
-}
-
-/** @auth Matheus Castiglioni
- *  Adicionando a find para buscar elementos filhos de uma forma mais fácil
- */
-Object.prototype.find = function(selector) {
-	return this.querySelector(selector);
-}
-Object.prototype.findAll = function(selector) {
-	return this.querySelectorAll(selector);
-}
-
 /****************************** BASE ******************************/
 /** @auth Matheus Castiglioni
  * Criando um atalho para buscar elementos na página com javascript puro 
@@ -111,9 +89,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		trs.forEach(tr => {
 			tr.addEventListener("dblclick", function(e) {
 				const search = $("[data-search]");
-				const select = e.target.parentNode.find("[data-select]");
+				const select = e.target.parentNode.querySelector("[data-select]");
 				select.options.forEach(option => {
-					const element = !search.value.equals("") ? parent.document.find(`[data-target*="${option.dataset.provide}"][data-search="${search.value}"]`) : parent.document.find(`[data-target*="${option.dataset.provide}"]`);
+					const element = search.value !== "" ? parent.document.querySelector(`[data-target~="${option.dataset.provide}"][data-search="${search.value}"]`) : parent.document.querySelector(`[data-target~="${option.dataset.provide}"]`);
 					if (element) {
 						element.value = option.value;
 						invokeChange(element);
@@ -153,7 +131,7 @@ function checkValidateDependency(element) {
  *  Função para gerar um código de acordo a data atual e informar no input
  */
 function createCode(button) {
-	const input = button.parentNode.parentNode.find("input");
+	const input = button.parentNode.parentNode.querySelector("input");
 	const data = new Date();
 	const code = `${data.getDate()}${(data.getMonth() + 1)}${data.getFullYear().toString().substring(2)}${data.getHours()}${data.getMinutes()}${data.getSeconds()}${data.getMilliseconds()}`;
 	if (input)
@@ -164,7 +142,7 @@ function createCode(button) {
  *  Função para pegar a data atual e informar no input
  */
 function insertDate(button) {
-	const input = button.parentNode.parentNode.find("input");
+	const input = button.parentNode.parentNode.querySelector("input");
 	const agora = new Date();
 	let dia = agora.getDate();
 	let mes = agora.getMonth() + 1;
@@ -186,7 +164,7 @@ function requestDelete(obj) {
 	const ID = URL.substring(URL.lastIndexOf("=") + 1);
 	HttpService.request(URL, "DELETE").then(response => {
 		if (obj.parentNode.classList.contains("has-Father")) {
-			const children = obj.parentNode.parentNode.parentNode.findAll(`.js-Father${ID}`);
+			const children = obj.parentNode.parentNode.parentNode.querySelectorAll(`.js-Father${ID}`);
 			if (children.length > 0)
 				children.forEach(child => child.parentNode.remove());
 		}
@@ -206,9 +184,9 @@ function newToast(type, message, icon) {
 	toast.setAttribute("role", "alert");
 	toast.classList.add(type, "has-icon", "is-fixedTop", "js-timeOut");
 	toast.innerHTML = `<p class="o-toast__message">${message}<i class="${icon} o-toast__icon--left"></i></p>`;
-	if (type.equals("o-toast--error"))
+	if (type === "o-toast--error")
 		toast.innerHTML += "<button class=\"o-toast__close\" onclick=\"ToastController.close(this.parentNode);\"><i class=\"icon-cancel\"></i></button>";
-	if (type.equals("o-toast--success")) {
+	if (type === "o-toast--success") {
 		setTimeout(function() {
 			toast.remove();
 		}, 2000);
@@ -235,7 +213,7 @@ function request(obj, event) {
  */
 function requestModal(obj, event) {
 	request(obj, event).then(responseRequest => {
-		const loadGrid = parent.document.find(`.js-loadgrid[id^=${obj.id.substring(4)}]`);
+		const loadGrid = parent.document.querySelector(`.js-loadgrid[id^=${obj.id.substring(4)}]`);
 		if (loadGrid) {
 			LoadGrid.load(loadGrid.dataset.load).then(responseLoadGrid => {
 				loadGrid.innerHTML = "";
@@ -257,8 +235,8 @@ function requestModal(obj, event) {
  *  Função para fechar os modais após alguma execução de script
  */
 function closeModal() {
-	const modal = parent.document.find(".js-o-modal");
-	const background = parent.document.find(".js-o-modal__background");
+	const modal = parent.document.querySelector(".js-o-modal");
+	const background = parent.document.querySelector(".js-o-modal__background");
 	if (modal && background) {
 		modal.remove()
 		background.remove();
@@ -287,8 +265,8 @@ function elementAddAttribute(selector, attribute, value) {
  *  Função para limpar os valores dos inputs que são alimentados via ListaSL
  */
 function clearSL(obj) {
-	const input = obj.parentNode.parentNode.find("input");
-	const inputsLimpar = document.findAll(`[data-search=${input.dataset.search}]`);
+	const input = obj.parentNode.parentNode.querySelector("input");
+	const inputsLimpar = document.querySelectorAll(`[data-search=${input.dataset.search}]`);
 	inputsLimpar.forEach(input => {
 		input.value = "";
 	});
@@ -307,7 +285,7 @@ class HttpService {
 		return new Promise((resolve, reject) => {
 			const xhr = new XMLHttpRequest();
 			xhr.open(verb, url, true);
-			if (verb.toUpperCase().equals("POST"))
+			if (verb.toUpperCase() === "POST")
 				xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			xhr.onreadystatechange = function() {
 				if (xhr.readyState == CODE_DONE) {
@@ -342,7 +320,7 @@ class HttpService {
 	}
 	
 	static isData(element) {
-		return element.nodeName.toLowerCase().equals("input") || element.nodeName.toLowerCase().equals("select") || element.nodeName.toLowerCase().equals("textarea");
+		return element.nodeName.toLowerCase() === "input" || element.nodeName.toLowerCase() === "select" || element.nodeName.toLowerCase() === "textarea";
 	}
 	
 }

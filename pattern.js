@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		{name : "dataHoraOpcional", pattern : "^(([0][1-9]|[1][\\d]|[2][\\d]|[3][0-1])([\\/])([0][1-9]|[1][0-2])([\\/])([1][9][\\d]{2}|[2][0][\\d]{2})(\\s([0][\\d]|[1][\\d]|[2][\\d])([:])([0-5][\\d]))?)$", message : "O campo deve preenchido com uma data no formato: DD/MM/AAAA ou DD/MM/AAAA HH:MM onde o ano deve ser maior que 1900"},
 		{name : "ddd", pattern : "^([\\d]{2})$", message : "O campo deve preenchido com um DDD contendo dois digitos."},
 		{name : "desdobramento", pattern : "^(([\\d]+)([\\/])([\\d]+))$", message : "O campo deve preenchido com um desdobramento no formato: 0-9/0-9."},
-		{name : "email", pattern : "^(([aA-zZ\\d\\w]+)([@])([aA-zZ]+)([\\.])([aA-zZ]+)(([\\.])([aA-zZ])+)*)$", message : "O campo deve ser preenchido com um email válido aceitando apenas letras MAIUSCULAS, NUMEROS, PONTOS E UNDERLINES."},
+		{name : "email", pattern : "^(([aA-zZ\\d\\w\\.]+)([@])([\\daA-zZ]+)([\\.])([aA-zZ]+)(([\\.])([aA-zZ])+)*)$", message : "O campo deve ser preenchido com um email válido aceitando apenas letras MAIUSCULAS, NUMEROS, PONTOS E UNDERLINES."},
 		{name : "entradaSaida", pattern : "^([E|S])$", message : "O campo deve ser preenchido com uma letra MAIUSCULA informando E para entrada ou S para saida."},
 		{name : "espacoLetra", pattern : "^(([A-Z])+(\\s[A-Z]+)*)$", message : "O campo deve ser preenchido com letras MAIUSCULAS."},
 		{name : "espacoLetraBarraPonto", pattern : "^(([A-Z\\.\\/])+(\\s[A-Z\\.\\/]+)*)$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros e aceita os seguintes caracteres especiais: (. /)."},
@@ -118,7 +118,7 @@ const hasTooltip = element => element.parentNode.classList.contains("o-form__too
  *  Setando a mensagem para ser informado no tooltip 
  */
 function setMessageTooltip(pattern, input) {
-	const tooltip = input.parentNode.find("[class*=o-tooltip]");
+	const tooltip = input.parentNode.querySelector("[class*=o-tooltip]");
 	tooltip.innerHTML = `${pattern.message}<br/>${buildMessageFromInput(input)}`;
 }
 
@@ -128,7 +128,7 @@ function setMessageTooltip(pattern, input) {
  *  Numbers e Date: min e max 
  */
 function buildMessageFromInput(input) {
-	if (input.type.equals("number"))
+	if (input.type === "number")
 		return `Intervalo: ${input.getAttribute("min")} a ${input.getAttribute("max")}.`;
 	return `Intervalo: ${input.getAttribute("minlength")} a ${input.getAttribute("maxlength")} caracteres.`;
 }

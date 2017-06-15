@@ -12,13 +12,20 @@ document.addEventListener("DOMContentLoaded", function(event) {
  */
 function parametrosWebDynamic() {
 	const row = $("[class*=o-navbar] .l-row:last-child");
-	if (row != undefined) {
-		const lastCol = row.find("[class*=u-grid]:last-child");
+	if (row != undefined && !temMaisDeUmParametro(row.parentNode)) {
+		const lastCol = row.querySelector("[class*=u-grid]:last-child");
 		row.classList.add("o-dynamic");
 		row.style.position = "relative";
 		lastCol.style.marginRight = 0;
 		row.appendChild(createDynamicButtonPlus());
 	}
+}
+
+/** @auth Matheus Castiglioni
+ *  Função para verificar se o formulário de pesquisa contém algum input do tipo checkbox
+ */
+function temMaisDeUmParametro(form) {
+	return form.querySelector("input[name*=\"[1]\"]");
 }
 
 /** @auth Matheus Castiglioni
@@ -78,9 +85,9 @@ function cloneRow(obj) {
 	const band = obj.parentNode.parentNode;
 	const row = obj.parentNode;
 	const rowCloned = row.cloneNode(true);
-	const elementsCloned = rowCloned.findAll("input, select");
+	const elementsCloned = rowCloned.querySelectorAll("input, select");
 	elementsCloned.forEach(element => {
-		if (element.nodeName.equals("INPUT")) {
+		if (element.nodeName === "INPUT") {
 			elementsToUpperCase([element]);
 			element.value = "";
 		}
