@@ -61,7 +61,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 function requestData(select) {
 	select.innerHTML = "";
 	const URL = getUrl(select);
-	console.log(URL);
 	return new Promise((resolve, reject) => {
 		HttpService.request(URL, "GET").then(response => {
 			let text, value;
