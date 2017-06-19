@@ -47,6 +47,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     			changes.forEach(change => {
     				requestData(change).then(function() {
     					setOptipnSelected(change);
+    					invokeChange(change);
     				}).catch(error => console.error(error));
     			});
     		}
