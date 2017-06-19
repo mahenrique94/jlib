@@ -173,7 +173,8 @@ function fillFieldsCep(json) {
 	$("[data-cep=cidade]").innerHTML = `<option value="${json.codibge}">${json.cidade}</option>`;
 	if ($("[data-cep=pais]"))
 		$("[data-cep=pais]").innerHTML = `<option value="1058">BRASIL</option>`;
-	disabledFiledsCep();
+	if (!json.cep.endsWith("000"))
+		disabledFiledsCep();
 }
 
 /** @auth Matheus Castiglioni
