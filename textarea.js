@@ -8,7 +8,7 @@
 const textareas = $$("textarea[pattern]");
 if (textareas.length > 0) {
 	textareas.forEach(textarea => {
-		textarea.addEventListener("keydown", function(e) {
+		textarea.addEventListener("keyup", function(e) {
 			if (e.target.value != null && e.target.value !== "" && e.target.value.length > 0) {
 				const regex = new RegExp(e.target.getAttribute("pattern"));
 				if (regex.test(e.target.value))
