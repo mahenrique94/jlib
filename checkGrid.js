@@ -113,7 +113,11 @@ function pintaLinha(obj) {
  */
 function toggleDisableds(obj) {
 	const disableds = obj.parentNode.parentNode.querySelectorAll("button, fieldset, input:not([type=checkbox]), select");
-	if (disableds.length > 0)
-		disableds.forEach(disabled => disabled.disabled = !obj.checked);
+	if (disableds.length > 0) {
+		disableds.forEach(disabled => {
+			disabled.disabled = !obj.checked;
+			disabled.readOnly = !obj.checked;
+		});
+	}
 	atualizaQtdChecks(obj);
 }

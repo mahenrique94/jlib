@@ -134,6 +134,10 @@ function requestData(select) {
 				text = "nome";
 				value = "uf";
 				break; 
+			case "slFinBancoAgenciaConta" :
+				text = ["idbancoagencia.idbanco.descricao", "idbancoagencia.codagencia", "nroconta"];
+				value = "id";
+				break; 
 			case "slFinContaBancaria" :
 				text = ["idtipocontabancaria.descricao", "agencia", "numeroconta"];
 				value = "id";
