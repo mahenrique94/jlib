@@ -47,6 +47,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     			changes.forEach(change => {
     				requestData(change).then(function() {
     					setOptipnSelected(change);
+    					invokeChange(change);
     				}).catch(error => console.error(error));
     			});
     		}
@@ -100,6 +101,11 @@ function requestData(select) {
 				text = "nome";
 				value = "id";
 				break; 
+			case "slCadMunicipioNomeDestino" :
+			case "slCadMunicipioNomeOrigem" :
+				text = "nome";
+				value = "id";
+				break;
 			case "slCadMunicipioText" :
 				text = "nome";
 				value = "nome";
@@ -127,8 +133,14 @@ function requestData(select) {
 				value = "id";
 				break; 
 			case "slCadUfText" :
-				text = "uf";
+			case "slCadUfTextDestino" :
+			case "slCadUfTextOrigem" :
+				text = "nome";
 				value = "uf";
+				break; 
+			case "slFinBancoAgenciaConta" :
+				text = ["idbancoagencia.idbanco.descricao", "idbancoagencia.codagencia", "nroconta"];
+				value = "id";
 				break; 
 			case "slFinContaBancaria" :
 				text = ["idtipocontabancaria.descricao", "agencia", "numeroconta"];

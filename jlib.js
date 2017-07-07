@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 				const search = $("[data-search]");
 				const select = e.target.parentNode.querySelector("[data-select]");
 				select.options.forEach(option => {
-					const element = !search.value === "" ? parent.document.querySelector(`[data-target*="${option.dataset.provide}"][data-search="${search.value}"]`) : parent.document.querySelector(`[data-target*="${option.dataset.provide}"]`);
+					const element = search.value !== "" ? parent.document.querySelector(`[data-target~="${option.dataset.provide}"][data-search="${search.value}"]`) : parent.document.querySelector(`[data-target~="${option.dataset.provide}"]`);
 					if (element) {
 						element.value = option.value;
 						invokeChange(element);
