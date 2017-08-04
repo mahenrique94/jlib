@@ -5,21 +5,21 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	
 	const patterns = [
 		{name : "ano", pattern : "^([\\d]{4})$", message : "O campo deve ser preenchido com um ano válido entre: 1900 á 2100 no formato ####"},
-		{name : "cep", pattern : "^(([\\d]){5}([\\-])([\\d]{3}))$", message : "O campo deve preenchido com um CEP no formato: #####-###."},
-		{name : "celular", pattern : "^(([\\d]{5})([\\-])([\\d]{4}))$", message : "O campo deve preenchido com um CELULAR no formato: ######-####."},
-		{name : "chave", pattern : "^([\\d]){44}$", message : "O campo deve preenchido com uma CHAVE numerica contendo 44 digitos."},
-		{name : "cnh", pattern : "^([\\d]{11})$", message : "O campo deve preenchido com uma CNH no formato: ###########."},
-		{name : "cnpj", pattern : "^(([\\d]{2})([\\.])([\\d]{3})([\\.])([\\d]{3})([\\/])([\\d]{4})([\\-])([\\d]{2}))$", message : "O campo deve preenchido com um CNPJ no formato: ##.###.###/####-##"},
-		{name : "contabil", pattern : "^([.\\d]{1,60})$", message : "O campo deve preenchido com numeros ou pontos contendo no minimo 1 caracter."},
-		{name : "cpf", pattern : "^(([\\d]{3})([\\.])([\\d]{3})([\\.])([\\d]{3})([\\-])([\\d]{2}))$", message : "O campo deve preenchido com um CPF no formato: ###.###.###-##"},
-		{name : "cpfCnpj", pattern : "^((([\\d]{3})([\\.])([\\d]{3})([\\.])([\\d]{3})([\\-])([\\d]{2}))|(([\\d]{2})([\\.])([\\d]{3})([\\.])([\\d]{3})([\\/])([\\d]{4})([\\-])([\\d]{2})))$", message : "O campo deve preenchido com um CPF ou CNPJ nos formatos: ###.###.###-## e ##.###.###/####-##"},
-		{name : "cst", pattern : "^([\\d]{3})$", message : "O campo deve preenchido com uma situacao tributaria contendo no maximo 3 caracteres"},
-		{name : "data", pattern : "^(([0][1-9]|[1][\\d]|[2][\\d]|[3][0-1])([\\/])([0][1-9]|[1][0-2])([\\/])([1][9][\\d]{2}|[2][0][\\d]{2}))$", message : "O campo deve preenchido com uma data no formato: DD/MM/AAAA onde o ano deve ser maior que 1900"},
-		{name : "dataHora", pattern : "^(([0][1-9]|[1][\\d]|[2][\\d]|[3][0-1])([\\/])([0][1-9]|[1][0-2])([\\/])([1][9][\\d]{2}|[2][0][\\d]{2})([\\s])([0][\\d]|[1][\\d]|[2][\\d])([:])([0-5][\\d]))$", message : "O campo deve preenchido com uma data no formato: DD/MM/AAAA HH:MM onde o ano deve ser maior que 1900"},
-		{name : "dataHoraOpcional", pattern : "^(([0][1-9]|[1][\\d]|[2][\\d]|[3][0-1])([\\/])([0][1-9]|[1][0-2])([\\/])([1][9][\\d]{2}|[2][0][\\d]{2})(\\s([0][\\d]|[1][\\d]|[2][\\d])([:])([0-5][\\d]))?)$", message : "O campo deve preenchido com uma data no formato: DD/MM/AAAA ou DD/MM/AAAA HH:MM onde o ano deve ser maior que 1900"},
-		{name : "ddd", pattern : "^([\\d]{2})$", message : "O campo deve preenchido com um DDD contendo dois digitos."},
-		{name : "desdobramento", pattern : "^(([\\d]+)([\\/])([\\d]+))$", message : "O campo deve preenchido com um desdobramento no formato: 0-9/0-9."},
-		{name : "email", pattern : "^(([aA-zZ\\d\\w]+)([@])([aA-zZ]+)([\\.])([aA-zZ]+)(([\\.])([aA-zZ])+)*)$", message : "O campo deve ser preenchido com um email válido aceitando apenas letras MAIUSCULAS, NUMEROS, PONTOS E UNDERLINES."},
+		{name : "cep", pattern : "^(([\\d]){5}([\\-])([\\d]{3}))$", message : "O campo deve ser preenchido com um CEP no formato: #####-###."},
+		{name : "celular", pattern : "^(([\\d]{5})([\\-])([\\d]{4}))$", message : "O campo deve ser preenchido com um CELULAR no formato: ######-####."},
+		{name : "chave", pattern : "^([\\d]){44}$", message : "O campo deve ser preenchido com uma CHAVE numerica contendo 44 digitos."},
+		{name : "cnh", pattern : "^([\\d]{11})$", message : "O campo deve ser preenchido com uma CNH no formato: ###########."},
+		{name : "cnpj", pattern : "^(([\\d]{2})([\\.])([\\d]{3})([\\.])([\\d]{3})([\\/])([\\d]{4})([\\-])([\\d]{2}))$", message : "O campo deve ser preenchido com um CNPJ no formato: ##.###.###/####-##"},
+		{name : "contabil", pattern : "^([.\\d]{1,60})$", message : "O campo deve ser preenchido com numeros ou pontos contendo no minimo 1 caracter."},
+		{name : "cpf", pattern : "^(([\\d]{3})([\\.])([\\d]{3})([\\.])([\\d]{3})([\\-])([\\d]{2}))$", message : "O campo deve ser preenchido com um CPF no formato: ###.###.###-##"},
+		{name : "cpfCnpj", pattern : "^((([\\d]{3})([\\.])([\\d]{3})([\\.])([\\d]{3})([\\-])([\\d]{2}))|(([\\d]{2})([\\.])([\\d]{3})([\\.])([\\d]{3})([\\/])([\\d]{4})([\\-])([\\d]{2})))$", message : "O campo deve ser preenchido com um CPF ou CNPJ nos formatos: ###.###.###-## e ##.###.###/####-##"},
+		{name : "cst", pattern : "^([\\d]{3})$", message : "O campo deve ser preenchido com uma situacao tributaria contendo no maximo 3 caracteres"},
+		{name : "data", pattern : "^(([0][1-9]|[1][\\d]|[2][\\d]|[3][0-1])([\\/])([0][1-9]|[1][0-2])([\\/])([1][9][\\d]{2}|[2][0][\\d]{2}))$", message : "O campo deve ser preenchido com uma data no formato: DD/MM/AAAA onde o ano deve ser maior que 1900"},
+		{name : "dataHora", pattern : "^(([0][1-9]|[1][\\d]|[2][\\d]|[3][0-1])([\\/])([0][1-9]|[1][0-2])([\\/])([1][9][\\d]{2}|[2][0][\\d]{2})([\\s])([0][\\d]|[1][\\d]|[2][\\d])([:])([0-5][\\d]))$", message : "O campo deve ser preenchido com uma data no formato: DD/MM/AAAA HH:MM onde o ano deve ser maior que 1900"},
+		{name : "dataHoraOpcional", pattern : "^(([0][1-9]|[1][\\d]|[2][\\d]|[3][0-1])([\\/])([0][1-9]|[1][0-2])([\\/])([1][9][\\d]{2}|[2][0][\\d]{2})(\\s([0][\\d]|[1][\\d]|[2][\\d])([:])([0-5][\\d]))?)$", message : "O campo deve ser preenchido com uma data no formato: DD/MM/AAAA ou DD/MM/AAAA HH:MM onde o ano deve ser maior que 1900"},
+		{name : "ddd", pattern : "^([\\d]{2})$", message : "O campo deve ser preenchido com um DDD contendo dois digitos."},
+		{name : "desdobramento", pattern : "^(([\\d]+)([\\/])([\\d]+))$", message : "O campo deve ser preenchido com um desdobramento no formato: 0-9/0-9."},
+		{name : "email", pattern : "^(([aA-zZ\\d\\w\\.]+)([@])([\\daA-zZ]+)([\\.])([aA-zZ]+)(([\\.])([aA-zZ])+)*)$", message : "O campo deve ser preenchido com um email válido aceitando apenas letras MAIUSCULAS, NUMEROS, PONTOS E UNDERLINES."},
 		{name : "entradaSaida", pattern : "^([E|S])$", message : "O campo deve ser preenchido com uma letra MAIUSCULA informando E para entrada ou S para saida."},
 		{name : "espacoLetra", pattern : "^(([A-Z])+(\\s[A-Z]+)*)$", message : "O campo deve ser preenchido com letras MAIUSCULAS."},
 		{name : "espacoLetraBarraPonto", pattern : "^(([A-Z\\.\\/])+(\\s[A-Z\\.\\/]+)*)$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros e aceita os seguintes caracteres especiais: (. /)."},
@@ -28,6 +28,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		{name : "espacoLetraNumero", pattern : "^(([A-Z\\d])+(\\s[A-Z\\d]+)*)$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros."},
 		{name : "espacoLetraNumeroMin4", pattern : "^(([A-Z\\d])(\\s[A-Z\\d])*){4,}$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros contendo no minimo 4 caracteres."},
 		{name : "espacoLetraNumeroBarraMaiorMenorParentesesPontoTracoVirgula", pattern : "^(([A-Z\\d\\.\\/\\-,><()])+(\\s[A-Z\\d\\.\\/\\-,><()]+)*)$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros e aceita os seguintes caracteres especiais: (. - / , > < ( ))."},
+		{name : "espacoLetraNumeroBarraMaisTraco", pattern : "^(([A-Z\\d\\/\\-\\+])+(\\s[A-Z\\d\\/\\-\\+]+)*)$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros e aceita os seguintes caracteres especiais: (- / +)."},
 		{name : "espacoLetraNumeroBarraPontoTraco", pattern : "^(([A-Z\\d\\.\\/\\-])+(\\s[A-Z\\d\\.\\/\\-]+)*)$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros e aceita os seguintes caracteres especiais: (. - /)."},
 		{name : "espacoLetraNumeroBarraPontoTracoMin4", pattern : "^(([A-Z\\d\\.\\/\\-])(\\s[A-Z\\d\\.\\/\\-])*){4,}$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros e aceita os seguintes caracteres especiais: (. - /) contendo no minimo 4 caracteres."},
 		{name : "espacoLetraNumeroBarraPontoTracoVirgula", pattern : "^(([A-Z\\d\\.\\/\\-,])+(\\s[A-Z\\d\\.\\/\\-,]+)*)$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros e aceita os seguintes caracteres especiais: (. - / ,)."},
@@ -84,6 +85,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		{name : "telefone", pattern : "^(([\\d]{4})([\\-])([\\d]{4}))$", message : "O campo deve ser preenchido com um telefone no formato: ####-####."},
 		{name : "textarea", pattern : "^([A-Z\\d\\s\\.\\/\\-\\,]+)$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros sem espacos e aceita os seguintes caracteres especiais: (@ - _ .)."},
 		{name : "textareaEspacoLetraNumeroBarraPontoTracoVirgula", pattern : "^([A-Z\\d\\s\\.\\/\\-\\,]+)$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros sem espacos e aceita os seguintes caracteres especiais: (@ - _ .)."},
+		{name : "textareaMin4", pattern : "^([A-Z\\d\\s\\.\\/\\-\\,]{4,})$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros sem espacos e aceita os seguintes caracteres especiais: (@ - _ .) contendo no minimo 4 caracteres."},
 		{name : "tipoMunicipio", pattern : "^([MR])$", message : "O campo deve ser preenchido apenas com M(Municipio) ou R(Regiao)."},
 		{name : "tipoCNH", pattern : "^(([A])|([B])|([C])|([D])|([E])|([A][B])|([A][C])|([A][D])|([A][E]))$", message : "O campo deve ser preenchido com letras referente a carta de habilitacao."},
 		{name : "unidadeMedida", pattern : "^(([B][G])|([B][O])|([C][X])|([F][D])|([G][R])|([J][G])|([K][G])|([L][T])|([P][C])|([P][R])|([P][T])|([R][E])|([S][K])|([T][O])|([U][N]))$", message : "O campo deve ser preenchido com uma unidade de medida válida contendo dois caracteres."},
@@ -118,7 +120,7 @@ const hasTooltip = element => element.parentNode.classList.contains("o-form__too
  *  Setando a mensagem para ser informado no tooltip 
  */
 function setMessageTooltip(pattern, input) {
-	const tooltip = input.parentNode.find("[class*=o-tooltip]");
+	const tooltip = input.parentNode.querySelector("[class*=o-tooltip]");
 	tooltip.innerHTML = `${pattern.message}<br/>${buildMessageFromInput(input)}`;
 }
 
@@ -128,7 +130,7 @@ function setMessageTooltip(pattern, input) {
  *  Numbers e Date: min e max 
  */
 function buildMessageFromInput(input) {
-	if (input.type.equals("number"))
+	if (input.type === "number")
 		return `Intervalo: ${input.getAttribute("min")} a ${input.getAttribute("max")}.`;
 	return `Intervalo: ${input.getAttribute("minlength")} a ${input.getAttribute("maxlength")} caracteres.`;
 }

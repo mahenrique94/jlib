@@ -10,11 +10,8 @@ var qtdChecks = 0;
 document.addEventListener("DOMContentLoaded", function(event) {
 	
 	const thCheckAll = $$("th.checkGrid");
-	if (thCheckAll.length > 0) {
-		thCheckAll.forEach(th => {
-			th.innerHTML = "<input class=\"checkAll\" onclick=\"checkGrid(this);\" type=\"checkbox\">";
-		});
-	}
+	if (thCheckAll.length > 0)
+		thCheckAll.forEach(th => th.innerHTML = "<input class=\"checkAll\" onclick=\"checkGrid(this);\" type=\"checkbox\">");
 	
 });
 
@@ -44,7 +41,7 @@ function check(obj) {
 function checkAll(obj) {
 	if (obj.checked) {
 		existeCheckado(obj);
-		obj.parentNode.parentNode.parentNode.parentNode.findAll("tbody > tr > td:first-child > input[type=checkbox]").forEach(input => {
+		obj.parentNode.parentNode.parentNode.parentNode.querySelectorAll("tbody > tr > td:first-child > input[type=checkbox]").forEach(input => {
 			input.checked = obj.checked; 
 			atualizarCheck(input);
 		});
@@ -79,7 +76,7 @@ function atualizaQtdChecks(obj) {
 		qtdChecks++;
 	else
 		qtdChecks--;
-	atualizaCaption(obj.parentNode.parentNode.parentNode.parentNode.find("caption"));
+	atualizaCaption(obj.parentNode.parentNode.parentNode.parentNode.querySelector("caption"));
 }
 
 /** @auth Matheus Castiglioni
@@ -95,7 +92,7 @@ function atualizaCaption(caption) {
  *  irão ser desseleciondas
  */
 function existeCheckado(obj) {
-	obj.parentNode.parentNode.parentNode.parentNode.findAll(`tbody > tr > td:first-child > input[type=checkbox]:checked:not([name="${obj.name}"])`).forEach(input => {
+	obj.parentNode.parentNode.parentNode.parentNode.querySelectorAll(`tbody > tr > td:first-child > input[type=checkbox]:checked:not([name="${obj.name}"])`).forEach(input => {
 		input.checked = false; 
 		atualizarCheck(input);
 	});
@@ -115,8 +112,12 @@ function pintaLinha(obj) {
  *  @param obj = input[type=checkbox] 
  */
 function toggleDisableds(obj) {
-	const disableds = obj.parentNode.parentNode.findAll("button, fieldset, input:not([type=checkbox]), select");
-	if (disableds.length > 0)
-		disableds.forEach(disabled => disabled.disabled = !obj.checked);
+	const disableds = obj.parentNode.parentNode.querySelectorAll("button, fieldset, input:not([type=checkbox]), select");
+	if (disableds.length > 0) {
+		disableds.forEach(disabled => {
+			disabled.disabled = !obj.checked;
+			disabled.readOnly = !obj.checked;
+		});
+	}
 	atualizaQtdChecks(obj);
 }

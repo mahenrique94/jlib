@@ -17,7 +17,7 @@ function checkDocument(document, input) {
 	} else if (input.value.length === 18) {
 		validatingDocument(input, document);
 	} else {
-		let feedback = input.parentNode.parentNode.find(".o-form__feedback");
+		let feedback = input.parentNode.parentNode.querySelector(".o-form__feedback");
 		if (feedback) {
 			feedback.classList.remove("is-show");
 			feedback.classList.add("is-hide");
@@ -29,22 +29,22 @@ function checkDocument(document, input) {
  *  Função responsável por validar um CNPJ ou CPF
  */
 function validatingDocument(input, document) {
-	icon = input.parentNode.find(".o-form__icon");
+	icon = input.parentNode.querySelector(".o-form__icon");
 	if (icon)
 		initAnimateInput(icon);
-	document = document.equals("CPFCNPJ") ? input.value.length === 14 ? "CPF" : "CNPJ" : document;
+	document = document === "CPFCNPJ" ? input.value.length === 14 ? "CPF" : "CNPJ" : document;
 	const DOCUMENT = input.value.replace(/[\/\.\-]/g, "");
 	const URL = `${WEBSERVICE}/document/${document.toLowerCase()}/information/${DOCUMENT}/json`; 
 	HttpService.request(URL, "GET").then(response => {
 		const json = JSON.parse(response);
 		if (json.valido) {
 			setFeedback(document, input.parentNode, "valid");
-			if (document.equals("CNPJ"))
+			if (document === "CNPJ")
 				findData(json.desformatado);
 			stopAnimateInput(icon);
 		} else {
 			setFeedback(document, input.parentNode, "invalid");
-			if (document.equals("CNPJ"))
+			if (document === "CNPJ")
 				fillFieldsCNPJ("");
 			stopAnimateInput(icon);
 		}
@@ -61,7 +61,7 @@ function findData(cnpj) {
 	let iconNomeRazaoSocial;
 	const inputRazaoSocial = $("[data-cnpj=nomerazaosocial]");
 	if (inputRazaoSocial) {
-		iconNomeRazaoSocial = inputRazaoSocial.parentNode.find(".o-form__icon");
+		iconNomeRazaoSocial = inputRazaoSocial.parentNode.querySelector(".o-form__icon");
 		if (iconNomeRazaoSocial)
 			initAnimateInput(iconNomeRazaoSocial);
 	}
@@ -69,7 +69,7 @@ function findData(cnpj) {
 	let iconNomeFantasia;
 	const inputNomeFantasia = $("[data-cnpj=nomefantasia]");
 	if (inputNomeFantasia) {
-		iconNomeFantasia = inputNomeFantasia.parentNode.find(".o-form__icon");
+		iconNomeFantasia = inputNomeFantasia.parentNode.querySelector(".o-form__icon");
 		if (iconNomeFantasia)
 			initAnimateInput(iconNomeFantasia);
 	}
@@ -104,7 +104,7 @@ function fillFieldsCNPJ(json) {
  */
 function checkKey(input) {
 	if (input.value.length == 44) {
-		icon = input.parentNode.find(".o-form__icon");
+		icon = input.parentNode.querySelector(".o-form__icon");
 		if (icon)
 			initAnimateInput(icon);
 		const URL = `${WEBSERVICE}/document/eletronic/${input.dataset.document}/information/${input.value}/json`; 
@@ -130,7 +130,7 @@ function checkKey(input) {
  */
 function findCep(button) {
 	const icon = button.querySelector("i");
-	const input = button.parentNode.parentNode.find(".o-form__data");
+	const input = button.parentNode.parentNode.querySelector(".o-form__data");
 	if (input.value.length === 9) {
 		const CEP = input.value.replace("-", "");
 		requestCep(CEP, icon, button);
@@ -173,7 +173,8 @@ function fillFieldsCep(json) {
 	$("[data-cep=cidade]").innerHTML = `<option value="${json.codibge}">${json.cidade}</option>`;
 	if ($("[data-cep=pais]"))
 		$("[data-cep=pais]").innerHTML = `<option value="1058">BRASIL</option>`;
-	disabledFiledsCep();
+	if (!json.cep.endsWith("000"))
+		disabledFiledsCep();
 }
 
 /** @auth Matheus Castiglioni
@@ -240,9 +241,9 @@ function stopAnimateButton(icon) {
  *  Função responsável por informar para o usuário no HTML se o CNPJ é válido ou inválido
  */
 function setFeedback(object, element, type) {
-	const feedback = element.parentNode.find(".o-form__feedback");
+	const feedback = element.parentNode.querySelector(".o-form__feedback");
 	if (feedback) {
-		if (type.equals("valid")) {
+		if (type === "valid") {
 			let message = `${object} valido`;
 			feedback.setAttribute("aria-label", message)
 			feedback.textContent = message;

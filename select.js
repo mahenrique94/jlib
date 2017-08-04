@@ -47,6 +47,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     			changes.forEach(change => {
     				requestData(change).then(function() {
     					setOptipnSelected(change);
+    					invokeChange(change);
     				}).catch(error => console.error(error));
     			});
     		}
@@ -79,6 +80,8 @@ function requestData(select) {
 				value = "id";
 				break; 
 			case "slCadContato" :
+			case "slCadContatoFinal" :
+			case "slCadContatoInicial" :
 				text = "nome";
 				value = "id";
 				break; 
@@ -98,11 +101,18 @@ function requestData(select) {
 				text = "nome";
 				value = "id";
 				break; 
+			case "slCadMunicipioNomeDestino" :
+			case "slCadMunicipioNomeOrigem" :
+				text = "nome";
+				value = "id";
+				break;
 			case "slCadMunicipioText" :
 				text = "nome";
 				value = "nome";
 				break; 
 			case "slCadPessoa" :
+            case "slCadPessoaFinal" :
+            case "slCadPessoaInicial" :
 				text = "nomerazaosocial";
 				value = "id";
 				break; 
@@ -123,8 +133,14 @@ function requestData(select) {
 				value = "id";
 				break; 
 			case "slCadUfText" :
-				text = "uf";
+			case "slCadUfTextDestino" :
+			case "slCadUfTextOrigem" :
+				text = "nome";
 				value = "uf";
+				break; 
+			case "slFinBancoAgenciaConta" :
+				text = ["idbancoagencia.idbanco.descricao", "idbancoagencia.codagencia", "nroconta"];
+				value = "id";
 				break; 
 			case "slFinContaBancaria" :
 				text = ["idtipocontabancaria.descricao", "agencia", "numeroconta"];
@@ -262,8 +278,8 @@ function getPrimitiveValue(item, propertys) {
  *  Setando uma determinada opção como selecionado após abrir uma tela para edição 
  */
 function setOptipnSelected(select) {
-    const aux = $(`input[name="${select.name}aux"][type=hidden]`);
-    if (aux && !aux.value.equals("")) {
+	const aux = $(`input[name="${select.name}aux"][type=hidden]`);
+    if (aux && aux.value !== "") {
     	select.value = aux.value;
     	invokeChange(select);
     }

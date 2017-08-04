@@ -1,9 +1,10 @@
 var dropZone = $(".js-drag");
 var inputFile = $("#js-upload");
 var files = new Array();
+const REGEX_FILE_NAME = new RegExp("([^0-9aA-zZ])", "gim");
 
 function criaFileInfo(file) {
-	return `<tr class="js-${file.name.replace("(", "").replace(")","").replace(/\s/g, "-").replace(".", "-").toLowerCase()}"><td>${file.name}</td><td>${file.size}&nbsp;bytes</td><td><div class="o-drag__progress js-drag__progress"><div class="o-drag__progress--percent js-drag__progress--percent"></div><span>0%</span></div></td></tr>`;
+	return `<tr class="js-${file.name.replace(REGEX_FILE_NAME, "").toLowerCase()}"><td>${file.name}</td><td>${file.size}&nbsp;bytes</td><td><div class="o-drag__progress js-drag__progress"><div class="o-drag__progress--percent js-drag__progress--percent"></div><span>0%</span></div></td></tr>`;
 }
 
 function criaCheck() {
@@ -30,7 +31,7 @@ function fileSelect(event) {
 	let reader = null;
 	
 	// Caso for um INPUT é porque a importação esta sendo feita via click e não drop
-	if (event.target.nodeName.equals("INPUT"))
+	if (event.target.nodeName === "INPUT")
 		files = pushFiles(files, event.target.files);
 	else
 		files = pushFiles(files, event.dataTransfer.files);
@@ -63,11 +64,11 @@ function fileSelect(event) {
 		}
 		
 		reader.onload = function(event) {
-			const tr = $(`tr.js-${event.target.fileName.replace("(", "").replace(")","").replace(/\s/g, "-").replace(".", "-").toLowerCase()}`);
-			const progress = tr.find(".js-drag__progress");
-			const label = tr.find(".js-drag__progress span");
-			const percent = tr.find(".js-drag__progress--percent");
-			if (!label.textContent.equals("100%")) {
+			const tr = $(`tr.js-${event.target.fileName.replace(REGEX_FILE_NAME, "").toLowerCase()}`);
+			const progress = tr.querySelector(".js-drag__progress");
+			const label = tr.querySelector(".js-drag__progress span");
+			const percent = tr.querySelector(".js-drag__progress--percent");
+			if (label.textContent !== "100%") {
 				percent.style.width = "100%";
 				label.textContent = "100%";
 				progress.parentNode.appendChild(criaCheck());
@@ -76,9 +77,9 @@ function fileSelect(event) {
 		
 		reader.onloadstart = function(event) {
 			if (dragInfo != undefined) {
-				const tbody = dragInfo.find("tbody");
+				const tbody = dragInfo.querySelector("tbody");
 				let html = tbody.innerHTML;
-				if (!tbody.find(`.js-${event.target.file.name.replace("(", "").replace(")","").replace(/\s/g, "-").replace(".", "-").toLowerCase()}`))
+				if (!tbody.querySelector(`.js-${event.target.file.name.replace(REGEX_FILE_NAME, "").toLowerCase()}`))
 					html += criaFileInfo(event.target.file);
 				tbody.innerHTML = html;
 				dragInfo.style.display = "table";
@@ -86,9 +87,9 @@ function fileSelect(event) {
 		}
 		
 		reader.onprogress = function(event) {
-			const tr = $(`tr.js-${event.target.fileName.replace("(", "").replace(")","").replace(/\s/g, "-").replace(".", "-").toLowerCase()}`);
-			const label = tr.find(".js-drag__progress span");
-			const percent = tr.find(".js-drag__progress--percent");
+			const tr = $(`tr.js-${event.target.fileName.replace(REGEX_FILE_NAME, "").toLowerCase()}`);
+			const label = tr.querySelector(".js-drag__progress span");
+			const percent = tr.querySelector(".js-drag__progress--percent");
 			if (event.lengthComputable) {
 				let percentFile = Math.round((event.loaded / event.total) * 100);
 				if (percentFile < 100) {

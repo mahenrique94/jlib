@@ -25,7 +25,7 @@ class LoadGrid {
 	static load(url) {
 		return new Promise((resolve, reject) => {
 			HttpService.request(url, "GET").then(response => {
-				resolve(new DOMParser().parseFromString(response, "text/html").find("table"));
+				resolve(new DOMParser().parseFromString(response, "text/html").querySelector("table"));
 			}).catch(error => reject(error));
 		});
 	}
