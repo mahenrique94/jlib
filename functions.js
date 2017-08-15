@@ -40,7 +40,7 @@ function calculateDatTerminoByDay(event) {
 	if (inputDays && inputDays.value != null && inputDays.value > 0) {
 		if ((event.keyCode >= 48 && event.keyCode <= 57) || event.keyCode == 9 || event.keyCode == 8) {
 			const inputDateBegin = $(".js-datBegin");
-			inputDateBegin.value = inputDateBegin.value != null && !inputDateBegin.value.equals("") ? inputDateBegin.value : convertDateToBrazilianDateTime(new Date());
+			inputDateBegin.value = inputDateBegin.value != null && !inputDateBegin.value === "" ? inputDateBegin.value : convertDateToBrazilianDateTime(new Date());
 			const inputDateEnd = $(".js-datEnd");
 			const dateBegin = convertBrazilianDateTimeToDate(inputDateBegin.value);
 			const dateEnd = addDaysInDate(dateBegin, inputDays.value);
