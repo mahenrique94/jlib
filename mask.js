@@ -61,6 +61,7 @@ function masking(input, mask) {
 	for (let i = 0; i < mask.length; i++) {
 		input.value = input.value.replace(mask[i][0], mask[i][1]);
 	}
+	input.value = input.value.substring(0, input.maxLength);
 }
 
 /** @auth Matheus Castiglioni
