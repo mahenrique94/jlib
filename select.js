@@ -80,6 +80,8 @@ function requestData(select) {
 				value = "id";
 				break; 
 			case "slCadContato" :
+			case "slCadContatoFinal" :
+			case "slCadContatoInicial" :
 				text = "nome";
 				value = "id";
 				break; 
@@ -109,6 +111,8 @@ function requestData(select) {
 				value = "nome";
 				break; 
 			case "slCadPessoa" :
+            case "slCadPessoaFinal" :
+            case "slCadPessoaInicial" :
 				text = "nomerazaosocial";
 				value = "id";
 				break; 

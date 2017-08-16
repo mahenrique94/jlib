@@ -41,7 +41,7 @@ const maskTelefoneCelular = [maskTelefone, maskCelular];
  *  Processa a mascara de cada input
  */
 function mask(mask, input, event) {
-	if((event.keyCode >= 48 && event.keyCode <= 57) || event.keyCode == 8) {
+	if(isNumberAboveLetter(event.keyCode) || isNumberRightLetter(event.keyCode) || isBackScape(event.keyCode)) {
 		if (Array.isArray(mask[0][0])) {
 			if (input.value.length <= 14)
 				masking(input, mask[0]);
@@ -74,4 +74,23 @@ function checkMask(event) {
 		event.preventDefault();
 		event.stopPropagation();
 	}
+}
+
+/** @auth Matheus Castiglioni
+ *  Verifica se a tecla digitada é um dígito localizado no teclado numérico acima das letras
+ */
+function isNumberAboveLetter(keyCode) {
+	return keyCode >= 48 && keyCode <= 57;
+}
+/** @auth Matheus Castiglioni
+ *  Verifica se a tecla digitada é um dígito localizado no teclado numérico á direita das letras
+ */
+function isNumberRightLetter(keyCode) {
+    return keyCode >= 96 && keyCode <= 105;
+}
+/** @auth Matheus Castiglioni
+ *  Verifica se a tecla digitada é para apagar
+ */
+function isBackScape(keyCode) {
+	return keyCode == 8;
 }

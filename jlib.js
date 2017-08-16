@@ -286,7 +286,7 @@ class HttpService {
 			const xhr = new XMLHttpRequest();
 			xhr.open(verb, url, true);
 			if (verb.toUpperCase() === "POST")
-				xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded;charset=ISO-8859-1");
 			xhr.onreadystatechange = function() {
 				if (xhr.readyState == CODE_DONE) {
 					if (xhr.status == CODE_OK)
@@ -302,6 +302,26 @@ class HttpService {
 		});
 	}
 	
+	static upload(url, verb, params) {
+		return new Promise((resolve, reject) => {
+			const xhr = new XMLHttpRequest();
+			xhr.open(verb, url, true);
+//			xhr.setRequestHeader("Content-type", "multipart/form-data");
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState == CODE_DONE) {
+					if (xhr.status == CODE_OK)
+						resolve(xhr.responseText);
+					else
+						reject(xhr.responseText);
+				}
+			}
+			xhr.ontimeout = function() {
+				console.error("A requisição excedeu o tempo limite");
+			}
+			xhr.send(params);
+		});
+	}
+	
 	static populateParams(params, buildParams) {
 		// Verificando se ja esta sendo passado os dados para requisição via POST
 		if (!buildParams)
@@ -311,7 +331,7 @@ class HttpService {
 			let data = "";
 			params.forEach(param => {
 				if (!param.name.endsWith("aux") && this.isData(param))
-					data += `${encodeURIComponent(param.name)}=${param.value}&`;
+					data += `${encodeURIComponent(param.name)}=${encodeURIComponent(param.value)}&`;
 			});
 			return data.substring(0, (data.length - 1));
 		}
