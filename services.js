@@ -115,6 +115,7 @@ function checkKey(input) {
 				stopAnimateInput(icon);
 			} else {
 				setFeedback("Chave", input.parentNode.parentNode, "invalid");
+				input.setCustomValidity("Chave invalida");
 				stopAnimateInput(icon);
 			}
 		}).catch(error => {
@@ -149,7 +150,8 @@ function requestCep(cep, icon, button) {
 	HttpService.request(URL, "GET").then(response => {
 		const json = JSON.parse(response);
 		fillFieldsCep(json);
-		$("[data-cep=numero]").focus();
+		if ($("[data-cep=logradouro]").value !== "")
+			$("[data-cep=numero]").focus();
 		if (icon)
 			stopAnimateButton(icon);
 	}).catch(error => {
@@ -244,13 +246,13 @@ function setFeedback(object, element, type) {
 	const feedback = element.parentNode.querySelector(".o-form__feedback");
 	if (feedback) {
 		if (type === "valid") {
-			let message = `${object} valido`;
+			let message = `${object} valido(a)`;
 			feedback.setAttribute("aria-label", message)
 			feedback.textContent = message;
 			feedback.classList.add("is-valid", "is-show");
 			feedback.classList.remove("is-invalid", "is-hide");
 		} else {
-			let message = `${object} invalido`;
+			let message = `${object} invalido(a)`;
 			feedback.setAttribute("aria-label", message)
 			feedback.textContent = message;
 			feedback.classList.add("is-invalid", "is-show");
