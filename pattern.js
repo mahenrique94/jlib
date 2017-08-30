@@ -75,6 +75,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		{name : "numeric18-3", pattern : "^(([\\d]{1,18})(\\,([\\d]{1,3}))?)$", message : "O campo deve ser preenchido com numeros ou ponto, a parte inteira aceita no maximo 18 digitos e a decimal no maximo 3."},
 		{name : "numeric18-4", pattern : "^(([\\d]{1,18})(\\,([\\d]{1,4}))?)$", message : "O campo deve ser preenchido com numeros ou ponto, a parte inteira aceita no maximo 18 digitos e a decimal no maximo 4."},
 		{name : "numeric18-6", pattern : "^(([\\d]{1,18})(\\,([\\d]{1,6}))?)$", message : "O campo deve ser preenchido com numeros ou ponto, a parte inteira aceita no maximo 18 digitos e a decimal no maximo 6."},
+        {name : "numeric18-10", pattern : "^(([\\d]{1,18})(\\,([\\d]{1,10}))?)$", message : "O campo deve ser preenchido com numeros ou ponto, a parte inteira aceita no maximo 18 digitos e a decimal no maximo 10."},
 		{name : "numeroEndereco", pattern : "^(([A-Z\\d])*([S\\/N])*)$", message : "O campo deve ser preenchido com numeros ou letras referente a um endereço, caso não possua numero informar S/N(Sem Numero)."},
 		{name : "numeroPontoTraco", pattern : "^([\\d\\.\\-]*)$", message : "O campo deve ser preenchido com numeros, pontos ou tracos."},
 		{name : "numeroTraco", pattern : "^([\\d\\-]*)$", message : "O campo deve ser preenchido com numeros ou tracos."},
