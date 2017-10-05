@@ -10,6 +10,27 @@ document.addEventListener("DOMContentLoaded", function(event) {
 });
 
 /** @auth Matheus Castiglioni
+ *  Habilitando os elementos do formulario
+ */
+function activeElement(element) {
+    element.classList.remove("is-disabled");
+    if (element.dataset.readonly == undefined) {
+        element.removeAttribute("readonly");
+        element.removeAttribute("aria-readonly");
+    }
+}
+
+/** @auth Matheus Castiglioni
+ *  Desabilitando os elementos do formulario
+ */
+function disableElement(element) {
+    element.classList.add("o-box__element", "is-disabled");
+    element.setAttribute("readonly", "true");
+    element.setAttribute("aria-readonly", "true");
+}
+
+
+/** @auth Matheus Castiglioni
  *  Desabilitando todos os elementos do formulario 
  */
 function disableElements(box) {
@@ -31,23 +52,14 @@ function editBox(box) {
 }
 
 /** @auth Matheus Castiglioni
- *  Habilitando os elementos do formulario
+ *  Escondendo botão salvar
  */
-function activeElement(element) {
-	element.classList.remove("is-disabled");
-	if (element.dataset.readonly == undefined) {
-		element.removeAttribute("readonly");
-		element.removeAttribute("aria-readonly");
-	}
-}
-
-/** @auth Matheus Castiglioni
- *  Desabilitando os elementos do formulario 
- */
-function disableElement(element) {
-	element.classList.add("o-box__element", "is-disabled");
-	element.setAttribute("readonly", "true");
-	element.setAttribute("aria-readonly", "true");
+function hideSave(box) {
+    if (box) {
+        const buttonSave = box.querySelector(".js-save");
+        if (buttonSave)
+            hideElement(buttonSave);
+    }
 }
 
 /** @auth Matheus Castiglioni
@@ -57,15 +69,4 @@ function showSave(box) {
 	const buttonSave = box.querySelector(".js-save");
 	if (buttonSave)
 		showElement(buttonSave);
-}
-
-/** @auth Matheus Castiglioni
- *  Escondendo botão salvar
- */
-function hideSave(box) {
-	if (box) {
-		const buttonSave = box.querySelector(".js-save");
-		if (buttonSave)
-			hideElement(buttonSave);
-	}
 }

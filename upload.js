@@ -3,24 +3,22 @@ var inputFile = $("#js-upload");
 var files = new Array();
 const REGEX_FILE_NAME = new RegExp("([^0-9aA-zZ])", "gim");
 
-function criaFileInfo(file) {
-	return `<tr class="js-${file.name.replace(REGEX_FILE_NAME, "").toLowerCase()}"><td>${file.name}</td><td>${file.size}&nbsp;bytes</td><td><div class="o-drag__progress js-drag__progress"><div class="o-drag__progress--percent js-drag__progress--percent"></div><span>0%</span></div></td></tr>`;
-}
+const abort = () => reader.abort();
 
 function criaCheck() {
-	const icon = document.createElement("i");
-	icon.classList.add("l-color--ren", "icon-ok-circled");
-	return icon;
+    const icon = document.createElement("i");
+    icon.classList.add("l-color--ren", "icon-ok-circled");
+    return icon;
+}
+
+function criaFileInfo(file) {
+	return `<tr class="js-${file.name.replace(REGEX_FILE_NAME, "").toLowerCase()}"><td>${file.name}</td><td>${file.size}&nbsp;bytes</td><td><div class="o-drag__progress js-drag__progress"><div class="o-drag__progress--percent js-drag__progress--percent"></div><span>0%</span></div></td></tr>`;
 }
 
 function dragOver(event) {
 	event.stopPropagation();
 	event.preventDefault();
 	event.dataTransfer.dropEffect = "copy";
-}
-
-function abort() {
-	reader.abort();
 }
 
 function fileSelect(event) {
@@ -119,10 +117,10 @@ function uploadsToArray(uploads) {
 	return array;
 }
 
-if (dropZone != undefined) {
+if (dropZone) {
 	dropZone.addEventListener("dragover", dragOver, false);
 	dropZone.addEventListener("drop", fileSelect, false);
 }
 
-if (inputFile != undefined)
+if (inputFile)
 	inputFile.addEventListener("change", fileSelect, false);

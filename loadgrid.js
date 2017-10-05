@@ -10,7 +10,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	if (loadGrids.length > 0) {
 		loadGrids.forEach(loadGrid => {
 			LoadGrid.load(loadGrid.dataset.load).then(response => {
-				loadGrid.appendChild(response);
+				if (response != null)
+					loadGrid.appendChild(response);
 			}).catch(error => console.error(error));
 		});
 	}

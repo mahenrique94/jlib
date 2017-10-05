@@ -15,6 +15,56 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	
 });
 
+/** @auth Matheus Castiglioni
+ *  Função responsável por atualizar o caption da tabela informando quantas linhas foram selecionadas
+ */
+function atualizaCaption(caption) {
+    if (caption)
+        caption.innerHTML = `${qtdChecks} linha(s) selecionada(s)`;
+}
+
+/** @auth Matheus Castiglioni
+ *  Função responsável por atualizar a quantidade de linhas selecionadas,
+ *  caso a linha seja selecionada irá contar + 1,
+ *  caso a linha seja desselecionada irá contar - 1
+ */
+function atualizaQtdChecks(obj) {
+    if (obj.checked)
+        qtdChecks++;
+    else
+        qtdChecks--;
+    atualizaCaption(obj.parentNode.parentNode.parentNode.parentNode.querySelector("caption"));
+}
+
+/** @auth Matheus Castiglioni
+ *  Função por selecionar e pintar a linha
+ */
+function atualizarCheck(obj) {
+    obj.checked = obj.checked;
+    pintaLinha(obj);
+}
+
+/** @auth Matheus Castiglioni
+ *  Função para checar apenas a linha clicada
+ */
+function check(obj) {
+    atualizarCheck(obj);
+}
+
+/** @auth Matheus Castiglioni
+ *  Função para checkar ou descheckar todas as linhas de uma única vez
+ */
+function checkAll(obj) {
+    if (obj.checked) {
+        existeCheckado(obj);
+        obj.parentNode.parentNode.parentNode.parentNode.querySelectorAll("tbody > tr > td:first-child > input[type=checkbox]").forEach(input => {
+            input.checked = obj.checked;
+        atualizarCheck(input);
+    });
+    } else {
+        existeCheckado(obj);
+    }
+}
 
 /** @auth Matheus Castiglioni
  *  Função principal onde será chamada nos elementos HTML
@@ -29,62 +79,11 @@ function checkGrid(obj) {
 }
 
 /** @auth Matheus Castiglioni
- *  Função para checar apenas a linha clicada
- */
-function check(obj) {
-	atualizarCheck(obj);
-}
-
-/** @auth Matheus Castiglioni
- *  Função para checkar ou descheckar todas as linhas de uma única vez
- */
-function checkAll(obj) {
-	if (obj.checked) {
-		existeCheckado(obj);
-		obj.parentNode.parentNode.parentNode.parentNode.querySelectorAll("tbody > tr > td:first-child > input[type=checkbox]").forEach(input => {
-			input.checked = obj.checked; 
-			atualizarCheck(input);
-		});
-	} else {
-		existeCheckado(obj);
-	}
-}
-
-/** @auth Matheus Castiglioni
  *  Função para checkar apenas a linha selecionada, caso existe outras linhas selecionadas as mesmas irão ser desselecionadas
  */
 function checkOnly(obj) {
 	existeCheckado(obj);
 	atualizarCheck(obj);
-}
-
-/** @auth Matheus Castiglioni
- *  Função por selecionar e pintar a linha
- */
-function atualizarCheck(obj) {
-	obj.checked = obj.checked;
-	pintaLinha(obj);
-}
-
-/** @auth Matheus Castiglioni
- *  Função responsável por atualizar a quantidade de linhas selecionadas,
- *  caso a linha seja selecionada irá contar + 1,
- *  caso a linha seja desselecionada irá contar - 1
- */
-function atualizaQtdChecks(obj) {
-	if (obj.checked)
-		qtdChecks++;
-	else
-		qtdChecks--;
-	atualizaCaption(obj.parentNode.parentNode.parentNode.parentNode.querySelector("caption"));
-}
-
-/** @auth Matheus Castiglioni
- *  Função responsável por atualizar o caption da tabela informando quantas linhas foram selecionadas
- */
-function atualizaCaption(caption) {
-	if (caption)
-		caption.innerHTML = `${qtdChecks} linha(s) selecionada(s)`;
 }
 
 /** @auth Matheus Castiglioni

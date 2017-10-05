@@ -38,6 +38,33 @@ const maskTelefone = [
 const maskTelefoneCelular = [maskTelefone, maskCelular];
 
 /** @auth Matheus Castiglioni
+ *  Verifica se a tecla digitada é um dígito, BACKSPACE ou TAB
+ */
+function checkMask(event) {
+    // Devido a diferença de keyCode entre CHROME e FIREFOX tive que usar KEY no lugar de KEYCODE
+    let keyCode = parseInt(event.key);
+    if(!((keyCode >= 0 && keyCode <= 9) || event.key.toLowerCase() === "backspace" || event.key.toLowerCase() === "tab")) {
+        event.preventDefault();
+        event.stopPropagation();
+    }
+}
+
+/** @auth Matheus Castiglioni
+ *  Verifica se a tecla digitada é para apagar
+ */
+const isBackScape = keyCode => keyCode == 8;
+
+/** @auth Matheus Castiglioni
+ *  Verifica se a tecla digitada é um dígito localizado no teclado numérico acima das letras
+ */
+const isNumberAboveLetter = keyCode => keyCode >= 48 && keyCode <= 57;
+
+/** @auth Matheus Castiglioni
+ *  Verifica se a tecla digitada é um dígito localizado no teclado numérico á direita das letras
+ */
+const isNumberRightLetter = keyCode => keyCode >= 96 && keyCode <= 105;
+
+/** @auth Matheus Castiglioni
  *  Processa a mascara de cada input
  */
 function mask(mask, input, event) {
@@ -61,36 +88,4 @@ function masking(input, mask) {
 	for (let i = 0; i < mask.length; i++) {
 		input.value = input.value.replace(mask[i][0], mask[i][1]);
 	}
-	input.value = input.value.substring(0, input.maxLength);
-}
-
-/** @auth Matheus Castiglioni
- *  Verifica se a tecla digitada é um dígito, BACKSPACE ou TAB
- */
-function checkMask(event) {
-	// Devido a diferença de keyCode entre CHROME e FIREFOX tive que usar KEY no lugar de KEYCODE
-	let keyCode = parseInt(event.key);
-	if(!((keyCode >= 0 && keyCode <= 9) || event.key.toLowerCase() === "backspace" || event.key.toLowerCase() === "tab")) {
-		event.preventDefault();
-		event.stopPropagation();
-	}
-}
-
-/** @auth Matheus Castiglioni
- *  Verifica se a tecla digitada é um dígito localizado no teclado numérico acima das letras
- */
-function isNumberAboveLetter(keyCode) {
-	return keyCode >= 48 && keyCode <= 57;
-}
-/** @auth Matheus Castiglioni
- *  Verifica se a tecla digitada é um dígito localizado no teclado numérico á direita das letras
- */
-function isNumberRightLetter(keyCode) {
-    return keyCode >= 96 && keyCode <= 105;
-}
-/** @auth Matheus Castiglioni
- *  Verifica se a tecla digitada é para apagar
- */
-function isBackScape(keyCode) {
-	return keyCode == 8;
 }

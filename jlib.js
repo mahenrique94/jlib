@@ -15,8 +15,8 @@ const $$ = selector => document.querySelectorAll(selector);
  */
 const trimAll = s => s.replace(/([\\s]+)/g, ""); // Todos os espaços
 const trimLeft = s => s.replace(/^([\\s]+)/, ""); // Espaços á esquerda
-const trimRight = s => s.replace(/([\\s]+)$/, ""); // Espaços a direita
 const trimLeftRight = s => s.replace(/(^([\\s]*)|([\\s]+)$)/g, ""); // Espaços a direita e esquerda
+const trimRight = s => s.replace(/([\\s]+)$/, ""); // Espaços a direita
 
 /** @auth Matheus Castiglioni
  *  Inserir elementos no body 
@@ -27,6 +27,25 @@ const append = element => document.body.appendChild(element);
  *  Inserir elementos no body do elemento pai 
  */
 const appendParent = element => parent.document.body.appendChild(element);
+
+/** @auth Matheus Castiglioni
+ *  Função para pegar o nome da aplicação que esta sendo executada
+ */
+function getApplicationName() {
+    let href = window.location.href;
+    let app = href.substring(href.indexOf("//") + 2); // Retirando http://
+    app = app.substring(app.indexOf("/") + 1);
+    app = app.substring(0, app.indexOf("/"));
+    return app;
+}
+
+/** @auth Matheus Castiglioni
+ *  Esconder elemento
+ */
+function hideElement(element) {
+    element.classList.remove("is-show");
+    element.classList.add("is-hide");
+}
 
 /** @auth Matheus Castiglioni
  *  Disparando evento change manualmente em um determinado elemento
@@ -49,37 +68,23 @@ function showHideElement(element) {
 	element.classList.toggle("is-show");
 }
 
-/** @auth Matheus Castiglioni
- *  Esconder elemento
- */
-function hideElement(element) {
-	element.classList.remove("is-show");
-	element.classList.add("is-hide");
-}
-
-/** @auth Matheus Castiglioni
- *  Função para pegar o nome da aplicação que esta sendo executada
- */
-function getApplicationName() {
-	let href = window.location.href;
-	let app = href.substring(href.indexOf("//") + 2); // Retirando http://
-	app = app.substring(app.indexOf("/") + 1);
-	app = app.substring(0, app.indexOf("/")); 
-	return app;
-}
-
 /****************************** FUNCTION ******************************/
+document.addEventListener("DOMNodeInserted", function(event) {
+
+    /** @auth Matheus Castiglioni
+     *  Remover qualquer elemento que tenha a classe js-timeOut após 2 segundos
+     */
+    setTimeout(removeTimeOut, 2000);
+
+});
+
 document.addEventListener("DOMContentLoaded", function(event) {
 	
 	/** @auth Matheus Castiglioni
 	 *  Remover qualquer elemento que tenha a classe js-timeOut após 2 segundos
 	 */
-	setTimeout(function() {
-		const timeout = $(".js-timeOut");
-		if (timeout != undefined)
-			timeout.remove();
-	}, 2000);
-	
+	setTimeout(removeTimeOut, 2000);
+
 	/** @auth Matheus Castiglioni
 	 *  Ao realizar double click em uma table irá procurar se possui algum input ou textarea que esta precisando
 	 *  receber algum informação referente a linha clicada, caso existe o valor é jogado para eles e o modal é fechado
@@ -107,12 +112,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	 */
 	const dependencys = $$("[data-dependency]");
 	if (dependencys.length > 0) {
-		dependencys.forEach(dependency => {
-			checkValidateDependency(dependency);
-			dependency.addEventListener("input", function() {
-				checkValidateDependency(this);
+		setTimeout(() => {
+			dependencys.forEach(dependency => {
+				checkValidateDependency(dependency);
+				dependency.addEventListener("input", function() {
+					checkValidateDependency(this);
+				});
 			});
-		});
+		}, 1000);
 	}
 	
 });
@@ -121,39 +128,103 @@ document.addEventListener("DOMContentLoaded", function(event) {
  *  Função para chekcar se o input esta válido ou não para poder inválidar ou validar sua dependência
  */
 function checkValidateDependency(element) {
-	if (element.checkValidity())
-		elementRemoveAttribute(`#${element.dataset.dependency}`, "required");
-	else
-		elementAddAttribute(`#${element.dataset.dependency}`, "required", "true");
+	if (element.checkValidity()) {
+        element.dataset.dependency.replace("[", "").replace("]", "").split(",").forEach(dependency => {
+			elementRemoveAttribute(`#${dependency.trim()}`, "required");
+		});
+	} else {
+        element.dataset.dependency.replace("[", "").replace("]", "").split(",").forEach(dependency => {
+			elementAddAttribute(`#${dependency.trim()}`, "required", "true");
+		});
+	}
 }
 
 /** @auth Matheus Castiglioni
- *  Função para gerar um código de acordo a data atual e informar no input
+ *  Função para limpar os valores dos inputs que são alimentados via ListaSL
  */
-function createCode(button) {
-	const input = button.parentNode.parentNode.querySelector("input");
-	const data = new Date();
-	const code = `${data.getDate()}${(data.getMonth() + 1)}${data.getFullYear().toString().substring(2)}${data.getHours()}${data.getMinutes()}${data.getSeconds()}${data.getMilliseconds()}`;
-	if (input)
-		input.value = code;
+function clearSL(obj) {
+    const input = obj.parentNode.parentNode.querySelector("input");
+    const inputsLimpar = document.querySelectorAll(`[data-search=${input.dataset.search}]`);
+    inputsLimpar.forEach(input => {
+        input.value = "";
+	});
+}
+
+/** @auth Mahteus Castiglioni
+ *  Função para fechar os modais após alguma execução de script
+ */
+function closeModal() {
+    const modal = parent.document.querySelector(".js-o-modal");
+    const background = parent.document.querySelector(".js-o-modal__background");
+    if (modal && background) {
+        modal.remove()
+        background.remove();
+    }
+}
+
+/** @auth Mahteus Castiglioni
+ *  Função para fechar os modais após alguma execução de script
+ */
+function closeModalParent() {
+    const modal = parent.parent.document.querySelector(".js-o-modal");
+    const background = parent.parent.document.querySelector(".js-o-modal__background");
+    if (modal && background) {
+        modal.remove()
+        background.remove();
+    }
 }
 
 /** @auth Matheus Castiglioni
- *  Função para pegar a data atual e informar no input
+ *  Busca um determinado elemento e adiciona um determinado atributo
  */
-function insertDate(button) {
-	const input = button.parentNode.parentNode.querySelector("input");
-	const agora = new Date();
-	let dia = agora.getDate();
-	let mes = agora.getMonth() + 1;
-	let hora = agora.getHours();
-	let minuto = agora.getMinutes();
-	dia = dia < 10 ? `0${dia}` : dia;
-	mes = mes < 10 ? `0${mes}` : mes;
-	hora = hora >= 1 && hora <= 9 ? `0${hora}` : hora;
-	minuto = minuto >= 0 && minuto <= 9 ? `0${minuto}` : minuto;
-	if (!input.readOnly && input)
-		input.value = `${dia}/${mes}/${agora.getFullYear()} ${hora}:${minuto}`;
+function elementAddAttribute(selector, attribute, value) {
+    const element = $(selector);
+    if (element)
+        element.setAttribute(attribute, value);
+}
+
+/** @auth Matheus Castiglioni
+ *  Busca um determinado elemento e remove um determinado atributo
+ */
+function elementRemoveAttribute(selector, attribute) {
+    const element = $(selector);
+    if (element)
+        element.removeAttribute(attribute);
+}
+
+/** @auth Matheus Castiglioni
+ *  Cria um toast para quando alguma requisição via ajax é realizada
+ */
+function newToast(type, message, icon) {
+    const toast = document.createElement("div")
+    toast.setAttribute("role", "alert");
+    toast.classList.add(type, "has-icon", "is-fixedTop", "js-timeOut");
+    toast.innerHTML = `<p class="o-toast__message">${message}<i class="${icon} o-toast__icon--left"></i></p>`;
+    if (type === "o-toast--error")
+        toast.innerHTML += "<button class=\"o-toast__close\" onclick=\"ToastController.close(this.parentNode);\"><i class=\"icon-cancel\"></i></button>";
+    return toast;
+}
+
+/** @auth Matheus Castiglioni
+ *  Remover qualquer elemento que tenha a classe js-timeOut
+ */
+function removeTimeOut() {
+    const timeout = $(".js-timeOut");
+    if (timeout)
+        timeout.remove();
+}
+
+/** @auth Matheus Castiglioni
+ *  Função genérica para realizar uma requisição via AJAX
+ */
+function request(obj, event) {
+    event.preventDefault();
+    const URL = obj.href || obj.formAction || obj.action;
+    return new Promise((resolve, reject) => {
+        HttpService.request(URL, obj.method, obj.elements, true).then(response => {
+        resolve(response);
+}).catch(error => reject(error));
+});
 }
 
 /** @auth Matheus
@@ -174,38 +245,7 @@ function requestDelete(obj) {
 		append(newToast("o-toast--error", "Registro nao pode ser excluido", "icon-cancel-circled"));
 		console.error(error);
 	});
-};	
-
-/** @auth Matheus Castiglioni
- *  Cria um toast para quando a exclusão via ajax é realizada com sucesso 
- */
-function newToast(type, message, icon) {
-	const toast = document.createElement("DIV")
-	toast.setAttribute("role", "alert");
-	toast.classList.add(type, "has-icon", "is-fixedTop", "js-timeOut");
-	toast.innerHTML = `<p class="o-toast__message">${message}<i class="${icon} o-toast__icon--left"></i></p>`;
-	if (type === "o-toast--error")
-		toast.innerHTML += "<button class=\"o-toast__close\" onclick=\"ToastController.close(this.parentNode);\"><i class=\"icon-cancel\"></i></button>";
-	if (type === "o-toast--success") {
-		setTimeout(function() {
-			toast.remove();
-		}, 2000);
-	}
-	return toast;
-}
-
-/** @auth Matheus Castiglioni
- *  Função genérica para realizar uma requisição via AJAX 
- */
-function request(obj, event) {
-	event.preventDefault();
-	const URL = obj.href || obj.formAction || obj.action;
-	return new Promise((resolve, reject) => {
-		HttpService.request(URL, obj.method, obj.elements, true).then(response => {
-			resolve(response);
-		}).catch(error => reject(error));	
-	});
-}
+};
 
 /** @auth Matheus Castiglioni
  *  Realizar uma requisição via AJAX para o servidor e se tudo der certo fechar o modal, caso o formulário
@@ -222,125 +262,11 @@ function requestModal(obj, event) {
 				closeModal();
 			}).catch(error => {
 				console.error(error);
-				appendParent(newToast("o-toast--error", "Operacao não foi realizada com sucesso", "icon-cancel-circled"));
+				appendParent(newToast("o-toast--error", "Operacao nao foi realizada com sucesso", "icon-cancel-circled"));
 				closeModal();
 			});
 		} else {
 			parent.document.location = parent.document.location;
 		}
 	}).catch(error => console.error(error));
-}
-
-/** @auth Mahteus Castiglioni
- *  Função para fechar os modais após alguma execução de script
- */
-function closeModal() {
-	const modal = parent.document.querySelector(".js-o-modal");
-	const background = parent.document.querySelector(".js-o-modal__background");
-	if (modal && background) {
-		modal.remove()
-		background.remove();
-	}
-}
-
-/** @auth Matheus Castiglioni
- *  Busca um determinado elemento e remove um determinado atributo 
- */
-function elementRemoveAttribute(selector, attribute) {
-	const element = $(selector);
-	if (element)
-		element.removeAttribute(attribute);
-}
-
-/** @auth Matheus Castiglioni
- *  Busca um determinado elemento e adiciona um determinado atributo 
- */
-function elementAddAttribute(selector, attribute, value) {
-	const element = $(selector);
-	if (element)
-		element.setAttribute(attribute, value);
-}
-
-/** @auth Matheus Castiglioni
- *  Função para limpar os valores dos inputs que são alimentados via ListaSL
- */
-function clearSL(obj) {
-	const input = obj.parentNode.parentNode.querySelector("input");
-	const inputsLimpar = document.querySelectorAll(`[data-search=${input.dataset.search}]`);
-	inputsLimpar.forEach(input => {
-		input.value = "";
-	});
-}
-
-/****************************** CLASSES ******************************/
-const CODE_DONE = 4;
-const CODE_OK = 200;
-
-/** @auth Matheus Castiglioni
- *  Classe responsável por realizar requisições ajax para uma determinada url
- */
-class HttpService {
-
-	static request(url, verb, params, buildParams) {
-		return new Promise((resolve, reject) => {
-			const xhr = new XMLHttpRequest();
-			xhr.open(verb, url, true);
-			if (verb.toUpperCase() === "POST")
-				xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded;charset=ISO-8859-1");
-			xhr.onreadystatechange = function() {
-				if (xhr.readyState == CODE_DONE) {
-					if (xhr.status == CODE_OK)
-						resolve(xhr.responseText);
-					else
-						reject(xhr.responseText);
-				}
-			}
-			xhr.ontimeout = function() {
-				console.error("A requisição excedeu o tempo limite");
-			}
-			xhr.send(this.populateParams(params, buildParams));
-		});
-	}
-	
-	static upload(url, verb, params) {
-		return new Promise((resolve, reject) => {
-			const xhr = new XMLHttpRequest();
-			xhr.open(verb, url, true);
-//			xhr.setRequestHeader("Content-type", "multipart/form-data");
-			xhr.onreadystatechange = function() {
-				if (xhr.readyState == CODE_DONE) {
-					if (xhr.status == CODE_OK)
-						resolve(xhr.responseText);
-					else
-						reject(xhr.responseText);
-				}
-			}
-			xhr.ontimeout = function() {
-				console.error("A requisição excedeu o tempo limite");
-			}
-			xhr.send(params);
-		});
-	}
-	
-	static populateParams(params, buildParams) {
-		// Verificando se ja esta sendo passado os dados para requisição via POST
-		if (!buildParams)
-			return params;
-		
-		if (params && params.length > 0) {
-			let data = "";
-			params.forEach(param => {
-				if (!param.name.endsWith("aux") && this.isData(param))
-					data += `${encodeURIComponent(param.name)}=${encodeURIComponent(param.value)}&`;
-			});
-			return data.substring(0, (data.length - 1));
-		}
-		
-		return null;
-	}
-	
-	static isData(element) {
-		return element.nodeName.toLowerCase() === "input" || element.nodeName.toLowerCase() === "select" || element.nodeName.toLowerCase() === "textarea";
-	}
-	
 }
