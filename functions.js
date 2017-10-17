@@ -97,3 +97,11 @@ function insertDateHour(button) {
         invokeChange(input);
     }
 }
+
+/** @auth Matheus Castiglioni
+ *  Checando se o parâmetro informado é uma String ou Número
+ */
+function isNumber(p)  {
+    const regexLetters = new RegExp("([A-Z])", "gim");
+    return (Number.isInteger(p) && Number.isFinite(p) && !isNaN(parseInt(p))) || (!isNaN(parseFloat(p))) && !regexLetters.test(p);
+}
