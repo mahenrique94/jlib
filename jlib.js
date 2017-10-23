@@ -270,3 +270,33 @@ function requestModal(obj, event) {
 		}
 	}).catch(error => console.error(error));
 }
+
+/** @auth Matheus Castiglioni
+ *  Função para setar um elemento como required se o pai tiver sido preenchido
+ */
+function requiredDependency(father) {
+    if (father.value != null && father.value != "") {
+        father.dataset.dependency.replace("[", "").replace("]", "").split(",").forEach(dependency => {
+			elementAddAttribute(`#${dependency.trim()}`, "required", "true");
+    	});
+	} else {
+        father.dataset.dependency.replace("[", "").replace("]", "").split(",").forEach(dependency => {
+        	elementRemoveAttribute(`#${dependency.trim()}`, "required");
+    	});
+	}
+}
+
+/** @auth Matheus Castiglioni
+ *  Função para mostrar um elemento se o pai tiver sido preenchido
+ */
+function requiredDependencyShow(father) {
+	if (father.value != null && father.value != "") {
+		father.dataset.dependency.replace("[", "").replace("]", "").split(",").forEach(dependency => {
+			showElement($(`#${dependency.trim()}`));
+		});
+    } else {
+        father.dataset.dependency.replace("[", "").replace("]", "").split(",").forEach(dependency => {
+            hideElement($(`#${dependency.trim()}`));
+    	});
+	}
+}
