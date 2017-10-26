@@ -43,7 +43,7 @@ const maskTelefoneCelular = [maskTelefone, maskCelular];
 function checkMask(event) {
     // Devido a diferença de keyCode entre CHROME e FIREFOX tive que usar KEY no lugar de KEYCODE
     let keyCode = parseInt(event.key);
-    if(!((keyCode >= 0 && keyCode <= 9) || event.key.toLowerCase() === "backspace" || event.key.toLowerCase() === "tab")) {
+    if(!((keyCode >= 0 && keyCode <= 9) || event.key.toLowerCase() === "backspace" || event.key.toLowerCase() === "tab" || event.key.toLowerCase() === "enter")) {
         event.preventDefault();
         event.stopPropagation();
     }
