@@ -53,6 +53,11 @@ function hideElement(element) {
 const invokeChange = element => element.dispatchEvent(new Event("change"));
 
 /** @auth Matheus Castiglioni
+ *  Disparando evento input manualmente em um determinado elemento
+ */
+const invokeInput = element => element.dispatchEvent(new Event("input"));
+
+/** @auth Matheus Castiglioni
  *  Mostrar elemento
  */
 function showElement(element) {
@@ -275,6 +280,7 @@ function requestModal(obj, event) {
  *  Função para setar um elemento como required se o pai tiver sido preenchido
  */
 function requiredDependency(father) {
+	console.log("Ola");
     if (father.value != null && father.value != "") {
         father.dataset.dependency.replace("[", "").replace("]", "").split(",").forEach(dependency => {
 			elementAddAttribute(`#${dependency.trim()}`, "required", "true");

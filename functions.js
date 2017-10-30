@@ -59,6 +59,7 @@ function createCode(button) {
     if (input) {
         input.value = code;
         invokeChange(input);
+        invokeInput(input);
     }
 }
 
@@ -75,6 +76,7 @@ function insertDate(button) {
     if (!input.readOnly && input) {
         input.value = `${dia}/${mes}/${agora.getFullYear()}`;
         invokeChange(input);
+        invokeInput(input);
     }
 }
 
@@ -95,6 +97,7 @@ function insertDateHour(button) {
     if (!input.readOnly && input) {
         input.value = `${dia}/${mes}/${agora.getFullYear()} ${hora}:${minuto}`;
         invokeChange(input);
+        invokeInput(input);
     }
 }
 
