@@ -71,6 +71,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		{name : "numeric3-2", pattern : "^(([\\d]{1,3})(\\,([\\d]{1,2}))?)$", message : "O campo deve ser preenchido com numeros ou ponto, a parte inteira aceita no maximo 3 digitos e a decimal no maximo 2."},
 		{name : "numeric5-2", pattern : "^(([\\d]{1,5})(\\,([\\d]{1,2}))?)$", message : "O campo deve ser preenchido com numeros ou ponto, a parte inteira aceita no maximo 5 digitos e a decimal no maximo 2."},
 		{name : "numeric10-2", pattern : "^(([\\d]{1,10})(\\,([\\d]{1,2}))?)$", message : "O campo deve ser preenchido com numeros ou ponto, a parte inteira aceita no maximo 18 digitos e a decimal no maximo 2."},
+		{name : "numeric18-1", pattern : "^(([\\d]{1,18})(\\,([\\d]{1,1}))?)$", message : "O campo deve ser preenchido com numeros ou ponto, a parte inteira aceita no maximo 18 digitos e um decimal."},
 		{name : "numeric18-2", pattern : "^(([\\d]{1,18})(\\,([\\d]{1,2}))?)$", message : "O campo deve ser preenchido com numeros ou ponto, a parte inteira aceita no maximo 18 digitos e a decimal no maximo 2."},
 		{name : "numeric18-3", pattern : "^(([\\d]{1,18})(\\,([\\d]{1,3}))?)$", message : "O campo deve ser preenchido com numeros ou ponto, a parte inteira aceita no maximo 18 digitos e a decimal no maximo 3."},
 		{name : "numeric18-4", pattern : "^(([\\d]{1,18})(\\,([\\d]{1,4}))?)$", message : "O campo deve ser preenchido com numeros ou ponto, a parte inteira aceita no maximo 18 digitos e a decimal no maximo 4."},

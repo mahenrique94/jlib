@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			const elements = scope.querySelectorAll("input, select, textarea");
 			if (elements.length > 0) {
 				elements.forEach(element => {
-                    validating(validate, scope);
 					element.addEventListener("keyup", function() {
 						validating(validate, scope);
 					});

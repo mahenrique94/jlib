@@ -167,7 +167,11 @@ function requestData(select) {
 			case "slAdmComercio" :
 				text = "nomerazaosocial";
 				value = "id";
-				break; 
+				break;
+			case "slArmLocalTipo" :
+				text = "descricao";
+				value = "id.tipo";
+				break;
 			case "slCadContato" :
 			case "slCadContatoFinal" :
 			case "slCadContatoInicial" :
@@ -258,6 +262,10 @@ function requestData(select) {
 			case "slPsGrupoClasse" :
 				text = ["idgrupo.descricao", "descricao"];
 				value = "id";
+				break;
+			case "slPsbClasse" :
+				text = "descricao";
+				value = ["id.id", "id.idgrupo.id"];
 				break;
 			case "slPsbGrupoClasseCetus" :
 				text = ["id.idgrupo.descricao", "descricao"];
