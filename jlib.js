@@ -19,6 +19,11 @@ const trimLeftRight = s => s.replace(/(^([\\s]*)|([\\s]+)$)/g, ""); // Espaços 
 const trimRight = s => s.replace(/([\\s]+)$/, ""); // Espaços a direita
 
 /** @auth Matheus Castiglioni
+ *  Verificando se um input tem valor
+ */
+const inputHasValue = input => input.value && input.value.length > 0 && input.value !== "";
+
+/** @auth Matheus Castiglioni
  *  Inserir elementos no body 
  */
 const append = element => document.body.appendChild(element);
@@ -227,9 +232,9 @@ function request(obj, event) {
     const URL = obj.href || obj.formAction || obj.action;
     return new Promise((resolve, reject) => {
         HttpService.request(URL, obj.method, obj.elements, true).then(response => {
-        resolve(response);
-}).catch(error => reject(error));
-});
+            resolve(response);
+        }).catch(error => reject(error));
+    });
 }
 
 /** @auth Matheus

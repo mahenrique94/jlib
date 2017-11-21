@@ -79,6 +79,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		{name : "numeroEndereco", pattern : "^(([A-Z\\d])*([S\\/N])*)$", message : "O campo deve ser preenchido com numeros ou letras referente a um endereço, caso não possua numero informar S/N(Sem Numero)."},
 		{name : "numeroPontoTraco", pattern : "^([\\d\\.\\-]*)$", message : "O campo deve ser preenchido com numeros, pontos ou tracos."},
 		{name : "numeroTraco", pattern : "^([\\d\\-]*)$", message : "O campo deve ser preenchido com numeros ou tracos."},
+		{name : "pagarreceber", pattern : "[PR]", message : "O campo deve ser preenchido com P(À Pagar) ou R(À Receber)."},
 		{name : "password", pattern : "^([A-Z\\d@-_\\.]{8})$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros sem espacos e aceita os seguintes caracteres especiais: (@ - _ .) contendo 8 caracteres."},
 		{name : "path", pattern : "^((([aA-zZ][:][\\/])|([\\/]))([0-9aA-zZ]+)([\\-\\/0-9aA-zZ]*))", message : "O campo deve ser preenchido com um caminho de pasta e aceita os seguintes caracteres especiais: (- _)."},
 		{name : "pis", pattern : "^(([\\d]{3})([\\.])([\\d]{5})([\\.])([\\d]{2})([\\-])([\\d]))$", message : "O campo deve ser preenchido com PIS no formato: ###.#####.##-#."},
