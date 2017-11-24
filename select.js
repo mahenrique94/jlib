@@ -94,10 +94,13 @@ function getUrl(select) {
     if (select.dataset.parametersFields && select.dataset.parametersValues) {
         const regExp = /[\[\]\"\s]/g;
         const fields = select.dataset.parametersFields.replace(regExp, "").split(",");
-        const values = select.dataset.parametersValues.replace(regExp, "").split(",");
+        const values = select.dataset.parametersValues ? select.dataset.parametersValues.replace(regExp, "").split(",") : "";
+        const operators = select.dataset.parametersOperators ? select.dataset.parametersOperators.replace(regExp, "").split(",") : "";
         if (fields.length === values.length) {
             for (let i = 0; i < fields.length; i++) {
                 parameters += `parametrosWeb[${i}].campo=${fields[i]}&parametrosWeb[${i}].parametroInicial=${getValueParameter(values[i])}&`;
+                if (operators && operators.length > 0)
+                    parameters += `parametrosWeb[${i}].operador=${operators[i]}`;
             }
         }
     }
