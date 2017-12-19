@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		{name : "celular", pattern : "^(([\\d]{5})([\\-])([\\d]{4}))$", message : "O campo deve ser preenchido com um CELULAR no formato: ######-####."},
 		{name : "cfop", pattern : "^(([1256]{1})([\\d]){3})$", message : "O campo deve ser preenchido com um CFOP numerico contendo apenas 4 digitos e iniciado com 1, 2, 5 ou 6."},
 		{name : "chave", pattern : "^([\\d]){44}$", message : "O campo deve ser preenchido com uma CHAVE numerica contendo 44 digitos."},
-		{name : "chassi", pattern : "^([A-Z\\d]){17}$", message : "O campo deve ser preenchido com um CHASSI de veícuo contendo 17 characeres."},
+		{name : "chassi", pattern : "^([A-Z\\d]){17}$", message : "O campo deve ser preenchido com um CHASSI de veiculo contendo 17 characeres."},
 		{name : "cnh", pattern : "^([\\d]{11})$", message : "O campo deve ser preenchido com uma CNH no formato: ###########."},
 		{name : "cnpj", pattern : "^(([\\d]{2})([\\.])([\\d]{3})([\\.])([\\d]{3})([\\/])([\\d]{4})([\\-])([\\d]{2}))$", message : "O campo deve ser preenchido com um CNPJ no formato: ##.###.###/####-##"},
 		{name : "contabil", pattern : "^([.\\d]{1,60})$", message : "O campo deve ser preenchido com numeros ou pontos contendo no minimo 1 caracter."},
