@@ -1,5 +1,5 @@
 var dropZone = $(".js-drag");
-var inputFile = $("#js-upload");
+var inputFile = $(".js-upload");
 var files = new Array();
 const REGEX_FILE_NAME = new RegExp("([^0-9aA-zZ])", "gim");
 
@@ -24,8 +24,8 @@ function dragOver(event) {
 function fileSelect(event) {
 	event.stopPropagation();
 	event.preventDefault();
-	
-	const dragInfo = $(".js-drag__info");	
+
+	const dragInfo = $(".js-drag__info");
 	let reader = null;
 	
 	// Caso for um INPUT é porque a importação esta sendo feita via click e não drop
