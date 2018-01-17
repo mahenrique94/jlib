@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		{name : "celular", pattern : "^(([\\d]{5})([\\-])([\\d]{4}))$", message : "O campo deve ser preenchido com um CELULAR no formato: ######-####."},
 		{name : "cfop", pattern : "^(([1256]{1})([\\d]){3})$", message : "O campo deve ser preenchido com um CFOP numerico contendo apenas 4 digitos e iniciado com 1, 2, 5 ou 6."},
 		{name : "chave", pattern : "^([\\d]){44}$", message : "O campo deve ser preenchido com uma CHAVE numerica contendo 44 digitos."},
+		{name : "chassi", pattern : "^([A-Z\\d]){17}$", message : "O campo deve ser preenchido com um CHASSI de veícuo contendo 17 characeres."},
 		{name : "cnh", pattern : "^([\\d]{11})$", message : "O campo deve ser preenchido com uma CNH no formato: ###########."},
 		{name : "cnpj", pattern : "^(([\\d]{2})([\\.])([\\d]{3})([\\.])([\\d]{3})([\\/])([\\d]{4})([\\-])([\\d]{2}))$", message : "O campo deve ser preenchido com um CNPJ no formato: ##.###.###/####-##"},
 		{name : "contabil", pattern : "^([.\\d]{1,60})$", message : "O campo deve ser preenchido com numeros ou pontos contendo no minimo 1 caracter."},
@@ -91,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		{name : "textareaMin4", pattern : "^([A-Z\\d\\s\\.\\/\\-\\,]{4,})$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros sem espacos e aceita os seguintes caracteres especiais: (@ - _ .) contendo no minimo 4 caracteres."},
 		{name : "tipoMunicipio", pattern : "^([MR])$", message : "O campo deve ser preenchido apenas com M(Municipio) ou R(Regiao)."},
 		{name : "tipoCNH", pattern : "^(([A])|([B])|([C])|([D])|([E])|([A][B])|([A][C])|([A][D])|([A][E]))$", message : "O campo deve ser preenchido com letras referente a carta de habilitacao."},
-		{name : "unidadeMedida", pattern : "^(([B][G])|([B][O])|([C][X])|([F][D])|([G][R])|([J][G])|([K][G])|([L][T])|([P][C])|([P][R])|([P][T])|([R][E])|([S][K])|([T][O])|([U][N]))$", message : "O campo deve ser preenchido com uma unidade de medida válida contendo dois caracteres."},
+		{name : "unidadeMedida", pattern : "^(([C][M])|([C])|([M][M])|([B][G])|([B][O])|([C][X])|([F][D])|([G][R])|([J][G])|([K][G])|([L][T])|([P][C])|([P][R])|([P][T])|([R][E])|([S][K])|([T][O])|([U][N])|([G]))$", message : "O campo deve ser preenchido com uma unidade de medida válida contendo dois caracteres."},
 		{name : "user", pattern : "^([A-Z\\d\\.]+)$", message : "O campo deve ser preenchido com letras MAIUSCULAS ou numeros sem espacos e aceita os seguintes caracteres especiais: (.)."}
 	];
 	

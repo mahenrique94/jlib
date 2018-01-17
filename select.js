@@ -270,6 +270,10 @@ function requestData(select) {
 				text = "descricao";
 				value = ["id.id", "id.idgrupo.id"];
 				break;
+            case "slPsbClasseGrupo" :
+                text = ["id.idgrupo.descricao", "descricao"];
+				value = ["id.id", "id.idgrupo.id"];
+				break;
 			case "slPsbGrupoClasseCetus" :
 				text = ["id.idgrupo.descricao", "descricao"];
 				value = "id";
